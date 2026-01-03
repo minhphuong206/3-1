@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | PhươngSTORE</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* CSS riêng cho body admin để không bị padding top của header thường */
+        body { padding-top: 0; background: #0a0a0a; } 
+    </style>
+</head>
+<body>
+
+    <div class="admin-layout">
+        <aside class="sidebar">
+            <a href="#" class="admin-logo">ADMIN<span style="color:white">PANEL</span></a>
+            
+            <nav>
+                <a href="#" class="menu-item active"><i class="fa-solid fa-chart-pie"></i> Tổng Quan</a>
+                <a href="#" class="menu-item"><i class="fa-solid fa-box"></i> Sản Phẩm</a>
+                <a href="#" class="menu-item"><i class="fa-solid fa-file-invoice-dollar"></i> Đơn Hàng <span class="badge" style="position:static; margin-left:auto">3</span></a>
+                <a href="#" class="menu-item"><i class="fa-solid fa-users"></i> Khách Hàng</a>
+                <a href="#" class="menu-item"><i class="fa-solid fa-robot"></i> Chatbot AI</a>
+                <a href="index.html" class="menu-item" style="margin-top: 50px; color: #CB1C22;"><i class="fa-solid fa-right-from-bracket"></i> Đăng Xuất</a>
+            </nav>
+        </aside>
+
+        <main class="admin-main">
+            <div class="admin-header">
+                <h2>Dashboard</h2>
+                <div class="search-box" style="width: 300px; display:block">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" placeholder="Tìm kiếm...">
+                </div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <i class="fa-solid fa-sack-dollar stat-icon"></i>
+                    <div class="stat-title">Doanh thu hôm nay</div>
+                    <div class="stat-value">128.5tr</div>
+                </div>
+                <div class="stat-card">
+                    <i class="fa-solid fa-cart-shopping stat-icon"></i>
+                    <div class="stat-title">Đơn hàng mới</div>
+                    <div class="stat-value">12</div>
+                </div>
+                <div class="stat-card">
+                    <i class="fa-solid fa-user-plus stat-icon"></i>
+                    <div class="stat-title">Khách hàng mới</div>
+                    <div class="stat-value">5</div>
+                </div>
+                <div class="stat-card">
+                    <i class="fa-solid fa-message stat-icon"></i>
+                    <div class="stat-title">Chatbot hỗ trợ</div>
+                    <div class="stat-value">45</div>
+                </div>
+            </div>
+
+            <h3 style="margin-bottom: 20px; color: var(--gold-color);">Đơn hàng cần xử lý</h3>
+            <div class="table-container">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Mã Đơn</th>
+                            <th>Khách Hàng</th>
+                            <th>Tổng Tiền</th>
+                            <th>Thanh Toán</th>
+                            <th>Trạng Thái</th>
+                            <th>Hành Động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>#DH001</td>
+                            <td>Nguyễn Văn A</td>
+                            <td>28.990.000đ</td>
+                            <td><span style="color:#a50064; font-weight:bold">Momo</span></td>
+                            <td><span class="status-badge status-success">Đã TT</span></td>
+                            <td>
+                                <button class="btn-action"><i class="fa-solid fa-eye"></i></button>
+                                <button class="btn-action"><i class="fa-solid fa-check"></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>#DH002</td>
+                            <td>Trần Thị B</td>
+                            <td>5.290.000đ</td>
+                            <td>COD</td>
+                            <td><span class="status-badge status-pending">Chờ duyệt</span></td>
+                            <td>
+                                <button class="btn-action"><i class="fa-solid fa-eye"></i></button>
+                                <button class="btn-action"><i class="fa-solid fa-check"></i></button>
+                                <button class="btn-action" style="color:red"><i class="fa-solid fa-xmark"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+</body>
+</html>

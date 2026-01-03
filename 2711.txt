@@ -1,0 +1,5 @@
+27/11
+gửi email :đăng kí, quên mật khẩu, db ( chưa quan hệ)
+28/11
+làm xong db chưa check từ gv
+làm mô hình MVC( chưa thể kết nốiđược)

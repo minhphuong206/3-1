@@ -1,0 +1,248 @@
+/* =========================================
+   1. HỆ THỐNG BIẾN & LAYOUT CHUNG
+   ========================================= */
+:root {
+    --primary: #d4af37;
+    --bg-dark: #050505;
+    --bg-card: #111111;
+    --text-main: #eeeeee;
+    --text-muted: #a0a0a0;
+    --border: #222222;
+    --sidebar-width: 300px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+
+body.admin-body {
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    display: flex;
+    min-height: 100vh;
+    font-size: 18px;
+}
+
+/* SIDEBAR */
+.sidebar {
+    width: var(--sidebar-width);
+    background-color: #000;
+    border-right: 1px solid var(--border);
+    padding: 40px 15px;
+    position: fixed;
+    height: 100vh;
+    z-index: 1000;
+}
+
+.admin-nav-link {
+    display: flex; align-items: center;
+    padding: 18px 25px; color: var(--text-muted);
+    text-decoration: none; margin-bottom: 12px;
+    border-radius: 12px; font-size: 20px; font-weight: 600;
+}
+
+.admin-nav-link:hover, .admin-nav-link.active {
+    background: rgba(212, 175, 55, 0.12);
+    color: var(--primary);
+}
+
+.main-content-admin {
+    margin-left: var(--sidebar-width);
+    padding: 50px;
+    width: calc(100% - var(--sidebar-width));
+}
+
+h1 { font-size: 34px; font-weight: 800; color: var(--primary); text-transform: uppercase; margin-bottom: 40px; }
+
+/* =========================================
+   2. DASHBOARD - FIX TRÀN CHỮ & BỐ CỤC
+   ========================================= */
+.stat-grid {
+    display: grid;
+    /* Tăng min-width từ 280px lên 320px để chứa được số tiền dài */
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
+    gap: 25px; 
+    margin-bottom: 50px;
+}
+
+.stat-card {
+    background: var(--bg-card);
+    padding: 40px 20px; 
+    border-radius: 20px;
+    border: 1px solid var(--border); 
+    text-align: center;
+    min-height: 220px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.stat-card h2 { 
+    /* Giảm nhẹ size từ 58px xuống 50px để không bị tràn card */
+    font-size: 50px; 
+    color: var(--primary); 
+    font-weight: 900; 
+    margin-top: 10px;
+    overflow-wrap: break-word; /* Tự xuống hàng nếu quá dài */
+}
+
+.stat-card small { font-size: 14px; text-transform: uppercase; letter-spacing: 2px; color: var(--text-muted); }
+
+/* =========================================
+   3. HỆ THỐNG BẢNG (FIX LỆCH & ẢNH BỂ)
+   ========================================= */
+.cat-card { background: var(--bg-card); border-radius: 20px; padding: 35px; margin-bottom: 40px; border: 1px solid var(--border); }
+
+.table-admin { width: 100%; border-collapse: collapse; table-layout: fixed; }
+
+.table-admin th { padding: 22px 15px; font-size: 16px; color: var(--text-muted); text-transform: uppercase; border-bottom: 3px solid var(--border); text-align: left; }
+
+.table-admin td { padding: 25px 15px; font-size: 19px; border-bottom: 1px solid #1a1a1a; vertical-align: middle; }
+
+/* KHÓA CHẶT ẢNH SẢN PHẨM */
+.prod-img-admin {
+    width: 95px !important; height: 95px !important;
+    object-fit: cover !important; border-radius: 12px;
+    border: 1px solid #333; display: block;
+}
+
+/* =========================================
+   4. FIX BỂ ẢNH KHI THÊM BIẾN THỂ
+   ========================================= */
+#variant_preview, #preview_area {
+    display: flex; flex-wrap: wrap; gap: 15px; margin-top: 20px;
+    padding: 20px; background: #0a0a0a; border-radius: 12px; border: 1px solid #222;
+}
+
+.admin-thumb {
+    width: 120px !important;  /* Khóa kích thước thumbnail */
+    height: 120px !important; 
+    object-fit: cover !important; /* Cắt ảnh vuông đẹp, không bị méo */
+    border-radius: 10px; border: 2px solid #333; cursor: pointer; transition: 0.3s;
+}
+
+.admin-thumb.selected { border-color: var(--primary); box-shadow: 0 0 15px var(--primary); }
+
+/* =========================================
+   5. NÚT BẤM & TOAST
+   ========================================= */
+.btn-primary {
+    background-color: var(--primary); color: #000;
+    padding: 15px 35px; border-radius: 12px; font-weight: 800;
+    font-size: 18px; border: none; cursor: pointer; text-decoration: none;
+    display: inline-block; transition: 0.3s;
+}
+.btn-primary:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(212, 175, 55, 0.4); }
+/* public/css/admin.css */
+
+/* ... Các code cũ giữ nguyên ... */
+
+/* =========================================
+   5. FORM CONTAINER (STYLE CHUNG CHO ADD/EDIT)
+   ========================================= */
+.form-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    background: #0a0a0a; /* Màu đen sâu giống add_product */
+    padding: 40px;
+    border-radius: 20px;
+    border: 1px solid rgba(212, 175, 55, 0.2); /* Viền vàng mờ */
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+}
+
+/* Header của Form */
+.form-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #222;
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+}
+
+/* Tiêu đề section con (Gạch vàng bên trái) */
+.section-title {
+    font-size: 14px;
+    color: #fff;
+    margin: 25px 0 15px 0;
+    padding-left: 10px;
+    border-left: 3px solid var(--primary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Label nhỏ màu vàng */
+.admin-label {
+    display: block;
+    font-size: 11px;
+    color: var(--primary);
+    font-weight: 800;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+}
+
+/* Input chung */
+.admin-input {
+    width: 100%;
+    padding: 12px;
+    background: #050505;
+    border: 1px solid #222;
+    color: #fff;
+    border-radius: 8px;
+    box-sizing: border-box;
+    transition: 0.3s;
+    margin-bottom: 5px;
+}
+
+.admin-input:focus {
+    border-color: var(--primary);
+    outline: none;
+    background: #000;
+}
+
+/* Khung hiển thị giá (Price Box) */
+.price-box {
+    background: #111;
+    padding: 25px;
+    border-radius: 12px;
+    border: 1px dashed var(--primary);
+    margin-top: 20px;
+}
+/* Toast Notification (Thông báo góc phải) */
+.toast-msg {
+    position: fixed;
+    top: 30px;
+    right: 30px;
+    background: #0a0a0a;
+    color: #2ecc71; /* Màu xanh lá thành công */
+    border: 1px solid #2ecc71;
+    padding: 15px 25px;
+    border-radius: 8px;
+    font-weight: bold;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    animation: slideInRight 0.5s ease forwards;
+}
+/* Style cho bảng biến thể con */
+.color-group table {
+    border-collapse: collapse;
+}
+.color-group table th, .color-group table td {
+    padding: 12px 20px;
+    text-align: left;
+}
+.color-group table tbody tr:hover {
+    background: #0f0f0f;
+}
+.color-group table thead {
+    background: #0a0a0a;
+}
+@keyframes slideInRight {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes fadeOut {
+    to { opacity: 0; visibility: hidden; }
+}

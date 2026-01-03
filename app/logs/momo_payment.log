@@ -1,0 +1,1882 @@
+[2025-12-06 04:25:07] [RAW_HASH]
+accessKey=klm05TvNBzhg7h7j&amount=39980000&extraData=&ipnUrl=http://localhost:3000/index.php?ctrl=cart&act=notify_momo&orderId=ORD_1764995107&orderInfo=Payment for order ORD_1764995107&partnerCode=MOMOBKUN20180529&redirectUrl=http://localhost:3000/index.php?ctrl=cart&act=return_momo&requestId=17649951074110&requestType=captureWallet
+--------------------------------------------------------------------------------
+
+[2025-12-06 04:25:07] [SIGNATURE]
+31cb9c84c3c8ad4b6c12118d1a4a64da01fd368792a557afb23625b6ae768048
+--------------------------------------------------------------------------------
+
+[2025-12-06 04:25:07] [REQUEST_DATA]
+Array
+(
+    [partnerCode] => MOMOBKUN20180529
+    [partnerName] => PhuongStore
+    [storeId] => PhuongStore_01
+    [requestId] => 17649951074110
+    [amount] => 39980000
+    [orderId] => ORD_1764995107
+    [orderInfo] => Payment for order ORD_1764995107
+    [redirectUrl] => http://localhost:3000/index.php?ctrl=cart&act=return_momo
+    [ipnUrl] => http://localhost:3000/index.php?ctrl=cart&act=notify_momo
+    [lang] => vi
+    [extraData] => 
+    [requestType] => captureWallet
+    [signature] => 31cb9c84c3c8ad4b6c12118d1a4a64da01fd368792a557afb23625b6ae768048
+)
+
+--------------------------------------------------------------------------------
+
+[2025-12-06 04:25:07] [RESPONSE]
+Array
+(
+    [http_code] => 200
+    [curl_error] => 
+    [curl_errno] => 0
+    [result_raw] => {"partnerCode":"MOMOBKUN20180529","orderId":"ORD_1764995107","requestId":"17649951074110","amount":39980000,"responseTime":1764995108121,"message":"Thành công.","resultCode":0,"payUrl":"https://test-payment.momo.vn/v2/gateway/pay?t=TU9NT0JLVU4yMDE4MDUyOXxPUkRfMTc2NDk5NTEwNw&s=4856f3665a11379dbcaf17d5153c3be8d1763389093cb137d6d4b5ed6a103b74","deeplink":"momo://app?action=payWithApp&isScanQR=false&serviceType=app&sid=TU9NT0JLVU4yMDE4MDUyOXxPUkRfMTc2NDk5NTEwNw&v=3.0","qrCodeUrl":"00020101021226110007vn.momo38620010A00000072701320006970454011899MM25340O000000210208QRIBFTTA53037045408399800005802VN62470515MMTKEaTPKJcp7QR0824Payment for order ORD17663041CCA","applink":"https://test-applinks.momo.vn/payment/v2?action=payWithApp&isScanQR=false&serviceType=app&sid=TU9NT0JLVU4yMDE4MDUyOXxPUkRfMTc2NDk5NTEwNw&v=3.0&deeplinkCallback=http%3A%2F%2Flocalhost%3A3000%2Findex.php%3Fctrl%3Dcart%26act%3Dreturn_momo&callBackUrl=http%3A%2F%2Flocalhost%3A3000%2Findex.php%3Fctrl%3Dcart%26act%3Dreturn_momo","deeplinkMiniApp":"momo://app?action=payWithApp&isScanQR=false&serviceType=miniapp&sid=TU9NT0JLVU4yMDE4MDUyOXxPUkRfMTc2NDk5NTEwNw&v=3.0","signature":"ce4790f6529543767019c2e263c4c4de2023f8f56df6fc8df06de55bf43fdf82"}
+    [verbose_log] => * Host test-payment.momo.vn:443 was resolved.
+* IPv6: (none)
+* IPv4: 210.245.113.71
+*   Trying 210.245.113.71:443...
+* Connected to test-payment.momo.vn (210.245.113.71) port 443
+* ALPN: curl offers h2,http/1.1
+* SSL connection using TLSv1.2 / ECDHE-RSA-CHACHA20-POLY1305 / X25519 / RSASSA-PSS
+* ALPN: server accepted h2
+* Server certificate:
+*  subject: C=VN; ST=Ho Chi Minh; L=Ho Chi Minh; O=Online Mobile Services Joint Stock Company; CN=*.momo.vn
+*  start date: Dec  5 06:41:07 2024 GMT
+*  expire date: Jan  6 06:41:06 2026 GMT
+*  issuer: C=BE; O=GlobalSign nv-sa; CN=GlobalSign RSA OV SSL CA 2018
+*  SSL certificate verify result: self-signed certificate in certificate chain (19), continuing anyway.
+*   Certificate level 0: Public key type RSA (2048/112 Bits/secBits), signed using sha256WithRSAEncryption
+*   Certificate level 1: Public key type RSA (2048/112 Bits/secBits), signed using sha256WithRSAEncryption
+*   Certificate level 2: Public key type RSA (2048/112 Bits/secBits), signed using sha256WithRSAEncryption
+* using HTTP/2
+* [HTTP/2] [1] OPENED stream for https://test-payment.momo.vn/v2/gateway/api/create
+* [HTTP/2] [1] [:method: POST]
+* [HTTP/2] [1] [:scheme: https]
+* [HTTP/2] [1] [:authority: test-payment.momo.vn]
+* [HTTP/2] [1] [:path: /v2/gateway/api/create]
+* [HTTP/2] [1] [accept: */*]
+* [HTTP/2] [1] [content-type: application/json]
+* [HTTP/2] [1] [content-length: 497]
+> POST /v2/gateway/api/create HTTP/2
+Host: test-payment.momo.vn
+Accept: */*
+Content-Type: application/json
+Content-Length: 497
+
+* upload completely sent off: 497 bytes
+< HTTP/2 200 
+< server: nginx
+< date: Sat, 06 Dec 2025 04:25:08 GMT
+< content-type: application/json
+< vary: Accept-Encoding
+< x-content-type-options: nosniff
+< x-xss-protection: 1; mode=block
+< pragma: no-cache
+< strict-transport-security: max-age=15768000
+< 
+* Connection #0 to host test-payment.momo.vn left intact
+
+)
+
+--------------------------------------------------------------------------------
+
+[2025-12-06 04:25:07] [MOMO_RESPONSE]
+Array
+(
+    [partnerCode] => MOMOBKUN20180529
+    [orderId] => ORD_1764995107
+    [requestId] => 17649951074110
+    [amount] => 39980000
+    [responseTime] => 1764995108121
+    [message] => Thành công.
+    [resultCode] => 0
+    [payUrl] => https://test-payment.momo.vn/v2/gateway/pay?t=TU9NT0JLVU4yMDE4MDUyOXxPUkRfMTc2NDk5NTEwNw&s=4856f3665a11379dbcaf17d5153c3be8d1763389093cb137d6d4b5ed6a103b74
+    [deeplink] => momo://app?action=payWithApp&isScanQR=false&serviceType=app&sid=TU9NT0JLVU4yMDE4MDUyOXxPUkRfMTc2NDk5NTEwNw&v=3.0
+    [qrCodeUrl] => 00020101021226110007vn.momo38620010A00000072701320006970454011899MM25340O000000210208QRIBFTTA53037045408399800005802VN62470515MMTKEaTPKJcp7QR0824Payment for order ORD17663041CCA
+    [applink] => https://test-applinks.momo.vn/payment/v2?action=payWithApp&isScanQR=false&serviceType=app&sid=TU9NT0JLVU4yMDE4MDUyOXxPUkRfMTc2NDk5NTEwNw&v=3.0&deeplinkCallback=http%3A%2F%2Flocalhost%3A3000%2Findex.php%3Fctrl%3Dcart%26act%3Dreturn_momo&callBackUrl=http%3A%2F%2Flocalhost%3A3000%2Findex.php%3Fctrl%3Dcart%26act%3Dreturn_momo
+    [deeplinkMiniApp] => momo://app?action=payWithApp&isScanQR=false&serviceType=miniapp&sid=TU9NT0JLVU4yMDE4MDUyOXxPUkRfMTc2NDk5NTEwNw&v=3.0
+    [signature] => ce4790f6529543767019c2e263c4c4de2023f8f56df6fc8df06de55bf43fdf82
+)
+
+--------------------------------------------------------------------------------
+
+[2025-12-06 04:26:58] [RAW_HASH]
+accessKey=klm05TvNBzhg7h7j&amount=9995000&extraData=&ipnUrl=http://localhost:3000/index.php?ctrl=cart&act=notify_momo&orderId=ORD_1764995218&orderInfo=Payment for order ORD_1764995218&partnerCode=MOMOBKUN20180529&redirectUrl=http://localhost:3000/index.php?ctrl=cart&act=return_momo&requestId=17649952186306&requestType=captureWallet
+--------------------------------------------------------------------------------
+
+[2025-12-06 04:26:58] [SIGNATURE]
+d4b63129494fb66e8f53faa2cff60d7f486d194fff0fac76de94c8785bb32f93
+--------------------------------------------------------------------------------
+
+[2025-12-06 04:26:58] [REQUEST_DATA]
+Array
+(
+    [partnerCode] => MOMOBKUN20180529
+    [partnerName] => PhuongStore
+    [storeId] => PhuongStore_01
+    [requestId] => 17649952186306
+    [amount] => 9995000
+    [orderId] => ORD_1764995218
+    [orderInfo] => Payment for order ORD_1764995218
+    [redirectUrl] => http://localhost:3000/index.php?ctrl=cart&act=return_momo
+    [ipnUrl] => http://localhost:3000/index.php?ctrl=cart&act=notify_momo
+    [lang] => vi
+    [extraData] => 
+    [requestType] => captureWallet
+    [signature] => d4b63129494fb66e8f53faa2cff60d7f486d194fff0fac76de94c8785bb32f93
+)
+
+--------------------------------------------------------------------------------
+
+[2025-12-06 04:26:58] [RESPONSE]
+Array
+(
+    [http_code] => 200
+    [curl_error] => 
+    [curl_errno] => 0
+    [result_raw] => {"partnerCode":"MOMOBKUN20180529","orderId":"ORD_1764995218","requestId":"17649952186306","amount":9995000,"responseTime":1764995218919,"message":"Thành công.","resultCode":0,"payUrl":"https://test-payment.momo.vn/v2/gateway/pay?t=TU9NT0JLVU4yMDE4MDUyOXxPUkRfMTc2NDk5NTIxOA&s=991e556a5061787ae7cc5837be77dea6e684ba82be430a95f01bdf30ca5f0ae3","deeplink":"momo://app?action=payWithApp&isScanQR=false&serviceType=app&sid=TU9NT0JLVU4yMDE4MDUyOXxPUkRfMTc2NDk5NTIxOA&v=3.0","qrCodeUrl":"00020101021226110007vn.momo38630010A000000727013300069710250119PMC25340000000000210208QRIBFTTA5303704540799950005802VN62470515MMTKq3RmXTXaKQR0824Payment for order ORD1766304D322","applink":"https://test-applinks.momo.vn/payment/v2?action=payWithApp&isScanQR=false&serviceType=app&sid=TU9NT0JLVU4yMDE4MDUyOXxPUkRfMTc2NDk5NTIxOA&v=3.0&deeplinkCallback=http%3A%2F%2Flocalhost%3A3000%2Findex.php%3Fctrl%3Dcart%26act%3Dreturn_momo&callBackUrl=http%3A%2F%2Flocalhost%3A3000%2Findex.php%3Fctrl%3Dcart%26act%3Dreturn_momo","deeplinkMiniApp":"momo://app?action=payWithApp&isScanQR=false&serviceType=miniapp&sid=TU9NT0JLVU4yMDE4MDUyOXxPUkRfMTc2NDk5NTIxOA&v=3.0","signature":"f139b95279c20a71dd3a5eefb573b1b1d5881a5b97007e8180bb44abfdb435d8"}
+    [verbose_log] => * Host test-payment.momo.vn:443 was resolved.
+* IPv6: (none)
+* IPv4: 210.245.113.71
+*   Trying 210.245.113.71:443...
+* Connected to test-payment.momo.vn (210.245.113.71) port 443
+* ALPN: curl offers h2,http/1.1
+* SSL connection using TLSv1.2 / ECDHE-RSA-CHACHA20-POLY1305 / X25519 / RSASSA-PSS
+* ALPN: server accepted h2
+* Server certificate:
+*  subject: C=VN; ST=Ho Chi Minh; L=Ho Chi Minh; O=Online Mobile Services Joint Stock Company; CN=*.momo.vn
+*  start date: Dec  5 06:41:07 2024 GMT
+*  expire date: Jan  6 06:41:06 2026 GMT
+*  issuer: C=BE; O=GlobalSign nv-sa; CN=GlobalSign RSA OV SSL CA 2018
+*  SSL certificate verify result: self-signed certificate in certificate chain (19), continuing anyway.
+*   Certificate level 0: Public key type RSA (2048/112 Bits/secBits), signed using sha256WithRSAEncryption
+*   Certificate level 1: Public key type RSA (2048/112 Bits/secBits), signed using sha256WithRSAEncryption
+*   Certificate level 2: Public key type RSA (2048/112 Bits/secBits), signed using sha256WithRSAEncryption
+* using HTTP/2
+* [HTTP/2] [1] OPENED stream for https://test-payment.momo.vn/v2/gateway/api/create
+* [HTTP/2] [1] [:method: POST]
+* [HTTP/2] [1] [:scheme: https]
+* [HTTP/2] [1] [:authority: test-payment.momo.vn]
+* [HTTP/2] [1] [:path: /v2/gateway/api/create]
+* [HTTP/2] [1] [accept: */*]
+* [HTTP/2] [1] [content-type: application/json]
+* [HTTP/2] [1] [content-length: 496]
+> POST /v2/gateway/api/create HTTP/2
+Host: test-payment.momo.vn
+Accept: */*
+Content-Type: application/json
+Content-Length: 496
+
+* upload completely sent off: 496 bytes
+< HTTP/2 200 
+< server: nginx
+< date: Sat, 06 Dec 2025 04:26:58 GMT
+< content-type: application/json
+< vary: Accept-Encoding
+< x-content-type-options: nosniff
+< x-xss-protection: 1; mode=block
+< pragma: no-cache
+< strict-transport-security: max-age=15768000
+< 
+* Connection #0 to host test-payment.momo.vn left intact
+
+)
+
+--------------------------------------------------------------------------------
+
+[2025-12-06 04:26:58] [MOMO_RESPONSE]
+Array
+(
+    [partnerCode] => MOMOBKUN20180529
+    [orderId] => ORD_1764995218
+    [requestId] => 17649952186306
+    [amount] => 9995000
+    [responseTime] => 1764995218919
+    [message] => Thành công.
+    [resultCode] => 0
+    [payUrl] => https://test-payment.momo.vn/v2/gateway/pay?t=TU9NT0JLVU4yMDE4MDUyOXxPUkRfMTc2NDk5NTIxOA&s=991e556a5061787ae7cc5837be77dea6e684ba82be430a95f01bdf30ca5f0ae3
+    [deeplink] => momo://app?action=payWithApp&isScanQR=false&serviceType=app&sid=TU9NT0JLVU4yMDE4MDUyOXxPUkRfMTc2NDk5NTIxOA&v=3.0
+    [qrCodeUrl] => 00020101021226110007vn.momo38630010A000000727013300069710250119PMC25340000000000210208QRIBFTTA5303704540799950005802VN62470515MMTKq3RmXTXaKQR0824Payment for order ORD1766304D322
+    [applink] => https://test-applinks.momo.vn/payment/v2?action=payWithApp&isScanQR=false&serviceType=app&sid=TU9NT0JLVU4yMDE4MDUyOXxPUkRfMTc2NDk5NTIxOA&v=3.0&deeplinkCallback=http%3A%2F%2Flocalhost%3A3000%2Findex.php%3Fctrl%3Dcart%26act%3Dreturn_momo&callBackUrl=http%3A%2F%2Flocalhost%3A3000%2Findex.php%3Fctrl%3Dcart%26act%3Dreturn_momo
+    [deeplinkMiniApp] => momo://app?action=payWithApp&isScanQR=false&serviceType=miniapp&sid=TU9NT0JLVU4yMDE4MDUyOXxPUkRfMTc2NDk5NTIxOA&v=3.0
+    [signature] => f139b95279c20a71dd3a5eefb573b1b1d5881a5b97007e8180bb44abfdb435d8
+)
+
+--------------------------------------------------------------------------------
+
+[2025-12-06 07:18:40] [RAW_HASH]
+accessKey=klm05TvNBzhg7h7j&amount=15196000&extraData=&ipnUrl=http://localhost:3000/index.php?ctrl=cart&act=notify_momo&orderId=MOMO_1765005520_9083&orderInfo=Payment for order MOMO_1765005520_9083&partnerCode=MOMOBKUN20180529&redirectUrl=http://localhost:3000/index.php?ctrl=cart&act=return_momo&requestId=17650055207389&requestType=captureWallet
+--------------------------------------------------------------------------------
+
+[2025-12-06 07:18:40] [SIGNATURE]
+c0fc498d15d04626f1679bba2f47ef000b5e6bcacf7132d82f8597eac92fe8d5
+--------------------------------------------------------------------------------
+
+[2025-12-06 07:18:40] [REQUEST_DATA]
+Array
+(
+    [partnerCode] => MOMOBKUN20180529
+    [partnerName] => PhuongStore
+    [storeId] => PhuongStore_01
+    [requestId] => 17650055207389
+    [amount] => 15196000
+    [orderId] => MOMO_1765005520_9083
+    [orderInfo] => Payment for order MOMO_1765005520_9083
+    [redirectUrl] => http://localhost:3000/index.php?ctrl=cart&act=return_momo
+    [ipnUrl] => http://localhost:3000/index.php?ctrl=cart&act=notify_momo
+    [lang] => vi
+    [extraData] => 
+    [requestType] => captureWallet
+    [signature] => c0fc498d15d04626f1679bba2f47ef000b5e6bcacf7132d82f8597eac92fe8d5
+)
+
+--------------------------------------------------------------------------------
+
+[2025-12-06 07:18:42] [RESPONSE]
+Array
+(
+    [http_code] => 200
+    [curl_error] => 
+    [curl_errno] => 0
+    [result_raw] => {"partnerCode":"MOMOBKUN20180529","orderId":"MOMO_1765005520_9083","requestId":"17650055207389","amount":15196000,"responseTime":1765005522534,"message":"Thành công.","resultCode":0,"payUrl":"https://test-payment.momo.vn/v2/gateway/pay?t=TU9NT0JLVU4yMDE4MDUyOXxNT01PXzE3NjUwMDU1MjBfOTA4Mw&s=ad59f16faed6885b8a4345a975b123912c002fcded1fe508b9cf60928a84e7c1","deeplink":"momo://app?action=payWithApp&isScanQR=false&serviceType=app&sid=TU9NT0JLVU4yMDE4MDUyOXxNT01PXzE3NjUwMDU1MjBfOTA4Mw&v=3.0","qrCodeUrl":"00020101021226110007vn.momo38620010A00000072701320006970454011899MM25340O000000380208QRIBFTTA53037045408151960005802VN62470515MMTqXpbOR0PQ3QR0824Payment for order MOMO176304FA4F","applink":"https://test-applinks.momo.vn/payment/v2?action=payWithApp&isScanQR=false&serviceType=app&sid=TU9NT0JLVU4yMDE4MDUyOXxNT01PXzE3NjUwMDU1MjBfOTA4Mw&v=3.0&deeplinkCallback=http%3A%2F%2Flocalhost%3A3000%2Findex.php%3Fctrl%3Dcart%26act%3Dreturn_momo&callBackUrl=http%3A%2F%2Flocalhost%3A3000%2Findex.php%3Fctrl%3Dcart%26act%3Dreturn_momo","deeplinkMiniApp":"momo://app?action=payWithApp&isScanQR=false&serviceType=miniapp&sid=TU9NT0JLVU4yMDE4MDUyOXxNT01PXzE3NjUwMDU1MjBfOTA4Mw&v=3.0","signature":"1e97e723e735f2dd0d1ea248353b4a37f4c01d79a241f2e497e5be811d2135d0"}
+    [verbose_log] => * Host test-payment.momo.vn:443 was resolved.
+* IPv6: (none)
+* IPv4: 210.245.113.71
+*   Trying 210.245.113.71:443...
+* Connected to test-payment.momo.vn (210.245.113.71) port 443
+* ALPN: curl offers h2,http/1.1
+* SSL connection using TLSv1.2 / ECDHE-RSA-CHACHA20-POLY1305 / X25519 / RSASSA-PSS
+* ALPN: server accepted h2
+* Server certificate:
+*  subject: C=VN; ST=Ho Chi Minh; L=Ho Chi Minh; O=Online Mobile Services Joint Stock Company; CN=*.momo.vn
+*  start date: Dec  5 06:41:07 2024 GMT
+*  expire date: Jan  6 06:41:06 2026 GMT
+*  issuer: C=BE; O=GlobalSign nv-sa; CN=GlobalSign RSA OV SSL CA 2018
+*  SSL certificate verify result: self-signed certificate in certificate chain (19), continuing anyway.
+*   Certificate level 0: Public key type RSA (2048/112 Bits/secBits), signed using sha256WithRSAEncryption
+*   Certificate level 1: Public key type RSA (2048/112 Bits/secBits), signed using sha256WithRSAEncryption
+*   Certificate level 2: Public key type RSA (2048/112 Bits/secBits), signed using sha256WithRSAEncryption
+* using HTTP/2
+* [HTTP/2] [1] OPENED stream for https://test-payment.momo.vn/v2/gateway/api/create
+* [HTTP/2] [1] [:method: POST]
+* [HTTP/2] [1] [:scheme: https]
+* [HTTP/2] [1] [:authority: test-payment.momo.vn]
+* [HTTP/2] [1] [:path: /v2/gateway/api/create]
+* [HTTP/2] [1] [accept: */*]
+* [HTTP/2] [1] [content-type: application/json]
+* [HTTP/2] [1] [content-length: 509]
+> POST /v2/gateway/api/create HTTP/2
+Host: test-payment.momo.vn
+Accept: */*
+Content-Type: application/json
+Content-Length: 509
+
+* upload completely sent off: 509 bytes
+< HTTP/2 200 
+< server: nginx
+< date: Sat, 06 Dec 2025 07:18:42 GMT
+< content-type: application/json
+< vary: Accept-Encoding
+< x-content-type-options: nosniff
+< x-xss-protection: 1; mode=block
+< pragma: no-cache
+< strict-transport-security: max-age=15768000
+< 
+* Connection #0 to host test-payment.momo.vn left intact
+
+)
+
+--------------------------------------------------------------------------------
+
+[2025-12-06 07:18:42] [MOMO_RESPONSE]
+Array
+(
+    [partnerCode] => MOMOBKUN20180529
+    [orderId] => MOMO_1765005520_9083
+    [requestId] => 17650055207389
+    [amount] => 15196000
+    [responseTime] => 1765005522534
+    [message] => Thành công.
+    [resultCode] => 0
+    [payUrl] => https://test-payment.momo.vn/v2/gateway/pay?t=TU9NT0JLVU4yMDE4MDUyOXxNT01PXzE3NjUwMDU1MjBfOTA4Mw&s=ad59f16faed6885b8a4345a975b123912c002fcded1fe508b9cf60928a84e7c1
+    [deeplink] => momo://app?action=payWithApp&isScanQR=false&serviceType=app&sid=TU9NT0JLVU4yMDE4MDUyOXxNT01PXzE3NjUwMDU1MjBfOTA4Mw&v=3.0
+    [qrCodeUrl] => 00020101021226110007vn.momo38620010A00000072701320006970454011899MM25340O000000380208QRIBFTTA53037045408151960005802VN62470515MMTqXpbOR0PQ3QR0824Payment for order MOMO176304FA4F
+    [applink] => https://test-applinks.momo.vn/payment/v2?action=payWithApp&isScanQR=false&serviceType=app&sid=TU9NT0JLVU4yMDE4MDUyOXxNT01PXzE3NjUwMDU1MjBfOTA4Mw&v=3.0&deeplinkCallback=http%3A%2F%2Flocalhost%3A3000%2Findex.php%3Fctrl%3Dcart%26act%3Dreturn_momo&callBackUrl=http%3A%2F%2Flocalhost%3A3000%2Findex.php%3Fctrl%3Dcart%26act%3Dreturn_momo
+    [deeplinkMiniApp] => momo://app?action=payWithApp&isScanQR=false&serviceType=miniapp&sid=TU9NT0JLVU4yMDE4MDUyOXxNT01PXzE3NjUwMDU1MjBfOTA4Mw&v=3.0
+    [signature] => 1e97e723e735f2dd0d1ea248353b4a37f4c01d79a241f2e497e5be811d2135d0
+)
+
+--------------------------------------------------------------------------------
+
+[2025-12-06 07:18:45] [RAW_HASH]
+accessKey=klm05TvNBzhg7h7j&amount=15196000&extraData=&ipnUrl=http://localhost:3000/index.php?ctrl=cart&act=notify_momo&orderId=MOMO_1765005525_7565&orderInfo=Payment for order MOMO_1765005525_7565&partnerCode=MOMOBKUN20180529&redirectUrl=http://localhost:3000/index.php?ctrl=cart&act=return_momo&requestId=17650055255120&requestType=captureWallet
+--------------------------------------------------------------------------------
+
+[2025-12-06 07:18:45] [SIGNATURE]
+40ce810123ac707cbac22b8d091992132e8bcebd012375903eaf6494d11469d7
+--------------------------------------------------------------------------------
+
+[2025-12-06 07:18:45] [REQUEST_DATA]
+Array
+(
+    [partnerCode] => MOMOBKUN20180529
+    [partnerName] => PhuongStore
+    [storeId] => PhuongStore_01
+    [requestId] => 17650055255120
+    [amount] => 15196000
+    [orderId] => MOMO_1765005525_7565
+    [orderInfo] => Payment for order MOMO_1765005525_7565
+    [redirectUrl] => http://localhost:3000/index.php?ctrl=cart&act=return_momo
+    [ipnUrl] => http://localhost:3000/index.php?ctrl=cart&act=notify_momo
+    [lang] => vi
+    [extraData] => 
+    [requestType] => captureWallet
+    [signature] => 40ce810123ac707cbac22b8d091992132e8bcebd012375903eaf6494d11469d7
+)
+
+--------------------------------------------------------------------------------
+
+[2025-12-06 07:18:45] [RESPONSE]
+Array
+(
+    [http_code] => 200
+    [curl_error] => 
+    [curl_errno] => 0
+    [result_raw] => {"partnerCode":"MOMOBKUN20180529","orderId":"MOMO_1765005525_7565","requestId":"17650055255120","amount":15196000,"responseTime":1765005525559,"message":"Thành công.","resultCode":0,"payUrl":"https://test-payment.momo.vn/v2/gateway/pay?t=TU9NT0JLVU4yMDE4MDUyOXxNT01PXzE3NjUwMDU1MjVfNzU2NQ&s=257d983e40655425e5813a7bba59f9b6076a211db2bc27689d56dbb11bbd7023","deeplink":"momo://app?action=payWithApp&isScanQR=false&serviceType=app&sid=TU9NT0JLVU4yMDE4MDUyOXxNT01PXzE3NjUwMDU1MjVfNzU2NQ&v=3.0","qrCodeUrl":"00020101021226110007vn.momo38630010A000000727013300069710250119PMC25340000000000380208QRIBFTTA53037045408151960005802VN62470515MMTQvupW7fT1NQR0824Payment for order MOMO176304F775","applink":"https://test-applinks.momo.vn/payment/v2?action=payWithApp&isScanQR=false&serviceType=app&sid=TU9NT0JLVU4yMDE4MDUyOXxNT01PXzE3NjUwMDU1MjVfNzU2NQ&v=3.0&deeplinkCallback=http%3A%2F%2Flocalhost%3A3000%2Findex.php%3Fctrl%3Dcart%26act%3Dreturn_momo&callBackUrl=http%3A%2F%2Flocalhost%3A3000%2Findex.php%3Fctrl%3Dcart%26act%3Dreturn_momo","deeplinkMiniApp":"momo://app?action=payWithApp&isScanQR=false&serviceType=miniapp&sid=TU9NT0JLVU4yMDE4MDUyOXxNT01PXzE3NjUwMDU1MjVfNzU2NQ&v=3.0","signature":"8b4ffe5b304c55ef2a8b62630d370801e4d8c94af84d49e9d0436a06cd06d107"}
+    [verbose_log] => * Host test-payment.momo.vn:443 was resolved.
+* IPv6: (none)
+* IPv4: 210.245.113.71
+*   Trying 210.245.113.71:443...
+* Connected to test-payment.momo.vn (210.245.113.71) port 443
+* ALPN: curl offers h2,http/1.1
+* SSL connection using TLSv1.2 / ECDHE-RSA-CHACHA20-POLY1305 / X25519 / RSASSA-PSS
+* ALPN: server accepted h2
+* Server certificate:
+*  subject: C=VN; ST=Ho Chi Minh; L=Ho Chi Minh; O=Online Mobile Services Joint Stock Company; CN=*.momo.vn
+*  start date: Dec  5 06:41:07 2024 GMT
+*  expire date: Jan  6 06:41:06 2026 GMT
+*  issuer: C=BE; O=GlobalSign nv-sa; CN=GlobalSign RSA OV SSL CA 2018
+*  SSL certificate verify result: self-signed certificate in certificate chain (19), continuing anyway.
+*   Certificate level 0: Public key type RSA (2048/112 Bits/secBits), signed using sha256WithRSAEncryption
+*   Certificate level 1: Public key type RSA (2048/112 Bits/secBits), signed using sha256WithRSAEncryption
+*   Certificate level 2: Public key type RSA (2048/112 Bits/secBits), signed using sha256WithRSAEncryption
+* using HTTP/2
+* [HTTP/2] [1] OPENED stream for https://test-payment.momo.vn/v2/gateway/api/create
+* [HTTP/2] [1] [:method: POST]
+* [HTTP/2] [1] [:scheme: https]
+* [HTTP/2] [1] [:authority: test-payment.momo.vn]
+* [HTTP/2] [1] [:path: /v2/gateway/api/create]
+* [HTTP/2] [1] [accept: */*]
+* [HTTP/2] [1] [content-type: application/json]
+* [HTTP/2] [1] [content-length: 509]
+> POST /v2/gateway/api/create HTTP/2
+Host: test-payment.momo.vn
+Accept: */*
+Content-Type: application/json
+Content-Length: 509
+
+* upload completely sent off: 509 bytes
+< HTTP/2 200 
+< server: nginx
+< date: Sat, 06 Dec 2025 07:18:45 GMT
+< content-type: application/json
+< vary: Accept-Encoding
+< x-content-type-options: nosniff
+< x-xss-protection: 1; mode=block
+< pragma: no-cache
+< strict-transport-security: max-age=15768000
+< 
+* Connection #0 to host test-payment.momo.vn left intact
+
+)
+
+--------------------------------------------------------------------------------
+
+[2025-12-06 07:18:45] [MOMO_RESPONSE]
+Array
+(
+    [partnerCode] => MOMOBKUN20180529
+    [orderId] => MOMO_1765005525_7565
+    [requestId] => 17650055255120
+    [amount] => 15196000
+    [responseTime] => 1765005525559
+    [message] => Thành công.
+    [resultCode] => 0
+    [payUrl] => https://test-payment.momo.vn/v2/gateway/pay?t=TU9NT0JLVU4yMDE4MDUyOXxNT01PXzE3NjUwMDU1MjVfNzU2NQ&s=257d983e40655425e5813a7bba59f9b6076a211db2bc27689d56dbb11bbd7023
+    [deeplink] => momo://app?action=payWithApp&isScanQR=false&serviceType=app&sid=TU9NT0JLVU4yMDE4MDUyOXxNT01PXzE3NjUwMDU1MjVfNzU2NQ&v=3.0
+    [qrCodeUrl] => 00020101021226110007vn.momo38630010A000000727013300069710250119PMC25340000000000380208QRIBFTTA53037045408151960005802VN62470515MMTQvupW7fT1NQR0824Payment for order MOMO176304F775
+    [applink] => https://test-applinks.momo.vn/payment/v2?action=payWithApp&isScanQR=false&serviceType=app&sid=TU9NT0JLVU4yMDE4MDUyOXxNT01PXzE3NjUwMDU1MjVfNzU2NQ&v=3.0&deeplinkCallback=http%3A%2F%2Flocalhost%3A3000%2Findex.php%3Fctrl%3Dcart%26act%3Dreturn_momo&callBackUrl=http%3A%2F%2Flocalhost%3A3000%2Findex.php%3Fctrl%3Dcart%26act%3Dreturn_momo
+    [deeplinkMiniApp] => momo://app?action=payWithApp&isScanQR=false&serviceType=miniapp&sid=TU9NT0JLVU4yMDE4MDUyOXxNT01PXzE3NjUwMDU1MjVfNzU2NQ&v=3.0
+    [signature] => 8b4ffe5b304c55ef2a8b62630d370801e4d8c94af84d49e9d0436a06cd06d107
+)
+
+--------------------------------------------------------------------------------
+
+[2025-12-06 07:23:45] [RAW_HASH]
+accessKey=klm05TvNBzhg7h7j&amount=15196000&extraData=&ipnUrl=http://localhost:3000/index.php?ctrl=cart&act=notify_momo&orderId=MOMO_1765005825_3871&orderInfo=Payment for order MOMO_1765005825_3871&partnerCode=MOMOBKUN20180529&redirectUrl=http://localhost:3000/index.php?ctrl=cart&act=return_momo&requestId=17650058253345&requestType=captureWallet
+--------------------------------------------------------------------------------
+
+[2025-12-06 07:23:45] [SIGNATURE]
+4fc928d89a81cf698a14e942af979bcd41e4c583d95857752b0a851dae217c53
+--------------------------------------------------------------------------------
+
+[2025-12-06 07:23:45] [REQUEST_DATA]
+Array
+(
+    [partnerCode] => MOMOBKUN20180529
+    [partnerName] => PhuongStore
+    [storeId] => PhuongStore_01
+    [requestId] => 17650058253345
+    [amount] => 15196000
+    [orderId] => MOMO_1765005825_3871
+    [orderInfo] => Payment for order MOMO_1765005825_3871
+    [redirectUrl] => http://localhost:3000/index.php?ctrl=cart&act=return_momo
+    [ipnUrl] => http://localhost:3000/index.php?ctrl=cart&act=notify_momo
+    [lang] => vi
+    [extraData] => 
+    [requestType] => captureWallet
+    [signature] => 4fc928d89a81cf698a14e942af979bcd41e4c583d95857752b0a851dae217c53
+)
+
+--------------------------------------------------------------------------------
+
+[2025-12-06 07:23:45] [RESPONSE]
+Array
+(
+    [http_code] => 200
+    [curl_error] => 
+    [curl_errno] => 0
+    [result_raw] => {"partnerCode":"MOMOBKUN20180529","orderId":"MOMO_1765005825_3871","requestId":"17650058253345","amount":15196000,"responseTime":1765005825677,"message":"Thành công.","resultCode":0,"payUrl":"https://test-payment.momo.vn/v2/gateway/pay?t=TU9NT0JLVU4yMDE4MDUyOXxNT01PXzE3NjUwMDU4MjVfMzg3MQ&s=66c47b3e4e155a3c24375f46dc35d9cb62501be2fa4cf9e92ec55060de373c41","deeplink":"momo://app?action=payWithApp&isScanQR=false&serviceType=app&sid=TU9NT0JLVU4yMDE4MDUyOXxNT01PXzE3NjUwMDU4MjVfMzg3MQ&v=3.0","qrCodeUrl":"00020101021226110007vn.momo38630010A000000727013300069710250119PMC25340000000000390208QRIBFTTA53037045408151960005802VN62470515MMTxL5QD6CQF6QR0824Payment for order MOMO1763042F01","applink":"https://test-applinks.momo.vn/payment/v2?action=payWithApp&isScanQR=false&serviceType=app&sid=TU9NT0JLVU4yMDE4MDUyOXxNT01PXzE3NjUwMDU4MjVfMzg3MQ&v=3.0&deeplinkCallback=http%3A%2F%2Flocalhost%3A3000%2Findex.php%3Fctrl%3Dcart%26act%3Dreturn_momo&callBackUrl=http%3A%2F%2Flocalhost%3A3000%2Findex.php%3Fctrl%3Dcart%26act%3Dreturn_momo","deeplinkMiniApp":"momo://app?action=payWithApp&isScanQR=false&serviceType=miniapp&sid=TU9NT0JLVU4yMDE4MDUyOXxNT01PXzE3NjUwMDU4MjVfMzg3MQ&v=3.0","signature":"0bd5c6167e790d5a46c247951795c218260d1d61115a7f4312955fc8d3b8ddff"}
+    [verbose_log] => * Host test-payment.momo.vn:443 was resolved.
+* IPv6: (none)
+* IPv4: 210.245.113.71
+*   Trying 210.245.113.71:443...
+* Connected to test-payment.momo.vn (210.245.113.71) port 443
+* ALPN: curl offers h2,http/1.1
+* SSL connection using TLSv1.2 / ECDHE-RSA-CHACHA20-POLY1305 / X25519 / RSASSA-PSS
+* ALPN: server accepted h2
+* Server certificate:
+*  subject: C=VN; ST=Ho Chi Minh; L=Ho Chi Minh; O=Online Mobile Services Joint Stock Company; CN=*.momo.vn
+*  start date: Dec  5 06:41:07 2024 GMT
+*  expire date: Jan  6 06:41:06 2026 GMT
+*  issuer: C=BE; O=GlobalSign nv-sa; CN=GlobalSign RSA OV SSL CA 2018
+*  SSL certificate verify result: self-signed certificate in certificate chain (19), continuing anyway.
+*   Certificate level 0: Public key type RSA (2048/112 Bits/secBits), signed using sha256WithRSAEncryption
+*   Certificate level 1: Public key type RSA (2048/112 Bits/secBits), signed using sha256WithRSAEncryption
+*   Certificate level 2: Public key type RSA (2048/112 Bits/secBits), signed using sha256WithRSAEncryption
+* using HTTP/2
+* [HTTP/2] [1] OPENED stream for https://test-payment.momo.vn/v2/gateway/api/create
+* [HTTP/2] [1] [:method: POST]
+* [HTTP/2] [1] [:scheme: https]
+* [HTTP/2] [1] [:authority: test-payment.momo.vn]
+* [HTTP/2] [1] [:path: /v2/gateway/api/create]
+* [HTTP/2] [1] [accept: */*]
+* [HTTP/2] [1] [content-type: application/json]
+* [HTTP/2] [1] [content-length: 509]
+> POST /v2/gateway/api/create HTTP/2
+Host: test-payment.momo.vn
+Accept: */*
+Content-Type: application/json
+Content-Length: 509
+
+* upload completely sent off: 509 bytes
+< HTTP/2 200 
+< server: nginx
+< date: Sat, 06 Dec 2025 07:23:45 GMT
+< content-type: application/json
+< vary: Accept-Encoding
+< x-content-type-options: nosniff
+< x-xss-protection: 1; mode=block
+< pragma: no-cache
+< strict-transport-security: max-age=15768000
+< 
+* Connection #0 to host test-payment.momo.vn left intact
+
+)
+
+--------------------------------------------------------------------------------
+
+[2025-12-06 07:23:45] [MOMO_RESPONSE]
+Array
+(
+    [partnerCode] => MOMOBKUN20180529
+    [orderId] => MOMO_1765005825_3871
+    [requestId] => 17650058253345
+    [amount] => 15196000
+    [responseTime] => 1765005825677
+    [message] => Thành công.
+    [resultCode] => 0
+    [payUrl] => https://test-payment.momo.vn/v2/gateway/pay?t=TU9NT0JLVU4yMDE4MDUyOXxNT01PXzE3NjUwMDU4MjVfMzg3MQ&s=66c47b3e4e155a3c24375f46dc35d9cb62501be2fa4cf9e92ec55060de373c41
+    [deeplink] => momo://app?action=payWithApp&isScanQR=false&serviceType=app&sid=TU9NT0JLVU4yMDE4MDUyOXxNT01PXzE3NjUwMDU4MjVfMzg3MQ&v=3.0
+    [qrCodeUrl] => 00020101021226110007vn.momo38630010A000000727013300069710250119PMC25340000000000390208QRIBFTTA53037045408151960005802VN62470515MMTxL5QD6CQF6QR0824Payment for order MOMO1763042F01
+    [applink] => https://test-applinks.momo.vn/payment/v2?action=payWithApp&isScanQR=false&serviceType=app&sid=TU9NT0JLVU4yMDE4MDUyOXxNT01PXzE3NjUwMDU4MjVfMzg3MQ&v=3.0&deeplinkCallback=http%3A%2F%2Flocalhost%3A3000%2Findex.php%3Fctrl%3Dcart%26act%3Dreturn_momo&callBackUrl=http%3A%2F%2Flocalhost%3A3000%2Findex.php%3Fctrl%3Dcart%26act%3Dreturn_momo
+    [deeplinkMiniApp] => momo://app?action=payWithApp&isScanQR=false&serviceType=miniapp&sid=TU9NT0JLVU4yMDE4MDUyOXxNT01PXzE3NjUwMDU4MjVfMzg3MQ&v=3.0
+    [signature] => 0bd5c6167e790d5a46c247951795c218260d1d61115a7f4312955fc8d3b8ddff
+)
+
+--------------------------------------------------------------------------------
+
+[2025-12-06 07:23:50] [RAW_HASH]
+accessKey=klm05TvNBzhg7h7j&amount=15196000&extraData=&ipnUrl=http://localhost:3000/index.php?ctrl=cart&act=notify_momo&orderId=MOMO_1765005830_7366&orderInfo=Payment for order MOMO_1765005830_7366&partnerCode=MOMOBKUN20180529&redirectUrl=http://localhost:3000/index.php?ctrl=cart&act=return_momo&requestId=17650058309723&requestType=captureWallet
+--------------------------------------------------------------------------------
+
+[2025-12-06 07:23:50] [SIGNATURE]
+584e7acb0e1330d382a12e8c04ac67c9f6444140a987afb74a39b6a76904b21e
+--------------------------------------------------------------------------------
+
+[2025-12-06 07:23:50] [REQUEST_DATA]
+Array
+(
+    [partnerCode] => MOMOBKUN20180529
+    [partnerName] => PhuongStore
+    [storeId] => PhuongStore_01
+    [requestId] => 17650058309723
+    [amount] => 15196000
+    [orderId] => MOMO_1765005830_7366
+    [orderInfo] => Payment for order MOMO_1765005830_7366
+    [redirectUrl] => http://localhost:3000/index.php?ctrl=cart&act=return_momo
+    [ipnUrl] => http://localhost:3000/index.php?ctrl=cart&act=notify_momo
+    [lang] => vi
+    [extraData] => 
+    [requestType] => captureWallet
+    [signature] => 584e7acb0e1330d382a12e8c04ac67c9f6444140a987afb74a39b6a76904b21e
+)
+
+--------------------------------------------------------------------------------
+
+[2025-12-06 07:23:50] [RESPONSE]
+Array
+(
+    [http_code] => 200
+    [curl_error] => 
+    [curl_errno] => 0
+    [result_raw] => {"partnerCode":"MOMOBKUN20180529","orderId":"MOMO_1765005830_7366","requestId":"17650058309723","amount":15196000,"responseTime":1765005830827,"message":"Thành công.","resultCode":0,"payUrl":"https://test-payment.momo.vn/v2/gateway/pay?t=TU9NT0JLVU4yMDE4MDUyOXxNT01PXzE3NjUwMDU4MzBfNzM2Ng&s=e80b209d85dc1e3f2951b49fa7dd0e762156861dd75c83cd46ea1030d40aecd7","deeplink":"momo://app?action=payWithApp&isScanQR=false&serviceType=app&sid=TU9NT0JLVU4yMDE4MDUyOXxNT01PXzE3NjUwMDU4MzBfNzM2Ng&v=3.0","qrCodeUrl":"00020101021226110007vn.momo38620010A00000072701320006970454011899MM25340O000000400208QRIBFTTA53037045408151960005802VN62470515MMT2UyXwQkgdoQR0824Payment for order MOMO176304F378","applink":"https://test-applinks.momo.vn/payment/v2?action=payWithApp&isScanQR=false&serviceType=app&sid=TU9NT0JLVU4yMDE4MDUyOXxNT01PXzE3NjUwMDU4MzBfNzM2Ng&v=3.0&deeplinkCallback=http%3A%2F%2Flocalhost%3A3000%2Findex.php%3Fctrl%3Dcart%26act%3Dreturn_momo&callBackUrl=http%3A%2F%2Flocalhost%3A3000%2Findex.php%3Fctrl%3Dcart%26act%3Dreturn_momo","deeplinkMiniApp":"momo://app?action=payWithApp&isScanQR=false&serviceType=miniapp&sid=TU9NT0JLVU4yMDE4MDUyOXxNT01PXzE3NjUwMDU4MzBfNzM2Ng&v=3.0","signature":"defe715e35f0f31ede396d33561e2db12172590a97735526640f2ba3b0eeb360"}
+    [verbose_log] => * Host test-payment.momo.vn:443 was resolved.
+* IPv6: (none)
+* IPv4: 210.245.113.71
+*   Trying 210.245.113.71:443...
+* Connected to test-payment.momo.vn (210.245.113.71) port 443
+* ALPN: curl offers h2,http/1.1
+* SSL connection using TLSv1.2 / ECDHE-RSA-CHACHA20-POLY1305 / X25519 / RSASSA-PSS
+* ALPN: server accepted h2
+* Server certificate:
+*  subject: C=VN; ST=Ho Chi Minh; L=Ho Chi Minh; O=Online Mobile Services Joint Stock Company; CN=*.momo.vn
+*  start date: Dec  5 06:41:07 2024 GMT
+*  expire date: Jan  6 06:41:06 2026 GMT
+*  issuer: C=BE; O=GlobalSign nv-sa; CN=GlobalSign RSA OV SSL CA 2018
+*  SSL certificate verify result: self-signed certificate in certificate chain (19), continuing anyway.
+*   Certificate level 0: Public key type RSA (2048/112 Bits/secBits), signed using sha256WithRSAEncryption
+*   Certificate level 1: Public key type RSA (2048/112 Bits/secBits), signed using sha256WithRSAEncryption
+*   Certificate level 2: Public key type RSA (2048/112 Bits/secBits), signed using sha256WithRSAEncryption
+* using HTTP/2
+* [HTTP/2] [1] OPENED stream for https://test-payment.momo.vn/v2/gateway/api/create
+* [HTTP/2] [1] [:method: POST]
+* [HTTP/2] [1] [:scheme: https]
+* [HTTP/2] [1] [:authority: test-payment.momo.vn]
+* [HTTP/2] [1] [:path: /v2/gateway/api/create]
+* [HTTP/2] [1] [accept: */*]
+* [HTTP/2] [1] [content-type: application/json]
+* [HTTP/2] [1] [content-length: 509]
+> POST /v2/gateway/api/create HTTP/2
+Host: test-payment.momo.vn
+Accept: */*
+Content-Type: application/json
+Content-Length: 509
+
+* upload completely sent off: 509 bytes
+< HTTP/2 200 
+< server: nginx
+< date: Sat, 06 Dec 2025 07:23:50 GMT
+< content-type: application/json
+< vary: Accept-Encoding
+< x-content-type-options: nosniff
+< x-xss-protection: 1; mode=block
+< pragma: no-cache
+< strict-transport-security: max-age=15768000
+< 
+* Connection #0 to host test-payment.momo.vn left intact
+
+)
+
+--------------------------------------------------------------------------------
+
+[2025-12-06 07:23:50] [MOMO_RESPONSE]
+Array
+(
+    [partnerCode] => MOMOBKUN20180529
+    [orderId] => MOMO_1765005830_7366
+    [requestId] => 17650058309723
+    [amount] => 15196000
+    [responseTime] => 1765005830827
+    [message] => Thành công.
+    [resultCode] => 0
+    [payUrl] => https://test-payment.momo.vn/v2/gateway/pay?t=TU9NT0JLVU4yMDE4MDUyOXxNT01PXzE3NjUwMDU4MzBfNzM2Ng&s=e80b209d85dc1e3f2951b49fa7dd0e762156861dd75c83cd46ea1030d40aecd7
+    [deeplink] => momo://app?action=payWithApp&isScanQR=false&serviceType=app&sid=TU9NT0JLVU4yMDE4MDUyOXxNT01PXzE3NjUwMDU4MzBfNzM2Ng&v=3.0
+    [qrCodeUrl] => 00020101021226110007vn.momo38620010A00000072701320006970454011899MM25340O000000400208QRIBFTTA53037045408151960005802VN62470515MMT2UyXwQkgdoQR0824Payment for order MOMO176304F378
+    [applink] => https://test-applinks.momo.vn/payment/v2?action=payWithApp&isScanQR=false&serviceType=app&sid=TU9NT0JLVU4yMDE4MDUyOXxNT01PXzE3NjUwMDU4MzBfNzM2Ng&v=3.0&deeplinkCallback=http%3A%2F%2Flocalhost%3A3000%2Findex.php%3Fctrl%3Dcart%26act%3Dreturn_momo&callBackUrl=http%3A%2F%2Flocalhost%3A3000%2Findex.php%3Fctrl%3Dcart%26act%3Dreturn_momo
+    [deeplinkMiniApp] => momo://app?action=payWithApp&isScanQR=false&serviceType=miniapp&sid=TU9NT0JLVU4yMDE4MDUyOXxNT01PXzE3NjUwMDU4MzBfNzM2Ng&v=3.0
+    [signature] => defe715e35f0f31ede396d33561e2db12172590a97735526640f2ba3b0eeb360
+)
+
+--------------------------------------------------------------------------------
+
+[2025-12-06 07:31:21] [RAW_HASH]
+accessKey=klm05TvNBzhg7h7j&amount=3799000&extraData=&ipnUrl=http://localhost:3000/index.php?ctrl=cart&act=notify_momo&orderId=ORD_1765006281&orderInfo=Payment for order ORD_1765006281&partnerCode=MOMOBKUN20180529&redirectUrl=http://localhost:3000/index.php?ctrl=cart&act=return_momo&requestId=17650062815058&requestType=captureWallet
+--------------------------------------------------------------------------------
+
+[2025-12-06 07:31:21] [SIGNATURE]
+3b9a19c39b15f8526322463f84a540b2fedd2726e8ec102174175fbc23a71007
+--------------------------------------------------------------------------------
+
+[2025-12-06 07:31:21] [REQUEST_DATA]
+Array
+(
+    [partnerCode] => MOMOBKUN20180529
+    [partnerName] => PhuongStore
+    [storeId] => PhuongStore_01
+    [requestId] => 17650062815058
+    [amount] => 3799000
+    [orderId] => ORD_1765006281
+    [orderInfo] => Payment for order ORD_1765006281
+    [redirectUrl] => http://localhost:3000/index.php?ctrl=cart&act=return_momo
+    [ipnUrl] => http://localhost:3000/index.php?ctrl=cart&act=notify_momo
+    [lang] => vi
+    [extraData] => 
+    [requestType] => captureWallet
+    [signature] => 3b9a19c39b15f8526322463f84a540b2fedd2726e8ec102174175fbc23a71007
+)
+
+--------------------------------------------------------------------------------
+
+[2025-12-06 07:31:21] [RESPONSE]
+Array
+(
+    [http_code] => 200
+    [curl_error] => 
+    [curl_errno] => 0
+    [result_raw] => {"partnerCode":"MOMOBKUN20180529","orderId":"ORD_1765006281","requestId":"17650062815058","amount":3799000,"responseTime":1765006281967,"message":"Thành công.","resultCode":0,"payUrl":"https://test-payment.momo.vn/v2/gateway/pay?t=TU9NT0JLVU4yMDE4MDUyOXxPUkRfMTc2NTAwNjI4MQ&s=5f4784da0abde63627286b01b3d6f6c896def1c8fc9ea84ed79a2ce8580c91df","deeplink":"momo://app?action=payWithApp&isScanQR=false&serviceType=app&sid=TU9NT0JLVU4yMDE4MDUyOXxPUkRfMTc2NTAwNjI4MQ&v=3.0","qrCodeUrl":"00020101021226110007vn.momo38630010A000000727013300069710250119PMC25340000000000400208QRIBFTTA5303704540737990005802VN62470515MMTUeS0aYGEQIQR0824Payment for order ORD1766304C3D3","applink":"https://test-applinks.momo.vn/payment/v2?action=payWithApp&isScanQR=false&serviceType=app&sid=TU9NT0JLVU4yMDE4MDUyOXxPUkRfMTc2NTAwNjI4MQ&v=3.0&deeplinkCallback=http%3A%2F%2Flocalhost%3A3000%2Findex.php%3Fctrl%3Dcart%26act%3Dreturn_momo&callBackUrl=http%3A%2F%2Flocalhost%3A3000%2Findex.php%3Fctrl%3Dcart%26act%3Dreturn_momo","deeplinkMiniApp":"momo://app?action=payWithApp&isScanQR=false&serviceType=miniapp&sid=TU9NT0JLVU4yMDE4MDUyOXxPUkRfMTc2NTAwNjI4MQ&v=3.0","signature":"cd41b030c9766ca1b1d7c14f6026cea07587a2b28115ed205a26bca5c4bff263"}
+    [verbose_log] => * Host test-payment.momo.vn:443 was resolved.
+* IPv6: (none)
+* IPv4: 210.245.113.71
+*   Trying 210.245.113.71:443...
+* Connected to test-payment.momo.vn (210.245.113.71) port 443
+* ALPN: curl offers h2,http/1.1
+* SSL connection using TLSv1.2 / ECDHE-RSA-CHACHA20-POLY1305 / X25519 / RSASSA-PSS
+* ALPN: server accepted h2
+* Server certificate:
+*  subject: C=VN; ST=Ho Chi Minh; L=Ho Chi Minh; O=Online Mobile Services Joint Stock Company; CN=*.momo.vn
+*  start date: Dec  5 06:41:07 2024 GMT
+*  expire date: Jan  6 06:41:06 2026 GMT
+*  issuer: C=BE; O=GlobalSign nv-sa; CN=GlobalSign RSA OV SSL CA 2018
+*  SSL certificate verify result: self-signed certificate in certificate chain (19), continuing anyway.
+*   Certificate level 0: Public key type RSA (2048/112 Bits/secBits), signed using sha256WithRSAEncryption
+*   Certificate level 1: Public key type RSA (2048/112 Bits/secBits), signed using sha256WithRSAEncryption
+*   Certificate level 2: Public key type RSA (2048/112 Bits/secBits), signed using sha256WithRSAEncryption
+* using HTTP/2
+* [HTTP/2] [1] OPENED stream for https://test-payment.momo.vn/v2/gateway/api/create
+* [HTTP/2] [1] [:method: POST]
+* [HTTP/2] [1] [:scheme: https]
+* [HTTP/2] [1] [:authority: test-payment.momo.vn]
+* [HTTP/2] [1] [:path: /v2/gateway/api/create]
+* [HTTP/2] [1] [accept: */*]
+* [HTTP/2] [1] [content-type: application/json]
+* [HTTP/2] [1] [content-length: 496]
+> POST /v2/gateway/api/create HTTP/2
+Host: test-payment.momo.vn
+Accept: */*
+Content-Type: application/json
+Content-Length: 496
+
+* upload completely sent off: 496 bytes
+< HTTP/2 200 
+< server: nginx
+< date: Sat, 06 Dec 2025 07:31:21 GMT
+< content-type: application/json
+< vary: Accept-Encoding
+< x-content-type-options: nosniff
+< x-xss-protection: 1; mode=block
+< pragma: no-cache
+< strict-transport-security: max-age=15768000
+< 
+* Connection #0 to host test-payment.momo.vn left intact
+
+)
+
+--------------------------------------------------------------------------------
+
+[2025-12-06 07:31:21] [MOMO_RESPONSE]
+Array
+(
+    [partnerCode] => MOMOBKUN20180529
+    [orderId] => ORD_1765006281
+    [requestId] => 17650062815058
+    [amount] => 3799000
+    [responseTime] => 1765006281967
+    [message] => Thành công.
+    [resultCode] => 0
+    [payUrl] => https://test-payment.momo.vn/v2/gateway/pay?t=TU9NT0JLVU4yMDE4MDUyOXxPUkRfMTc2NTAwNjI4MQ&s=5f4784da0abde63627286b01b3d6f6c896def1c8fc9ea84ed79a2ce8580c91df
+    [deeplink] => momo://app?action=payWithApp&isScanQR=false&serviceType=app&sid=TU9NT0JLVU4yMDE4MDUyOXxPUkRfMTc2NTAwNjI4MQ&v=3.0
+    [qrCodeUrl] => 00020101021226110007vn.momo38630010A000000727013300069710250119PMC25340000000000400208QRIBFTTA5303704540737990005802VN62470515MMTUeS0aYGEQIQR0824Payment for order ORD1766304C3D3
+    [applink] => https://test-applinks.momo.vn/payment/v2?action=payWithApp&isScanQR=false&serviceType=app&sid=TU9NT0JLVU4yMDE4MDUyOXxPUkRfMTc2NTAwNjI4MQ&v=3.0&deeplinkCallback=http%3A%2F%2Flocalhost%3A3000%2Findex.php%3Fctrl%3Dcart%26act%3Dreturn_momo&callBackUrl=http%3A%2F%2Flocalhost%3A3000%2Findex.php%3Fctrl%3Dcart%26act%3Dreturn_momo
+    [deeplinkMiniApp] => momo://app?action=payWithApp&isScanQR=false&serviceType=miniapp&sid=TU9NT0JLVU4yMDE4MDUyOXxPUkRfMTc2NTAwNjI4MQ&v=3.0
+    [signature] => cd41b030c9766ca1b1d7c14f6026cea07587a2b28115ed205a26bca5c4bff263
+)
+
+--------------------------------------------------------------------------------
+
+[2025-12-06 07:35:59] [RAW_HASH]
+accessKey=klm05TvNBzhg7h7j&amount=3799000&extraData=&ipnUrl=http://localhost:3000/index.php?ctrl=cart&act=notify_momo&orderId=ORD_1765006559&orderInfo=Payment for order ORD_1765006559&partnerCode=MOMOBKUN20180529&redirectUrl=http://localhost:3000/index.php?ctrl=cart&act=return_momo&requestId=17650065595134&requestType=captureWallet
+--------------------------------------------------------------------------------
+
+[2025-12-06 07:35:59] [SIGNATURE]
+f66b49b2c90040402c250349663fb35c2022f748b03224f71f4f17af97a1e23a
+--------------------------------------------------------------------------------
+
+[2025-12-06 07:35:59] [REQUEST_DATA]
+Array
+(
+    [partnerCode] => MOMOBKUN20180529
+    [partnerName] => PhuongStore
+    [storeId] => PhuongStore_01
+    [requestId] => 17650065595134
+    [amount] => 3799000
+    [orderId] => ORD_1765006559
+    [orderInfo] => Payment for order ORD_1765006559
+    [redirectUrl] => http://localhost:3000/index.php?ctrl=cart&act=return_momo
+    [ipnUrl] => http://localhost:3000/index.php?ctrl=cart&act=notify_momo
+    [lang] => vi
+    [extraData] => 
+    [requestType] => captureWallet
+    [signature] => f66b49b2c90040402c250349663fb35c2022f748b03224f71f4f17af97a1e23a
+)
+
+--------------------------------------------------------------------------------
+
+[2025-12-06 07:35:59] [RESPONSE]
+Array
+(
+    [http_code] => 200
+    [curl_error] => 
+    [curl_errno] => 0
+    [result_raw] => {"partnerCode":"MOMOBKUN20180529","orderId":"ORD_1765006559","requestId":"17650065595134","amount":3799000,"responseTime":1765006559962,"message":"Thành công.","resultCode":0,"payUrl":"https://test-payment.momo.vn/v2/gateway/pay?t=TU9NT0JLVU4yMDE4MDUyOXxPUkRfMTc2NTAwNjU1OQ&s=f5bc89acd5ac3832777c57c7c3d33d4b55d6aaf66f3524233d9f06020d3d80e1","deeplink":"momo://app?action=payWithApp&isScanQR=false&serviceType=app&sid=TU9NT0JLVU4yMDE4MDUyOXxPUkRfMTc2NTAwNjU1OQ&v=3.0","qrCodeUrl":"00020101021226110007vn.momo38620010A00000072701320006970454011899MM25340O000000410208QRIBFTTA5303704540737990005802VN62470515MMTEEa2ohPVNiQR0824Payment for order ORD17663043852","applink":"https://test-applinks.momo.vn/payment/v2?action=payWithApp&isScanQR=false&serviceType=app&sid=TU9NT0JLVU4yMDE4MDUyOXxPUkRfMTc2NTAwNjU1OQ&v=3.0&deeplinkCallback=http%3A%2F%2Flocalhost%3A3000%2Findex.php%3Fctrl%3Dcart%26act%3Dreturn_momo&callBackUrl=http%3A%2F%2Flocalhost%3A3000%2Findex.php%3Fctrl%3Dcart%26act%3Dreturn_momo","deeplinkMiniApp":"momo://app?action=payWithApp&isScanQR=false&serviceType=miniapp&sid=TU9NT0JLVU4yMDE4MDUyOXxPUkRfMTc2NTAwNjU1OQ&v=3.0","signature":"7b36491bb984d72042b30330b184a55b3a9344ea997f77f84a07b2cb128f2ad1"}
+    [verbose_log] => * Host test-payment.momo.vn:443 was resolved.
+* IPv6: (none)
+* IPv4: 210.245.113.71
+*   Trying 210.245.113.71:443...
+* Connected to test-payment.momo.vn (210.245.113.71) port 443
+* ALPN: curl offers h2,http/1.1
+* SSL connection using TLSv1.2 / ECDHE-RSA-CHACHA20-POLY1305 / X25519 / RSASSA-PSS
+* ALPN: server accepted h2
+* Server certificate:
+*  subject: C=VN; ST=Ho Chi Minh; L=Ho Chi Minh; O=Online Mobile Services Joint Stock Company; CN=*.momo.vn
+*  start date: Dec  5 06:41:07 2024 GMT
+*  expire date: Jan  6 06:41:06 2026 GMT
+*  issuer: C=BE; O=GlobalSign nv-sa; CN=GlobalSign RSA OV SSL CA 2018
+*  SSL certificate verify result: self-signed certificate in certificate chain (19), continuing anyway.
+*   Certificate level 0: Public key type RSA (2048/112 Bits/secBits), signed using sha256WithRSAEncryption
+*   Certificate level 1: Public key type RSA (2048/112 Bits/secBits), signed using sha256WithRSAEncryption
+*   Certificate level 2: Public key type RSA (2048/112 Bits/secBits), signed using sha256WithRSAEncryption
+* using HTTP/2
+* [HTTP/2] [1] OPENED stream for https://test-payment.momo.vn/v2/gateway/api/create
+* [HTTP/2] [1] [:method: POST]
+* [HTTP/2] [1] [:scheme: https]
+* [HTTP/2] [1] [:authority: test-payment.momo.vn]
+* [HTTP/2] [1] [:path: /v2/gateway/api/create]
+* [HTTP/2] [1] [accept: */*]
+* [HTTP/2] [1] [content-type: application/json]
+* [HTTP/2] [1] [content-length: 496]
+> POST /v2/gateway/api/create HTTP/2
+Host: test-payment.momo.vn
+Accept: */*
+Content-Type: application/json
+Content-Length: 496
+
+* upload completely sent off: 496 bytes
+< HTTP/2 200 
+< server: nginx
+< date: Sat, 06 Dec 2025 07:35:59 GMT
+< content-type: application/json
+< vary: Accept-Encoding
+< x-content-type-options: nosniff
+< x-xss-protection: 1; mode=block
+< pragma: no-cache
+< strict-transport-security: max-age=15768000
+< 
+* Connection #0 to host test-payment.momo.vn left intact
+
+)
+
+--------------------------------------------------------------------------------
+
+[2025-12-06 07:35:59] [MOMO_RESPONSE]
+Array
+(
+    [partnerCode] => MOMOBKUN20180529
+    [orderId] => ORD_1765006559
+    [requestId] => 17650065595134
+    [amount] => 3799000
+    [responseTime] => 1765006559962
+    [message] => Thành công.
+    [resultCode] => 0
+    [payUrl] => https://test-payment.momo.vn/v2/gateway/pay?t=TU9NT0JLVU4yMDE4MDUyOXxPUkRfMTc2NTAwNjU1OQ&s=f5bc89acd5ac3832777c57c7c3d33d4b55d6aaf66f3524233d9f06020d3d80e1
+    [deeplink] => momo://app?action=payWithApp&isScanQR=false&serviceType=app&sid=TU9NT0JLVU4yMDE4MDUyOXxPUkRfMTc2NTAwNjU1OQ&v=3.0
+    [qrCodeUrl] => 00020101021226110007vn.momo38620010A00000072701320006970454011899MM25340O000000410208QRIBFTTA5303704540737990005802VN62470515MMTEEa2ohPVNiQR0824Payment for order ORD17663043852
+    [applink] => https://test-applinks.momo.vn/payment/v2?action=payWithApp&isScanQR=false&serviceType=app&sid=TU9NT0JLVU4yMDE4MDUyOXxPUkRfMTc2NTAwNjU1OQ&v=3.0&deeplinkCallback=http%3A%2F%2Flocalhost%3A3000%2Findex.php%3Fctrl%3Dcart%26act%3Dreturn_momo&callBackUrl=http%3A%2F%2Flocalhost%3A3000%2Findex.php%3Fctrl%3Dcart%26act%3Dreturn_momo
+    [deeplinkMiniApp] => momo://app?action=payWithApp&isScanQR=false&serviceType=miniapp&sid=TU9NT0JLVU4yMDE4MDUyOXxPUkRfMTc2NTAwNjU1OQ&v=3.0
+    [signature] => 7b36491bb984d72042b30330b184a55b3a9344ea997f77f84a07b2cb128f2ad1
+)
+
+--------------------------------------------------------------------------------
+
+[2025-12-06 07:41:43] [Bắt đầu tạo thanh toán MoMo]
+Array
+(
+    [orderId] => ORD_1765006903
+    [amount] => 3799000
+)
+
+--------------------------------------------------------------------------------
+
+[2025-12-06 07:41:43] [URL Callback]
+Array
+(
+    [baseUrl] => http://localhost:3000/
+    [redirectUrl] => http://localhost:3000/index.php?ctrl=cart&act=return_momo
+    [ipnUrl] => http://localhost:3000/index.php?ctrl=cart&act=notify_momo
+)
+
+--------------------------------------------------------------------------------
+
+[2025-12-06 07:41:43] [Signature Info]
+Array
+(
+    [rawHash] => accessKey=klm05TvNBzhg7h7j&amount=3799000&extraData=&ipnUrl=http://localhost:3000/index.php?ctrl=cart&act=notify_momo&orderId=ORD_1765006903&orderInfo=Thanh toan don hang ORD_1765006903&partnerCode=MOMOBKUN20180529&redirectUrl=http://localhost:3000/index.php?ctrl=cart&act=return_momo&requestId=1765006903435&requestType=captureWallet
+    [signature] => b19fb50db6c7a638f26e2490f67c4c5fd9fab23e3b71873fb632fd22b1c7d35e
+)
+
+--------------------------------------------------------------------------------
+
+[2025-12-06 07:41:43] [Data gửi đến MoMo]
+Array
+(
+    [partnerCode] => MOMOBKUN20180529
+    [partnerName] => PhuongStore
+    [storeId] => PhuongStore_01
+    [requestId] => 1765006903435
+    [amount] => 3799000
+    [orderId] => ORD_1765006903
+    [orderInfo] => Thanh toan don hang ORD_1765006903
+    [redirectUrl] => http://localhost:3000/index.php?ctrl=cart&act=return_momo
+    [ipnUrl] => http://localhost:3000/index.php?ctrl=cart&act=notify_momo
+    [lang] => vi
+    [extraData] => 
+    [requestType] => captureWallet
+    [signature] => b19fb50db6c7a638f26e2490f67c4c5fd9fab23e3b71873fb632fd22b1c7d35e
+)
+
+--------------------------------------------------------------------------------
+
+[2025-12-06 07:41:43] [Response từ MoMo]
+Array
+(
+    [httpCode] => 200
+    [curlError] => 
+    [curlErrno] => 0
+    [result] => {"partnerCode":"MOMOBKUN20180529","orderId":"ORD_1765006903","requestId":"1765006903435","amount":3799000,"responseTime":1765006904312,"message":"Thành công.","resultCode":0,"payUrl":"https://test-payment.momo.vn/v2/gateway/pay?t=TU9NT0JLVU4yMDE4MDUyOXxPUkRfMTc2NTAwNjkwMw&s=57ac6976fd45f15dcac2fd513469c2d636a9c00b4e918b225b069bdec9d7aec6","deeplink":"momo://app?action=payWithApp&isScanQR=false&serviceType=app&sid=TU9NT0JLVU4yMDE4MDUyOXxPUkRfMTc2NTAwNjkwMw&v=3.0","qrCodeUrl":"00020101021226110007vn.momo38620010A00000072701320006970454011899MM25340O000000430208QRIBFTTA5303704540737990005802VN62470515MMTYwxcS0cadSQR0824Thanh toan don hang ORD163040EF7","applink":"https://test-applinks.momo.vn/payment/v2?action=payWithApp&isScanQR=false&serviceType=app&sid=TU9NT0JLVU4yMDE4MDUyOXxPUkRfMTc2NTAwNjkwMw&v=3.0&deeplinkCallback=http%3A%2F%2Flocalhost%3A3000%2Findex.php%3Fctrl%3Dcart%26act%3Dreturn_momo&callBackUrl=http%3A%2F%2Flocalhost%3A3000%2Findex.php%3Fctrl%3Dcart%26act%3Dreturn_momo","deeplinkMiniApp":"momo://app?action=payWithApp&isScanQR=false&serviceType=miniapp&sid=TU9NT0JLVU4yMDE4MDUyOXxPUkRfMTc2NTAwNjkwMw&v=3.0","signature":"8ef9683670052ce501f01ce52bf785639aa6f3d02e9c9c186ce5bc2a3ac5c898"}
+    [verboseLog] => * Host test-payment.momo.vn:443 was resolved.
+* IPv6: (none)
+* IPv4: 210.245.113.71
+*   Trying 210.245.113.71:443...
+* Connected to test-payment.momo.vn (210.245.113.71) port 443
+* ALPN: curl offers h2,http/1.1
+* SSL connection using TLSv1.2 / ECDHE-RSA-CHACHA20-POLY1305 / X25519 / RSASSA-PSS
+* ALPN: server accepted h2
+* Server certificate:
+*  subject: C=VN; ST=Ho Chi Minh; L=Ho Chi Minh; O=Online Mobile Services Joint Stock Company; CN=*.momo.vn
+*  start date: Dec  5 06:41:07 2024 GMT
+*  expire date: Jan  6 06:41:06 2026 GMT
+*  issuer: C=BE; O=GlobalSign nv-sa; CN=GlobalSign RSA OV SSL CA 2018
+*  SSL certificate verify result: self-signed certificate in certificate chain (19), continuing anyway.
+*   Certificate level 0: Public key type RSA (2048/112 Bits/secBits), signed using sha256WithRSAEncryption
+*   Certificate level 1: Public key type RSA (2048/112 Bits/secBits), signed using sha256WithRSAEncryption
+*   Certificate level 2: Public key type RSA (2048/112 Bits/secBits), signed using sha256WithRSAEncryption
+* using HTTP/2
+* [HTTP/2] [1] OPENED stream for https://test-payment.momo.vn/v2/gateway/api/create
+* [HTTP/2] [1] [:method: POST]
+* [HTTP/2] [1] [:scheme: https]
+* [HTTP/2] [1] [:authority: test-payment.momo.vn]
+* [HTTP/2] [1] [:path: /v2/gateway/api/create]
+* [HTTP/2] [1] [accept: */*]
+* [HTTP/2] [1] [content-type: application/json]
+* [HTTP/2] [1] [content-length: 497]
+> POST /v2/gateway/api/create HTTP/2
+Host: test-payment.momo.vn
+Accept: */*
+Content-Type: application/json
+Content-Length: 497
+
+* upload completely sent off: 497 bytes
+< HTTP/2 200 
+< server: nginx
+< date: Sat, 06 Dec 2025 07:41:44 GMT
+< content-type: application/json
+< vary: Accept-Encoding
+< x-content-type-options: nosniff
+< x-xss-protection: 1; mode=block
+< pragma: no-cache
+< strict-transport-security: max-age=15768000
+< 
+* Connection #0 to host test-payment.momo.vn left intact
+
+)
+
+--------------------------------------------------------------------------------
+
+[2025-12-06 07:41:43] [Response parsed]
+Array
+(
+    [partnerCode] => MOMOBKUN20180529
+    [orderId] => ORD_1765006903
+    [requestId] => 1765006903435
+    [amount] => 3799000
+    [responseTime] => 1765006904312
+    [message] => Thành công.
+    [resultCode] => 0
+    [payUrl] => https://test-payment.momo.vn/v2/gateway/pay?t=TU9NT0JLVU4yMDE4MDUyOXxPUkRfMTc2NTAwNjkwMw&s=57ac6976fd45f15dcac2fd513469c2d636a9c00b4e918b225b069bdec9d7aec6
+    [deeplink] => momo://app?action=payWithApp&isScanQR=false&serviceType=app&sid=TU9NT0JLVU4yMDE4MDUyOXxPUkRfMTc2NTAwNjkwMw&v=3.0
+    [qrCodeUrl] => 00020101021226110007vn.momo38620010A00000072701320006970454011899MM25340O000000430208QRIBFTTA5303704540737990005802VN62470515MMTYwxcS0cadSQR0824Thanh toan don hang ORD163040EF7
+    [applink] => https://test-applinks.momo.vn/payment/v2?action=payWithApp&isScanQR=false&serviceType=app&sid=TU9NT0JLVU4yMDE4MDUyOXxPUkRfMTc2NTAwNjkwMw&v=3.0&deeplinkCallback=http%3A%2F%2Flocalhost%3A3000%2Findex.php%3Fctrl%3Dcart%26act%3Dreturn_momo&callBackUrl=http%3A%2F%2Flocalhost%3A3000%2Findex.php%3Fctrl%3Dcart%26act%3Dreturn_momo
+    [deeplinkMiniApp] => momo://app?action=payWithApp&isScanQR=false&serviceType=miniapp&sid=TU9NT0JLVU4yMDE4MDUyOXxPUkRfMTc2NTAwNjkwMw&v=3.0
+    [signature] => 8ef9683670052ce501f01ce52bf785639aa6f3d02e9c9c186ce5bc2a3ac5c898
+)
+
+--------------------------------------------------------------------------------
+
+[2025-12-06 07:41:43] [THÀNH CÔNG - Trả về payUrl]
+Array
+(
+    [payUrl] => https://test-payment.momo.vn/v2/gateway/pay?t=TU9NT0JLVU4yMDE4MDUyOXxPUkRfMTc2NTAwNjkwMw&s=57ac6976fd45f15dcac2fd513469c2d636a9c00b4e918b225b069bdec9d7aec6
+    [qrCodeUrl] => 00020101021226110007vn.momo38620010A00000072701320006970454011899MM25340O000000430208QRIBFTTA5303704540737990005802VN62470515MMTYwxcS0cadSQR0824Thanh toan don hang ORD163040EF7
+    [deeplink] => momo://app?action=payWithApp&isScanQR=false&serviceType=app&sid=TU9NT0JLVU4yMDE4MDUyOXxPUkRfMTc2NTAwNjkwMw&v=3.0
+    [resultCode] => 0
+    [message] => Tạo thanh toán thành công
+    [orderId] => ORD_1765006903
+    [amount] => 3799000
+)
+
+--------------------------------------------------------------------------------
+
+[2025-12-06 07:47:06] [Bắt đầu tạo thanh toán MoMo]
+Array
+(
+    [orderId] => ORD_1765007226
+    [amount] => 3799000
+)
+
+--------------------------------------------------------------------------------
+
+[2025-12-06 07:47:06] [URL Callback]
+Array
+(
+    [baseUrl] => http://localhost:3000/
+    [redirectUrl] => http://localhost:3000/index.php?ctrl=cart&act=return_momo
+    [ipnUrl] => http://localhost:3000/index.php?ctrl=cart&act=notify_momo
+)
+
+--------------------------------------------------------------------------------
+
+[2025-12-06 07:47:06] [Signature Info]
+Array
+(
+    [rawHash] => accessKey=F8BBA842ECF85&amount=3799000&extraData=&ipnUrl=http://localhost:3000/index.php?ctrl=cart&act=notify_momo&orderId=ORD_1765007226&orderInfo=Thanh toan don hang ORD_1765007226&partnerCode=MOMO&redirectUrl=http://localhost:3000/index.php?ctrl=cart&act=return_momo&requestId=1765007226156&requestType=captureWallet
+    [signature] => c2b9eb7cd28c11684c2ab5a4dbb406f21981a3e166b588faf51a66cc66095217
+)
+
+--------------------------------------------------------------------------------
+
+[2025-12-06 07:47:06] [Data gửi đến MoMo]
+Array
+(
+    [partnerCode] => MOMO
+    [partnerName] => PhuongStore
+    [storeId] => PhuongStore_01
+    [requestId] => 1765007226156
+    [amount] => 3799000
+    [orderId] => ORD_1765007226
+    [orderInfo] => Thanh toan don hang ORD_1765007226
+    [redirectUrl] => http://localhost:3000/index.php?ctrl=cart&act=return_momo
+    [ipnUrl] => http://localhost:3000/index.php?ctrl=cart&act=notify_momo
+    [lang] => vi
+    [extraData] => 
+    [requestType] => captureWallet
+    [signature] => c2b9eb7cd28c11684c2ab5a4dbb406f21981a3e166b588faf51a66cc66095217
+)
+
+--------------------------------------------------------------------------------
+
+[2025-12-06 07:47:06] [Response từ MoMo]
+Array
+(
+    [httpCode] => 400
+    [curlError] => 
+    [curlErrno] => 0
+    [result] => {"responseTime":1765007226499,"message":"Chữ ký không hợp lệ. Vui lòng kiểm tra dữ liệu gốc trước khi mã hóa : accessKey=***&amount=3799000&extraData=&ipnUrl=http://localhost:3000/index.php?ctrl=cart&act=notify_momo&orderId=ORD_1765007226&orderInfo=Thanh toan don hang ORD_1765007226&partnerCode=MOMO&redirectUrl=http://localhost:3000/index.php?ctrl=cart&act=return_momo&requestId=1765007226156&requestType=captureWallet.","resultCode":11007}
+    [verboseLog] => * Host test-payment.momo.vn:443 was resolved.
+* IPv6: (none)
+* IPv4: 210.245.113.71
+*   Trying 210.245.113.71:443...
+* Connected to test-payment.momo.vn (210.245.113.71) port 443
+* ALPN: curl offers h2,http/1.1
+* SSL connection using TLSv1.2 / ECDHE-RSA-CHACHA20-POLY1305 / X25519 / RSASSA-PSS
+* ALPN: server accepted h2
+* Server certificate:
+*  subject: C=VN; ST=Ho Chi Minh; L=Ho Chi Minh; O=Online Mobile Services Joint Stock Company; CN=*.momo.vn
+*  start date: Dec  5 06:41:07 2024 GMT
+*  expire date: Jan  6 06:41:06 2026 GMT
+*  issuer: C=BE; O=GlobalSign nv-sa; CN=GlobalSign RSA OV SSL CA 2018
+*  SSL certificate verify result: self-signed certificate in certificate chain (19), continuing anyway.
+*   Certificate level 0: Public key type RSA (2048/112 Bits/secBits), signed using sha256WithRSAEncryption
+*   Certificate level 1: Public key type RSA (2048/112 Bits/secBits), signed using sha256WithRSAEncryption
+*   Certificate level 2: Public key type RSA (2048/112 Bits/secBits), signed using sha256WithRSAEncryption
+* using HTTP/2
+* [HTTP/2] [1] OPENED stream for https://test-payment.momo.vn/v2/gateway/api/create
+* [HTTP/2] [1] [:method: POST]
+* [HTTP/2] [1] [:scheme: https]
+* [HTTP/2] [1] [:authority: test-payment.momo.vn]
+* [HTTP/2] [1] [:path: /v2/gateway/api/create]
+* [HTTP/2] [1] [accept: */*]
+* [HTTP/2] [1] [content-type: application/json]
+* [HTTP/2] [1] [content-length: 485]
+> POST /v2/gateway/api/create HTTP/2
+Host: test-payment.momo.vn
+Accept: */*
+Content-Type: application/json
+Content-Length: 485
+
+* upload completely sent off: 485 bytes
+< HTTP/2 400 
+< server: nginx
+< date: Sat, 06 Dec 2025 07:47:06 GMT
+< content-type: application/json
+< x-content-type-options: nosniff
+< x-xss-protection: 1; mode=block
+< pragma: no-cache
+< 
+* Connection #0 to host test-payment.momo.vn left intact
+
+)
+
+--------------------------------------------------------------------------------
+
+[2025-12-06 07:47:06] [EXCEPTION]
+Array
+(
+    [message] => HTTP Error 400 từ MoMo API
+    [file] => C:\wamp64\www\doanchuyenganh\app\core\MomoPayment.php
+    [line] => 135
+    [orderId] => ORD_1765007226
+    [amount] => 3799000
+)
+
+--------------------------------------------------------------------------------
+
+[2025-12-06 07:47:40] [Bắt đầu tạo thanh toán MoMo]
+Array
+(
+    [orderId] => ORD_1765007260
+    [amount] => 3799000
+)
+
+--------------------------------------------------------------------------------
+
+[2025-12-06 07:47:40] [URL Callback]
+Array
+(
+    [baseUrl] => http://localhost:3000/
+    [redirectUrl] => http://localhost:3000/index.php?ctrl=cart&act=return_momo
+    [ipnUrl] => http://localhost:3000/index.php?ctrl=cart&act=notify_momo
+)
+
+--------------------------------------------------------------------------------
+
+[2025-12-06 07:47:40] [Signature Info]
+Array
+(
+    [rawHash] => accessKey=F8BBA842ECF85&amount=3799000&extraData=&ipnUrl=http://localhost:3000/index.php?ctrl=cart&act=notify_momo&orderId=ORD_1765007260&orderInfo=Thanh toan don hang ORD_1765007260&partnerCode=MOMO&redirectUrl=http://localhost:3000/index.php?ctrl=cart&act=return_momo&requestId=1765007260990&requestType=captureWallet
+    [signature] => 6703481f9d169bca11681eaf92d5053fa8b0b7396fbb793f673b6a3b1615cf3d
+)
+
+--------------------------------------------------------------------------------
+
+[2025-12-06 07:47:40] [Data gửi đến MoMo]
+Array
+(
+    [partnerCode] => MOMO
+    [partnerName] => PhuongStore
+    [storeId] => PhuongStore_01
+    [requestId] => 1765007260990
+    [amount] => 3799000
+    [orderId] => ORD_1765007260
+    [orderInfo] => Thanh toan don hang ORD_1765007260
+    [redirectUrl] => http://localhost:3000/index.php?ctrl=cart&act=return_momo
+    [ipnUrl] => http://localhost:3000/index.php?ctrl=cart&act=notify_momo
+    [lang] => vi
+    [extraData] => 
+    [requestType] => captureWallet
+    [signature] => 6703481f9d169bca11681eaf92d5053fa8b0b7396fbb793f673b6a3b1615cf3d
+)
+
+--------------------------------------------------------------------------------
+
+[2025-12-06 07:47:41] [Response từ MoMo]
+Array
+(
+    [httpCode] => 400
+    [curlError] => 
+    [curlErrno] => 0
+    [result] => {"responseTime":1765007261469,"message":"Chữ ký không hợp lệ. Vui lòng kiểm tra dữ liệu gốc trước khi mã hóa : accessKey=***&amount=3799000&extraData=&ipnUrl=http://localhost:3000/index.php?ctrl=cart&act=notify_momo&orderId=ORD_1765007260&orderInfo=Thanh toan don hang ORD_1765007260&partnerCode=MOMO&redirectUrl=http://localhost:3000/index.php?ctrl=cart&act=return_momo&requestId=1765007260990&requestType=captureWallet.","resultCode":11007}
+    [verboseLog] => * Host test-payment.momo.vn:443 was resolved.
+* IPv6: (none)
+* IPv4: 210.245.113.71
+*   Trying 210.245.113.71:443...
+* Connected to test-payment.momo.vn (210.245.113.71) port 443
+* ALPN: curl offers h2,http/1.1
+* SSL connection using TLSv1.2 / ECDHE-RSA-CHACHA20-POLY1305 / X25519 / RSASSA-PSS
+* ALPN: server accepted h2
+* Server certificate:
+*  subject: C=VN; ST=Ho Chi Minh; L=Ho Chi Minh; O=Online Mobile Services Joint Stock Company; CN=*.momo.vn
+*  start date: Dec  5 06:41:07 2024 GMT
+*  expire date: Jan  6 06:41:06 2026 GMT
+*  issuer: C=BE; O=GlobalSign nv-sa; CN=GlobalSign RSA OV SSL CA 2018
+*  SSL certificate verify result: self-signed certificate in certificate chain (19), continuing anyway.
+*   Certificate level 0: Public key type RSA (2048/112 Bits/secBits), signed using sha256WithRSAEncryption
+*   Certificate level 1: Public key type RSA (2048/112 Bits/secBits), signed using sha256WithRSAEncryption
+*   Certificate level 2: Public key type RSA (2048/112 Bits/secBits), signed using sha256WithRSAEncryption
+* using HTTP/2
+* [HTTP/2] [1] OPENED stream for https://test-payment.momo.vn/v2/gateway/api/create
+* [HTTP/2] [1] [:method: POST]
+* [HTTP/2] [1] [:scheme: https]
+* [HTTP/2] [1] [:authority: test-payment.momo.vn]
+* [HTTP/2] [1] [:path: /v2/gateway/api/create]
+* [HTTP/2] [1] [accept: */*]
+* [HTTP/2] [1] [content-type: application/json]
+* [HTTP/2] [1] [content-length: 485]
+> POST /v2/gateway/api/create HTTP/2
+Host: test-payment.momo.vn
+Accept: */*
+Content-Type: application/json
+Content-Length: 485
+
+* upload completely sent off: 485 bytes
+< HTTP/2 400 
+< server: nginx
+< date: Sat, 06 Dec 2025 07:47:41 GMT
+< content-type: application/json
+< x-content-type-options: nosniff
+< x-xss-protection: 1; mode=block
+< pragma: no-cache
+< 
+* Connection #0 to host test-payment.momo.vn left intact
+
+)
+
+--------------------------------------------------------------------------------
+
+[2025-12-06 07:47:41] [EXCEPTION]
+Array
+(
+    [message] => HTTP Error 400 từ MoMo API
+    [file] => C:\wamp64\www\doanchuyenganh\app\core\MomoPayment.php
+    [line] => 135
+    [orderId] => ORD_1765007260
+    [amount] => 3799000
+)
+
+--------------------------------------------------------------------------------
+
+[2025-12-06 07:47:47] [Bắt đầu tạo thanh toán MoMo]
+Array
+(
+    [orderId] => ORD_1765007267
+    [amount] => 3799000
+)
+
+--------------------------------------------------------------------------------
+
+[2025-12-06 07:47:47] [URL Callback]
+Array
+(
+    [baseUrl] => http://localhost:3000/
+    [redirectUrl] => http://localhost:3000/index.php?ctrl=cart&act=return_momo
+    [ipnUrl] => http://localhost:3000/index.php?ctrl=cart&act=notify_momo
+)
+
+--------------------------------------------------------------------------------
+
+[2025-12-06 07:47:47] [Signature Info]
+Array
+(
+    [rawHash] => accessKey=F8BBA842ECF85&amount=3799000&extraData=&ipnUrl=http://localhost:3000/index.php?ctrl=cart&act=notify_momo&orderId=ORD_1765007267&orderInfo=Thanh toan don hang ORD_1765007267&partnerCode=MOMO&redirectUrl=http://localhost:3000/index.php?ctrl=cart&act=return_momo&requestId=1765007267974&requestType=captureWallet
+    [signature] => d369aff9dd225afd4ac1f0d0c4be37f048c3f19196c189ea2f44354729cafafd
+)
+
+--------------------------------------------------------------------------------
+
+[2025-12-06 07:47:47] [Data gửi đến MoMo]
+Array
+(
+    [partnerCode] => MOMO
+    [partnerName] => PhuongStore
+    [storeId] => PhuongStore_01
+    [requestId] => 1765007267974
+    [amount] => 3799000
+    [orderId] => ORD_1765007267
+    [orderInfo] => Thanh toan don hang ORD_1765007267
+    [redirectUrl] => http://localhost:3000/index.php?ctrl=cart&act=return_momo
+    [ipnUrl] => http://localhost:3000/index.php?ctrl=cart&act=notify_momo
+    [lang] => vi
+    [extraData] => 
+    [requestType] => captureWallet
+    [signature] => d369aff9dd225afd4ac1f0d0c4be37f048c3f19196c189ea2f44354729cafafd
+)
+
+--------------------------------------------------------------------------------
+
+[2025-12-06 07:47:47] [Response từ MoMo]
+Array
+(
+    [httpCode] => 400
+    [curlError] => 
+    [curlErrno] => 0
+    [result] => {"responseTime":1765007268357,"message":"Chữ ký không hợp lệ. Vui lòng kiểm tra dữ liệu gốc trước khi mã hóa : accessKey=***&amount=3799000&extraData=&ipnUrl=http://localhost:3000/index.php?ctrl=cart&act=notify_momo&orderId=ORD_1765007267&orderInfo=Thanh toan don hang ORD_1765007267&partnerCode=MOMO&redirectUrl=http://localhost:3000/index.php?ctrl=cart&act=return_momo&requestId=1765007267974&requestType=captureWallet.","resultCode":11007}
+    [verboseLog] => * Host test-payment.momo.vn:443 was resolved.
+* IPv6: (none)
+* IPv4: 210.245.113.71
+*   Trying 210.245.113.71:443...
+* Connected to test-payment.momo.vn (210.245.113.71) port 443
+* ALPN: curl offers h2,http/1.1
+* SSL connection using TLSv1.2 / ECDHE-RSA-CHACHA20-POLY1305 / X25519 / RSASSA-PSS
+* ALPN: server accepted h2
+* Server certificate:
+*  subject: C=VN; ST=Ho Chi Minh; L=Ho Chi Minh; O=Online Mobile Services Joint Stock Company; CN=*.momo.vn
+*  start date: Dec  5 06:41:07 2024 GMT
+*  expire date: Jan  6 06:41:06 2026 GMT
+*  issuer: C=BE; O=GlobalSign nv-sa; CN=GlobalSign RSA OV SSL CA 2018
+*  SSL certificate verify result: self-signed certificate in certificate chain (19), continuing anyway.
+*   Certificate level 0: Public key type RSA (2048/112 Bits/secBits), signed using sha256WithRSAEncryption
+*   Certificate level 1: Public key type RSA (2048/112 Bits/secBits), signed using sha256WithRSAEncryption
+*   Certificate level 2: Public key type RSA (2048/112 Bits/secBits), signed using sha256WithRSAEncryption
+* using HTTP/2
+* [HTTP/2] [1] OPENED stream for https://test-payment.momo.vn/v2/gateway/api/create
+* [HTTP/2] [1] [:method: POST]
+* [HTTP/2] [1] [:scheme: https]
+* [HTTP/2] [1] [:authority: test-payment.momo.vn]
+* [HTTP/2] [1] [:path: /v2/gateway/api/create]
+* [HTTP/2] [1] [accept: */*]
+* [HTTP/2] [1] [content-type: application/json]
+* [HTTP/2] [1] [content-length: 485]
+> POST /v2/gateway/api/create HTTP/2
+Host: test-payment.momo.vn
+Accept: */*
+Content-Type: application/json
+Content-Length: 485
+
+* upload completely sent off: 485 bytes
+< HTTP/2 400 
+< server: nginx
+< date: Sat, 06 Dec 2025 07:47:48 GMT
+< content-type: application/json
+< x-content-type-options: nosniff
+< x-xss-protection: 1; mode=block
+< pragma: no-cache
+< 
+* Connection #0 to host test-payment.momo.vn left intact
+
+)
+
+--------------------------------------------------------------------------------
+
+[2025-12-06 07:47:47] [EXCEPTION]
+Array
+(
+    [message] => HTTP Error 400 từ MoMo API
+    [file] => C:\wamp64\www\doanchuyenganh\app\core\MomoPayment.php
+    [line] => 135
+    [orderId] => ORD_1765007267
+    [amount] => 3799000
+)
+
+--------------------------------------------------------------------------------
+
+[2025-12-06 07:49:08] [Bắt đầu tạo thanh toán MoMo]
+Array
+(
+    [orderId] => ORD_1765007348
+    [amount] => 3799000
+)
+
+--------------------------------------------------------------------------------
+
+[2025-12-06 07:49:08] [URL Callback]
+Array
+(
+    [baseUrl] => http://localhost:3000/
+    [redirectUrl] => http://localhost:3000/index.php?ctrl=cart&act=return_momo
+    [ipnUrl] => http://localhost:3000/index.php?ctrl=cart&act=notify_momo
+)
+
+--------------------------------------------------------------------------------
+
+[2025-12-06 07:49:08] [Signature Info]
+Array
+(
+    [rawHash] => accessKey=F8BBA842ECF85&amount=3799000&extraData=&ipnUrl=http://localhost:3000/index.php?ctrl=cart&act=notify_momo&orderId=ORD_1765007348&orderInfo=Thanh toan don hang ORD_1765007348&partnerCode=MOMO&redirectUrl=http://localhost:3000/index.php?ctrl=cart&act=return_momo&requestId=1765007348287&requestType=captureWallet
+    [signature] => e75d99bb2b04fc30bd2b60b40680c3135d781f2cd99e2806acf94dd2484ae302
+)
+
+--------------------------------------------------------------------------------
+
+[2025-12-06 07:49:08] [Data gửi đến MoMo]
+Array
+(
+    [partnerCode] => MOMO
+    [partnerName] => PhuongStore
+    [storeId] => PhuongStore_01
+    [requestId] => 1765007348287
+    [amount] => 3799000
+    [orderId] => ORD_1765007348
+    [orderInfo] => Thanh toan don hang ORD_1765007348
+    [redirectUrl] => http://localhost:3000/index.php?ctrl=cart&act=return_momo
+    [ipnUrl] => http://localhost:3000/index.php?ctrl=cart&act=notify_momo
+    [lang] => vi
+    [extraData] => 
+    [requestType] => captureWallet
+    [signature] => e75d99bb2b04fc30bd2b60b40680c3135d781f2cd99e2806acf94dd2484ae302
+)
+
+--------------------------------------------------------------------------------
+
+[2025-12-06 07:49:09] [Response từ MoMo]
+Array
+(
+    [httpCode] => 400
+    [curlError] => 
+    [curlErrno] => 0
+    [result] => {"responseTime":1765007349486,"message":"Chữ ký không hợp lệ. Vui lòng kiểm tra dữ liệu gốc trước khi mã hóa : accessKey=***&amount=3799000&extraData=&ipnUrl=http://localhost:3000/index.php?ctrl=cart&act=notify_momo&orderId=ORD_1765007348&orderInfo=Thanh toan don hang ORD_1765007348&partnerCode=MOMO&redirectUrl=http://localhost:3000/index.php?ctrl=cart&act=return_momo&requestId=1765007348287&requestType=captureWallet.","resultCode":11007}
+    [verboseLog] => * Host test-payment.momo.vn:443 was resolved.
+* IPv6: (none)
+* IPv4: 210.245.113.71
+*   Trying 210.245.113.71:443...
+* Connected to test-payment.momo.vn (210.245.113.71) port 443
+* ALPN: curl offers h2,http/1.1
+* SSL connection using TLSv1.2 / ECDHE-RSA-CHACHA20-POLY1305 / X25519 / RSASSA-PSS
+* ALPN: server accepted h2
+* Server certificate:
+*  subject: C=VN; ST=Ho Chi Minh; L=Ho Chi Minh; O=Online Mobile Services Joint Stock Company; CN=*.momo.vn
+*  start date: Dec  5 06:41:07 2024 GMT
+*  expire date: Jan  6 06:41:06 2026 GMT
+*  issuer: C=BE; O=GlobalSign nv-sa; CN=GlobalSign RSA OV SSL CA 2018
+*  SSL certificate verify result: self-signed certificate in certificate chain (19), continuing anyway.
+*   Certificate level 0: Public key type RSA (2048/112 Bits/secBits), signed using sha256WithRSAEncryption
+*   Certificate level 1: Public key type RSA (2048/112 Bits/secBits), signed using sha256WithRSAEncryption
+*   Certificate level 2: Public key type RSA (2048/112 Bits/secBits), signed using sha256WithRSAEncryption
+* using HTTP/2
+* [HTTP/2] [1] OPENED stream for https://test-payment.momo.vn/v2/gateway/api/create
+* [HTTP/2] [1] [:method: POST]
+* [HTTP/2] [1] [:scheme: https]
+* [HTTP/2] [1] [:authority: test-payment.momo.vn]
+* [HTTP/2] [1] [:path: /v2/gateway/api/create]
+* [HTTP/2] [1] [accept: */*]
+* [HTTP/2] [1] [content-type: application/json]
+* [HTTP/2] [1] [content-length: 485]
+> POST /v2/gateway/api/create HTTP/2
+Host: test-payment.momo.vn
+Accept: */*
+Content-Type: application/json
+Content-Length: 485
+
+* upload completely sent off: 485 bytes
+< HTTP/2 400 
+< server: nginx
+< date: Sat, 06 Dec 2025 07:49:09 GMT
+< content-type: application/json
+< x-content-type-options: nosniff
+< x-xss-protection: 1; mode=block
+< pragma: no-cache
+< 
+* Connection #0 to host test-payment.momo.vn left intact
+
+)
+
+--------------------------------------------------------------------------------
+
+[2025-12-06 07:49:09] [EXCEPTION]
+Array
+(
+    [message] => HTTP Error 400 từ MoMo API
+    [file] => C:\wamp64\www\doanchuyenganh\app\core\MomoPayment.php
+    [line] => 135
+    [orderId] => ORD_1765007348
+    [amount] => 3799000
+)
+
+--------------------------------------------------------------------------------
+
+[2025-12-06 07:50:42] [Bắt đầu tạo thanh toán MoMo]
+Array
+(
+    [orderId] => ORD_1765007442
+    [amount] => 3799000
+)
+
+--------------------------------------------------------------------------------
+
+[2025-12-06 07:50:42] [URL Callback]
+Array
+(
+    [baseUrl] => http://localhost:3000/
+    [redirectUrl] => http://localhost:3000/index.php?ctrl=cart&act=return_momo
+    [ipnUrl] => http://localhost:3000/index.php?ctrl=cart&act=notify_momo
+)
+
+--------------------------------------------------------------------------------
+
+[2025-12-06 07:50:42] [Signature Info]
+Array
+(
+    [rawHash] => accessKey=F8BBA842ECF85&amount=3799000&extraData=&ipnUrl=http://localhost:3000/index.php?ctrl=cart&act=notify_momo&orderId=ORD_1765007442&orderInfo=Thanh toan don hang ORD_1765007442&partnerCode=MOMO&redirectUrl=http://localhost:3000/index.php?ctrl=cart&act=return_momo&requestId=1765007442635&requestType=captureWallet
+    [signature] => 6f8cefabb29df96a5c50c17dd508874ac07efb8c45fc5645e888416b663096a4
+)
+
+--------------------------------------------------------------------------------
+
+[2025-12-06 07:50:42] [Data gửi đến MoMo]
+Array
+(
+    [partnerCode] => MOMO
+    [partnerName] => PhuongStore
+    [storeId] => PhuongStore_01
+    [requestId] => 1765007442635
+    [amount] => 3799000
+    [orderId] => ORD_1765007442
+    [orderInfo] => Thanh toan don hang ORD_1765007442
+    [redirectUrl] => http://localhost:3000/index.php?ctrl=cart&act=return_momo
+    [ipnUrl] => http://localhost:3000/index.php?ctrl=cart&act=notify_momo
+    [lang] => vi
+    [extraData] => 
+    [requestType] => captureWallet
+    [signature] => 6f8cefabb29df96a5c50c17dd508874ac07efb8c45fc5645e888416b663096a4
+)
+
+--------------------------------------------------------------------------------
+
+[2025-12-06 07:50:42] [Response từ MoMo]
+Array
+(
+    [httpCode] => 400
+    [curlError] => 
+    [curlErrno] => 0
+    [result] => {"responseTime":1765007443057,"message":"Chữ ký không hợp lệ. Vui lòng kiểm tra dữ liệu gốc trước khi mã hóa : accessKey=***&amount=3799000&extraData=&ipnUrl=http://localhost:3000/index.php?ctrl=cart&act=notify_momo&orderId=ORD_1765007442&orderInfo=Thanh toan don hang ORD_1765007442&partnerCode=MOMO&redirectUrl=http://localhost:3000/index.php?ctrl=cart&act=return_momo&requestId=1765007442635&requestType=captureWallet.","resultCode":11007}
+    [verboseLog] => * Host test-payment.momo.vn:443 was resolved.
+* IPv6: (none)
+* IPv4: 210.245.113.71
+*   Trying 210.245.113.71:443...
+* Connected to test-payment.momo.vn (210.245.113.71) port 443
+* ALPN: curl offers h2,http/1.1
+* SSL connection using TLSv1.2 / ECDHE-RSA-CHACHA20-POLY1305 / X25519 / RSASSA-PSS
+* ALPN: server accepted h2
+* Server certificate:
+*  subject: C=VN; ST=Ho Chi Minh; L=Ho Chi Minh; O=Online Mobile Services Joint Stock Company; CN=*.momo.vn
+*  start date: Dec  5 06:41:07 2024 GMT
+*  expire date: Jan  6 06:41:06 2026 GMT
+*  issuer: C=BE; O=GlobalSign nv-sa; CN=GlobalSign RSA OV SSL CA 2018
+*  SSL certificate verify result: self-signed certificate in certificate chain (19), continuing anyway.
+*   Certificate level 0: Public key type RSA (2048/112 Bits/secBits), signed using sha256WithRSAEncryption
+*   Certificate level 1: Public key type RSA (2048/112 Bits/secBits), signed using sha256WithRSAEncryption
+*   Certificate level 2: Public key type RSA (2048/112 Bits/secBits), signed using sha256WithRSAEncryption
+* using HTTP/2
+* [HTTP/2] [1] OPENED stream for https://test-payment.momo.vn/v2/gateway/api/create
+* [HTTP/2] [1] [:method: POST]
+* [HTTP/2] [1] [:scheme: https]
+* [HTTP/2] [1] [:authority: test-payment.momo.vn]
+* [HTTP/2] [1] [:path: /v2/gateway/api/create]
+* [HTTP/2] [1] [accept: */*]
+* [HTTP/2] [1] [content-type: application/json]
+* [HTTP/2] [1] [content-length: 485]
+> POST /v2/gateway/api/create HTTP/2
+Host: test-payment.momo.vn
+Accept: */*
+Content-Type: application/json
+Content-Length: 485
+
+* upload completely sent off: 485 bytes
+< HTTP/2 400 
+< server: nginx
+< date: Sat, 06 Dec 2025 07:50:43 GMT
+< content-type: application/json
+< x-content-type-options: nosniff
+< x-xss-protection: 1; mode=block
+< pragma: no-cache
+< 
+* Connection #0 to host test-payment.momo.vn left intact
+
+)
+
+--------------------------------------------------------------------------------
+
+[2025-12-06 07:50:42] [EXCEPTION]
+Array
+(
+    [message] => HTTP Error 400 từ MoMo API
+    [file] => C:\wamp64\www\doanchuyenganh\app\core\MomoPayment.php
+    [line] => 135
+    [orderId] => ORD_1765007442
+    [amount] => 3799000
+)
+
+--------------------------------------------------------------------------------
+
+[2025-12-06 07:53:39] [Bắt đầu tạo thanh toán MoMo]
+Array
+(
+    [orderId] => ORD_1765007619
+    [amount] => 18995000
+)
+
+--------------------------------------------------------------------------------
+
+[2025-12-06 07:53:39] [URL Callback]
+Array
+(
+    [baseUrl] => http://localhost:3000/
+    [redirectUrl] => http://localhost:3000/index.php?ctrl=cart&act=return_momo
+    [ipnUrl] => http://localhost:3000/index.php?ctrl=cart&act=notify_momo
+)
+
+--------------------------------------------------------------------------------
+
+[2025-12-06 07:53:39] [Signature Info]
+Array
+(
+    [rawHash] => accessKey=F8BBA842ECF85&amount=18995000&extraData=&ipnUrl=http://localhost:3000/index.php?ctrl=cart&act=notify_momo&orderId=ORD_1765007619&orderInfo=Thanh toan don hang ORD_1765007619&partnerCode=MOMO&redirectUrl=http://localhost:3000/index.php?ctrl=cart&act=return_momo&requestId=1765007619874&requestType=captureWallet
+    [signature] => b634977bb0e30618693cfb6cab68b8305566a9403ecfb6338f01147c02fa55f1
+)
+
+--------------------------------------------------------------------------------
+
+[2025-12-06 07:53:39] [Data gửi đến MoMo]
+Array
+(
+    [partnerCode] => MOMO
+    [partnerName] => PhuongStore
+    [storeId] => PhuongStore_01
+    [requestId] => 1765007619874
+    [amount] => 18995000
+    [orderId] => ORD_1765007619
+    [orderInfo] => Thanh toan don hang ORD_1765007619
+    [redirectUrl] => http://localhost:3000/index.php?ctrl=cart&act=return_momo
+    [ipnUrl] => http://localhost:3000/index.php?ctrl=cart&act=notify_momo
+    [lang] => vi
+    [extraData] => 
+    [requestType] => captureWallet
+    [signature] => b634977bb0e30618693cfb6cab68b8305566a9403ecfb6338f01147c02fa55f1
+)
+
+--------------------------------------------------------------------------------
+
+[2025-12-06 07:53:39] [Response từ MoMo]
+Array
+(
+    [httpCode] => 400
+    [curlError] => 
+    [curlErrno] => 0
+    [result] => {"responseTime":1765007620203,"message":"Chữ ký không hợp lệ. Vui lòng kiểm tra dữ liệu gốc trước khi mã hóa : accessKey=***&amount=18995000&extraData=&ipnUrl=http://localhost:3000/index.php?ctrl=cart&act=notify_momo&orderId=ORD_1765007619&orderInfo=Thanh toan don hang ORD_1765007619&partnerCode=MOMO&redirectUrl=http://localhost:3000/index.php?ctrl=cart&act=return_momo&requestId=1765007619874&requestType=captureWallet.","resultCode":11007}
+    [verboseLog] => * Host test-payment.momo.vn:443 was resolved.
+* IPv6: (none)
+* IPv4: 210.245.113.71
+*   Trying 210.245.113.71:443...
+* Connected to test-payment.momo.vn (210.245.113.71) port 443
+* ALPN: curl offers h2,http/1.1
+* SSL connection using TLSv1.2 / ECDHE-RSA-CHACHA20-POLY1305 / X25519 / RSASSA-PSS
+* ALPN: server accepted h2
+* Server certificate:
+*  subject: C=VN; ST=Ho Chi Minh; L=Ho Chi Minh; O=Online Mobile Services Joint Stock Company; CN=*.momo.vn
+*  start date: Dec  5 06:41:07 2024 GMT
+*  expire date: Jan  6 06:41:06 2026 GMT
+*  issuer: C=BE; O=GlobalSign nv-sa; CN=GlobalSign RSA OV SSL CA 2018
+*  SSL certificate verify result: self-signed certificate in certificate chain (19), continuing anyway.
+*   Certificate level 0: Public key type RSA (2048/112 Bits/secBits), signed using sha256WithRSAEncryption
+*   Certificate level 1: Public key type RSA (2048/112 Bits/secBits), signed using sha256WithRSAEncryption
+*   Certificate level 2: Public key type RSA (2048/112 Bits/secBits), signed using sha256WithRSAEncryption
+* using HTTP/2
+* [HTTP/2] [1] OPENED stream for https://test-payment.momo.vn/v2/gateway/api/create
+* [HTTP/2] [1] [:method: POST]
+* [HTTP/2] [1] [:scheme: https]
+* [HTTP/2] [1] [:authority: test-payment.momo.vn]
+* [HTTP/2] [1] [:path: /v2/gateway/api/create]
+* [HTTP/2] [1] [accept: */*]
+* [HTTP/2] [1] [content-type: application/json]
+* [HTTP/2] [1] [content-length: 486]
+> POST /v2/gateway/api/create HTTP/2
+Host: test-payment.momo.vn
+Accept: */*
+Content-Type: application/json
+Content-Length: 486
+
+* upload completely sent off: 486 bytes
+< HTTP/2 400 
+< server: nginx
+< date: Sat, 06 Dec 2025 07:53:40 GMT
+< content-type: application/json
+< x-content-type-options: nosniff
+< x-xss-protection: 1; mode=block
+< pragma: no-cache
+< 
+* Connection #0 to host test-payment.momo.vn left intact
+
+)
+
+--------------------------------------------------------------------------------
+
+[2025-12-06 07:53:39] [EXCEPTION]
+Array
+(
+    [message] => HTTP Error 400 từ MoMo API
+    [file] => C:\wamp64\www\doanchuyenganh\app\core\MomoPayment.php
+    [line] => 135
+    [orderId] => ORD_1765007619
+    [amount] => 18995000
+)
+
+--------------------------------------------------------------------------------
+
+[2025-12-06 07:55:18] [Bắt đầu tạo thanh toán MoMo]
+Array
+(
+    [orderId] => ORD_1765007718
+    [amount] => 18995000
+)
+
+--------------------------------------------------------------------------------
+
+[2025-12-06 07:55:18] [URL Callback]
+Array
+(
+    [baseUrl] => http://localhost:3000/
+    [redirectUrl] => http://localhost:3000/index.php?ctrl=cart&act=return_momo
+    [ipnUrl] => http://localhost:3000/index.php?ctrl=cart&act=notify_momo
+)
+
+--------------------------------------------------------------------------------
+
+[2025-12-06 07:55:18] [Signature Info]
+Array
+(
+    [rawHash] => accessKey=F8BBA842ECF85&amount=18995000&extraData=&ipnUrl=http://localhost:3000/index.php?ctrl=cart&act=notify_momo&orderId=ORD_1765007718&orderInfo=Thanh toan don hang ORD_1765007718&partnerCode=MOMO&redirectUrl=http://localhost:3000/index.php?ctrl=cart&act=return_momo&requestId=1765007718962&requestType=captureWallet
+    [signature] => 4b5ed9039043b91292a6f69ad5fe4186ab98b49a651ef23540a2df7f78881665
+)
+
+--------------------------------------------------------------------------------
+
+[2025-12-06 07:55:18] [Data gửi đến MoMo]
+Array
+(
+    [partnerCode] => MOMO
+    [partnerName] => PhuongStore
+    [storeId] => PhuongStore_01
+    [requestId] => 1765007718962
+    [amount] => 18995000
+    [orderId] => ORD_1765007718
+    [orderInfo] => Thanh toan don hang ORD_1765007718
+    [redirectUrl] => http://localhost:3000/index.php?ctrl=cart&act=return_momo
+    [ipnUrl] => http://localhost:3000/index.php?ctrl=cart&act=notify_momo
+    [lang] => vi
+    [extraData] => 
+    [requestType] => captureWallet
+    [signature] => 4b5ed9039043b91292a6f69ad5fe4186ab98b49a651ef23540a2df7f78881665
+)
+
+--------------------------------------------------------------------------------
+
+[2025-12-06 07:55:18] [Response từ MoMo]
+Array
+(
+    [httpCode] => 400
+    [curlError] => 
+    [curlErrno] => 0
+    [result] => {"responseTime":1765007718992,"message":"Chữ ký không hợp lệ. Vui lòng kiểm tra dữ liệu gốc trước khi mã hóa : accessKey=***&amount=18995000&extraData=&ipnUrl=http://localhost:3000/index.php?ctrl=cart&act=notify_momo&orderId=ORD_1765007718&orderInfo=Thanh toan don hang ORD_1765007718&partnerCode=MOMO&redirectUrl=http://localhost:3000/index.php?ctrl=cart&act=return_momo&requestId=1765007718962&requestType=captureWallet.","resultCode":11007}
+    [verboseLog] => * Host test-payment.momo.vn:443 was resolved.
+* IPv6: (none)
+* IPv4: 210.245.113.71
+*   Trying 210.245.113.71:443...
+* Connected to test-payment.momo.vn (210.245.113.71) port 443
+* ALPN: curl offers h2,http/1.1
+* SSL connection using TLSv1.2 / ECDHE-RSA-CHACHA20-POLY1305 / X25519 / RSASSA-PSS
+* ALPN: server accepted h2
+* Server certificate:
+*  subject: C=VN; ST=Ho Chi Minh; L=Ho Chi Minh; O=Online Mobile Services Joint Stock Company; CN=*.momo.vn
+*  start date: Dec  5 06:41:07 2024 GMT
+*  expire date: Jan  6 06:41:06 2026 GMT
+*  issuer: C=BE; O=GlobalSign nv-sa; CN=GlobalSign RSA OV SSL CA 2018
+*  SSL certificate verify result: self-signed certificate in certificate chain (19), continuing anyway.
+*   Certificate level 0: Public key type RSA (2048/112 Bits/secBits), signed using sha256WithRSAEncryption
+*   Certificate level 1: Public key type RSA (2048/112 Bits/secBits), signed using sha256WithRSAEncryption
+*   Certificate level 2: Public key type RSA (2048/112 Bits/secBits), signed using sha256WithRSAEncryption
+* using HTTP/2
+* [HTTP/2] [1] OPENED stream for https://test-payment.momo.vn/v2/gateway/api/create
+* [HTTP/2] [1] [:method: POST]
+* [HTTP/2] [1] [:scheme: https]
+* [HTTP/2] [1] [:authority: test-payment.momo.vn]
+* [HTTP/2] [1] [:path: /v2/gateway/api/create]
+* [HTTP/2] [1] [accept: */*]
+* [HTTP/2] [1] [content-type: application/json]
+* [HTTP/2] [1] [content-length: 486]
+> POST /v2/gateway/api/create HTTP/2
+Host: test-payment.momo.vn
+Accept: */*
+Content-Type: application/json
+Content-Length: 486
+
+* upload completely sent off: 486 bytes
+< HTTP/2 400 
+< server: nginx
+< date: Sat, 06 Dec 2025 07:55:18 GMT
+< content-type: application/json
+< x-content-type-options: nosniff
+< x-xss-protection: 1; mode=block
+< pragma: no-cache
+< 
+* Connection #0 to host test-payment.momo.vn left intact
+
+)
+
+--------------------------------------------------------------------------------
+
+[2025-12-06 07:55:18] [EXCEPTION]
+Array
+(
+    [message] => HTTP Error 400 từ MoMo API
+    [file] => C:\wamp64\www\doanchuyenganh\app\core\MomoPayment.php
+    [line] => 135
+    [orderId] => ORD_1765007718
+    [amount] => 18995000
+)
+
+--------------------------------------------------------------------------------
+
+[2025-12-18 09:38:56] [Bắt đầu tạo thanh toán MoMo]
+Array
+(
+    [orderId] => ORD_1766050736
+    [amount] => 379900
+)
+
+--------------------------------------------------------------------------------
+
+[2025-12-18 09:38:56] [URL Callback]
+Array
+(
+    [baseUrl] => http://localhost:3000/
+    [redirectUrl] => http://localhost:3000/index.php?ctrl=cart&act=return_momo
+    [ipnUrl] => http://localhost:3000/index.php?ctrl=cart&act=notify_momo
+)
+
+--------------------------------------------------------------------------------
+
+[2025-12-18 09:38:56] [Signature Info]
+Array
+(
+    [rawHash] => accessKey=F8BBA842ECF85&amount=379900&extraData=&ipnUrl=http://localhost:3000/index.php?ctrl=cart&act=notify_momo&orderId=ORD_1766050736&orderInfo=Thanh toan don hang ORD_1766050736&partnerCode=MOMO&redirectUrl=http://localhost:3000/index.php?ctrl=cart&act=return_momo&requestId=1766050736964&requestType=captureWallet
+    [signature] => a082de114e5200531d2afb6dfe381a18ec37a256d285ec5476b73f99fd9e4cd6
+)
+
+--------------------------------------------------------------------------------
+
+[2025-12-18 09:38:56] [Data gửi đến MoMo]
+Array
+(
+    [partnerCode] => MOMO
+    [partnerName] => PhuongStore
+    [storeId] => PhuongStore_01
+    [requestId] => 1766050736964
+    [amount] => 379900
+    [orderId] => ORD_1766050736
+    [orderInfo] => Thanh toan don hang ORD_1766050736
+    [redirectUrl] => http://localhost:3000/index.php?ctrl=cart&act=return_momo
+    [ipnUrl] => http://localhost:3000/index.php?ctrl=cart&act=notify_momo
+    [lang] => vi
+    [extraData] => 
+    [requestType] => captureWallet
+    [signature] => a082de114e5200531d2afb6dfe381a18ec37a256d285ec5476b73f99fd9e4cd6
+)
+
+--------------------------------------------------------------------------------
+
+[2025-12-18 09:38:56] [Response từ MoMo]
+Array
+(
+    [httpCode] => 400
+    [curlError] => 
+    [curlErrno] => 0
+    [result] => {"responseTime":1766050735773,"message":"Chữ ký không hợp lệ. Vui lòng kiểm tra dữ liệu gốc trước khi mã hóa : accessKey=***&amount=379900&extraData=&ipnUrl=http://localhost:3000/index.php?ctrl=cart&act=notify_momo&orderId=ORD_1766050736&orderInfo=Thanh toan don hang ORD_1766050736&partnerCode=MOMO&redirectUrl=http://localhost:3000/index.php?ctrl=cart&act=return_momo&requestId=1766050736964&requestType=captureWallet.","resultCode":11007}
+    [verboseLog] => * Host test-payment.momo.vn:443 was resolved.
+* IPv6: (none)
+* IPv4: 210.245.113.71
+*   Trying 210.245.113.71:443...
+* Connected to test-payment.momo.vn (210.245.113.71) port 443
+* ALPN: curl offers h2,http/1.1
+* SSL connection using TLSv1.2 / ECDHE-RSA-CHACHA20-POLY1305 / X25519 / RSASSA-PSS
+* ALPN: server accepted h2
+* Server certificate:
+*  subject: C=VN; ST=Ho Chi Minh; L=Ho Chi Minh; O=Online Mobile Services Joint Stock Company; CN=*.momo.vn
+*  start date: Dec  5 06:41:07 2024 GMT
+*  expire date: Jan  6 06:41:06 2026 GMT
+*  issuer: C=BE; O=GlobalSign nv-sa; CN=GlobalSign RSA OV SSL CA 2018
+*  SSL certificate verify result: self-signed certificate in certificate chain (19), continuing anyway.
+*   Certificate level 0: Public key type RSA (2048/112 Bits/secBits), signed using sha256WithRSAEncryption
+*   Certificate level 1: Public key type RSA (2048/112 Bits/secBits), signed using sha256WithRSAEncryption
+*   Certificate level 2: Public key type RSA (2048/112 Bits/secBits), signed using sha256WithRSAEncryption
+* using HTTP/2
+* [HTTP/2] [1] OPENED stream for https://test-payment.momo.vn/v2/gateway/api/create
+* [HTTP/2] [1] [:method: POST]
+* [HTTP/2] [1] [:scheme: https]
+* [HTTP/2] [1] [:authority: test-payment.momo.vn]
+* [HTTP/2] [1] [:path: /v2/gateway/api/create]
+* [HTTP/2] [1] [accept: */*]
+* [HTTP/2] [1] [content-type: application/json]
+* [HTTP/2] [1] [content-length: 484]
+> POST /v2/gateway/api/create HTTP/2
+Host: test-payment.momo.vn
+Accept: */*
+Content-Type: application/json
+Content-Length: 484
+
+* upload completely sent off: 484 bytes
+< HTTP/2 400 
+< server: nginx
+< date: Thu, 18 Dec 2025 09:38:55 GMT
+< content-type: application/json
+< x-content-type-options: nosniff
+< x-xss-protection: 1; mode=block
+< pragma: no-cache
+< 
+* Connection #0 to host test-payment.momo.vn left intact
+
+)
+
+--------------------------------------------------------------------------------
+
+[2025-12-18 09:38:56] [EXCEPTION]
+Array
+(
+    [message] => HTTP Error 400 từ MoMo API
+    [file] => C:\wamp64\www\doanchuyenganh\app\core\MomoPayment.php
+    [line] => 135
+    [orderId] => ORD_1766050736
+    [amount] => 379900
+)
+
+--------------------------------------------------------------------------------
+

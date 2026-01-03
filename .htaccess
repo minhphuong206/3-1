@@ -1,0 +1,8 @@
+RewriteEngine On
+# SỬA DÒNG NÀY: Đổi thành / hoặc comment lại nếu chạy ở thư mục gốc
+RewriteBase / 
+
+# Các dòng dưới giữ nguyên
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php [L]

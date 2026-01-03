@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thanh Toán | PhươngSTORE</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="header">
+        <div class="container header-wrapper">
+            <a href="index.html" class="logo">Phương<span style="color:white">STORE</span></a>
+             <div class="header-actions">
+                <a href="giohang.html" class="icon-btn" style="font-size: 14px; display: flex; align-items: center; gap: 5px;">
+                    <i class="fa-solid fa-arrow-left"></i> Quay lại giỏ hàng
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <h2 class="section-title">Thông tin thanh toán</h2>
+
+        <form action="chitietdonhang.html" class="payment-container">
+            
+            <div class="payment-box">
+                <h3 class="payment-title">1. Thông tin người nhận</h3>
+                <div class="form-group">
+                    <label class="form-label">Họ và tên</label>
+                    <input type="text" class="form-input" placeholder="Nhập họ tên..." required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Số điện thoại</label>
+                    <input type="tel" class="form-input" placeholder="Nhập số điện thoại..." required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Địa chỉ giao hàng</label>
+                    <input type="text" class="form-input" placeholder="Số nhà, đường, phường, quận..." required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Ghi chú (Tùy chọn)</label>
+                    <input type="text" class="form-input" placeholder="VD: Giao giờ hành chính...">
+                </div>
+            </div>
+
+            <div class="payment-box">
+                <h3 class="payment-title">2. Chọn phương thức thanh toán</h3>
+                
+                <div class="payment-methods">
+                    <div class="method-item" onclick="selectMethod('momo')">
+                        <div class="radio-circle" id="radio-momo"></div>
+                        <img src="https://upload.wikimedia.org/wikipedia/vi/f/fe/MoMo_Logo.png" alt="Momo">
+                        <span>Ví điện tử Momo</span>
+                    </div>
+
+                    <div id="qr-momo" class="qr-section">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/QR_code_for_mobile_English_Wikipedia.svg" alt="QR Code">
+                        <p class="qr-desc">Quét mã để thanh toán <b>34.280.000đ</b></p>
+                        <p class="qr-desc" style="color:red; font-size:12px">Nội dung CK: <b>DH12345</b></p>
+                    </div>
+
+                    <div class="method-item active" onclick="selectMethod('cod')">
+                        <div class="radio-circle" id="radio-cod"></div>
+                        <i class="fa-solid fa-truck-fast" style="font-size: 24px; color: var(--gold-color)"></i>
+                        <span>Thanh toán khi nhận hàng (COD)</span>
+                    </div>
+                </div>
+
+                <div class="summary-total" style="margin-top: 30px;">
+                    <span>Tổng thanh toán:</span>
+                    <span>34.280.000đ</span>
+                </div>
+
+                <button type="submit" class="btn-primary" style="margin-top: 20px;">XÁC NHẬN ĐẶT HÀNG</button>
+            </div>
+
+        </form>
+    </main>
+
+    <script>
+        function selectMethod(method) {
+            // Xóa class active ở tất cả các ô
+            document.querySelectorAll('.method-item').forEach(el => el.classList.remove('active'));
+            document.getElementById('qr-momo').classList.remove('show');
+
+            if (method === 'momo') {
+                // Nếu chọn Momo: Active ô Momo, hiện QR
+                document.querySelector('.method-item:nth-child(1)').classList.add('active');
+                document.getElementById('qr-momo').classList.add('show');
+            } else {
+                // Nếu chọn COD: Active ô COD, ẩn QR
+                document.querySelector('.method-item:nth-child(3)').classList.add('active');
+            }
+        }
+    </script>
+
+</body>
+</html>
