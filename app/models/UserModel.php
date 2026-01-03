@@ -98,5 +98,18 @@ class UserModel {
         $stmt = $this->conn->prepare($sql);
         return $stmt->execute([$status, $id]);
     }
+    public function getUserById($id) {
+    $sql = "SELECT * FROM khachhang WHERE ma_khach_hang = ? LIMIT 1";
+    $stmt = $this->conn->prepare($sql);
+    $stmt->execute([$id]);
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
+// Thêm hàm cập nhật thông tin nếu bạn muốn khách tự sửa địa chỉ/sdt
+public function updateProfile($id, $name, $phone, $address) {
+    $sql = "UPDATE khachhang SET ho_ten = ?, sdt = ?, dia_chi = ? WHERE ma_khach_hang = ?";
+    $stmt = $this->conn->prepare($sql);
+    return $stmt->execute([$name, $phone, $address, $id]);
+}
 }
 ?>

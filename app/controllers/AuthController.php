@@ -200,4 +200,43 @@ class AuthController {
         }
         require_once 'app/views/auth/reset_password.php';
     }
+    // app/controllers/AuthController.php
+
+public function profile() {
+    if (!isset($_SESSION['user_id'])) {
+        header("Location: index.php?ctrl=auth&act=login");
+        exit;
+    }
+
+    $userId = $_SESSION['user_id'];
+    $success = '';
+    
+    // Xử lý nếu khách bấm cập nhật thông tin
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $name = trim($_POST['ho_ten']);
+        $phone = trim($_POST['sdt']);
+        $address = trim($_POST['dia_chi']);
+        
+        if ($this->userModel->updateProfile($userId, $name, $phone, $address)) {
+            $_SESSION['user_name'] = $name; // Cập nhật lại tên trên Header ngay lập tức
+            $success = "Cập nhật thông tin thành công!";
+        }
+    }
+
+    $user = $this->userModel->getUserById($userId);
+    require_once 'app/views/auth/profile.php';
+}
+
+public function orders() {
+    if (!isset($_SESSION['user_id'])) {
+        header("Location: index.php?ctrl=auth&act=login");
+        exit;
+    }
+
+    require_once 'app/models/OrderModel.php';
+    $orderModel = new OrderModel();
+    $orders = $orderModel->getOrdersByCustomerId($_SESSION['user_id']);
+    
+    require_once 'app/views/auth/orders.php';
+}
 }

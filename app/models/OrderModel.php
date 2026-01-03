@@ -196,4 +196,10 @@ class OrderModel {
         $stmt->execute([':code' => $orderCode]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+    public function getOrdersByCustomerId($customerId) {
+    $sql = "SELECT * FROM donhang WHERE ma_khach_hang = ? ORDER BY ngay_dat DESC";
+    $stmt = $this->conn->prepare($sql);
+    $stmt->execute([$customerId]);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
 }

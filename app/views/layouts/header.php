@@ -1,5 +1,5 @@
 <?php
-// --- LOGIC PHP: LẤY DANH MỤC TỪ DB (GIỮ NGUYÊN) ---
+// --- LOGIC PHP: LẤY DANH MỤC TỪ DB ---
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -11,7 +11,6 @@ if (!isset($conn_header)) {
 }
 
 try {
-    // Lấy danh mục hiển thị
     $sql_header = "SELECT ma_danh_muc, ten_danh_muc FROM danhmuc WHERE hien_thi = 1 ORDER BY thu_tu ASC";
     $stmt_header = $conn_header->prepare($sql_header);
     $stmt_header->execute();
@@ -20,7 +19,6 @@ try {
     $dsDanhMuc = [];
 }
 
-// Đếm giỏ hàng
 $cartCount = 0;
 if (isset($_SESSION['cart'])) {
     foreach ($_SESSION['cart'] as $item) {
@@ -41,43 +39,121 @@ if (isset($_SESSION['cart'])) {
     <link rel="stylesheet" href="public/css/style.css">
 
     <style>
-        /* --- CSS CHO DROPDOWN CLICK --- */
-        .header-nav { display: flex; align-items: center; gap: 15px; }
-        
-        /* Container chung cho các nút dropdown */
+        /* --- CSS HEADER TỔNG THỂ --- */
+        header {
+            background: #050505;
+            border-bottom: 1px solid #222;
+            padding: 12px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-container {
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+        }
+
+        .header-nav { 
+            display: flex; 
+            align-items: center; 
+            gap: 15px; 
+        }
+
+        /* --- THANH TÌM KIẾM --- */
+        .search-box {
+            flex: 1;
+            max-width: 450px;
+            margin: 0 20px;
+        }
+
+        .search-box form {
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            height: 40px;
+            padding: 0 50px 0 20px;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 30px;
+            color: #fff;
+            outline: none;
+            font-size: 14px;
+            transition: 0.3s ease;
+        }
+
+        .search-input:focus {
+            border-color: #D4AF37;
+            background: #222;
+        }
+
+        .search-btn {
+            position: absolute;
+            right: 4px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #D4AF37;
+            border: none;
+            cursor: pointer;
+            /* CĂN GIỮA TUYỆT ĐỐI */
+            display: grid;
+            place-items: center;
+            padding: 0;
+            margin: 0;
+            color: #000;
+            transition: 0.2s ease;
+        }
+
+        .search-btn:hover {
+            background: #fff;
+            transform: translateY(-50%) scale(1.05);
+        }
+
+        .search-btn i {
+            font-size: 14px;
+            line-height: 1;
+            display: block;
+        }
+
+        /* --- DROPDOWN & USER --- */
         .dropdown { position: relative; display: inline-block; }
         
-        /* Nút bấm mở menu */
         .dropdown-toggle {
             background: transparent;
             color: #fff;
             padding: 8px 12px;
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 600;
             border: 1px solid #444;
-            border-radius: 6px;
+            border-radius: 20px;
             cursor: pointer;
             display: flex;
             align-items: center;
             gap: 8px;
-            transition: all 0.2s ease;
-            user-select: none; /* Chống bôi đen khi click nhanh */
+            transition: 0.2s;
+            white-space: nowrap; /* Không cho xuống dòng tên */
         }
 
-        /* Hiệu ứng khi đang mở hoặc rê chuột vào nút */
         .dropdown-toggle:hover, .dropdown-toggle.active {
             border-color: #D4AF37;
             color: #D4AF37;
         }
 
-        /* Nội dung menu xổ xuống (Mặc định ẩn) */
         .dropdown-menu {
-            display: none; /* Ẩn đi */
+            display: none;
             position: absolute;
             top: 125%;
             left: 0;
             background-color: #1a1a1a;
-            min-width: 220px;
+            min-width: 200px;
             box-shadow: 0px 8px 24px rgba(0,0,0,0.8);
             z-index: 9999;
             border: 1px solid #333;
@@ -85,13 +161,8 @@ if (isset($_SESSION['cart'])) {
             overflow: hidden;
         }
 
-        /* Class này được JS thêm vào để hiện menu */
-        .show {
-            display: block !important;
-            animation: fadeIn 0.2s ease-out;
-        }
+        .show { display: block !important; animation: fadeIn 0.2s ease-out; }
 
-        /* Link bên trong menu */
         .dropdown-menu a {
             color: #e5e5e5;
             padding: 12px 16px;
@@ -100,18 +171,15 @@ if (isset($_SESSION['cart'])) {
             font-size: 14px;
             border-bottom: 1px solid #2a2a2a;
         }
+
         .dropdown-menu a:hover {
             background-color: #333;
             color: #D4AF37;
-            padding-left: 20px; /* Hiệu ứng đẩy chữ */
+            padding-left: 20px;
             transition: 0.2s;
         }
 
-        /* Riêng cho menu user bên phải */
-        .user-menu {
-            right: 0;
-            left: auto; /* Canh lề phải */
-        }
+        .user-menu { right: 0; left: auto; }
 
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(-10px); }
@@ -121,22 +189,21 @@ if (isset($_SESSION['cart'])) {
 </head>
 <body>
 
-<header style="background: #050505; border-bottom: 1px solid #222; padding: 15px 0; position: sticky; top: 0; z-index: 1000;">
-    <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
+<header>
+    <div class="container header-container">
         
-        <a href="index.php" class="logo" style="text-decoration: none; display: flex; align-items: center; gap: 10px;">
-            <span style="font-size: 24px; font-weight: 800; color: #fff; letter-spacing: -1px;">
+        <a href="index.php" class="logo" style="text-decoration: none; display: flex; align-items: center; gap: 8px;">
+            <span style="font-size: 22px; font-weight: 800; color: #fff; letter-spacing: -1px;">
                 PHƯƠNG<span style="color: #D4AF37;">STORE</span>
             </span>
         </a>
 
-        <div class="search-box" style="flex: 1; max-width: 500px; margin: 0 20px; position: relative;">
+        <div class="search-box">
             <form action="index.php" method="GET">
                 <input type="hidden" name="ctrl" value="product">
                 <input type="hidden" name="act" value="search">
-                <input type="text" name="keyword" placeholder="Tìm kiếm sản phẩm..." required
-                       style="width: 100%; padding: 10px 20px; padding-right: 50px; background: #1a1a1a; border: 1px solid #333; border-radius: 30px; color: #fff; outline: none;">
-                <button type="submit" style="position: absolute; right: 5px; top: 50%; transform: translateY(-50%); width: 36px; height: 36px; border-radius: 50%; background: #D4AF37; border: none; cursor: pointer;">
+                <input type="text" name="keyword" class="search-input" placeholder="Bạn tìm gì hôm nay?..." required>
+                <button type="submit" class="search-btn">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
             </form>
@@ -144,7 +211,7 @@ if (isset($_SESSION['cart'])) {
 
         <nav class="header-nav">
             
-            <a href="index.php" class="nav-link" style="color: #fff; text-decoration: none; font-weight: 600; font-size: 15px;">Trang chủ</a>
+            <a href="index.php" class="nav-link" style="color: #fff; text-decoration: none; font-weight: 600; font-size: 14px;">Trang chủ</a>
 
             <div class="dropdown">
                 <div class="dropdown-toggle" onclick="toggleDropdown('categoryDropdown')">
@@ -157,27 +224,25 @@ if (isset($_SESSION['cart'])) {
                                 <?= htmlspecialchars($dm['ten_danh_muc']) ?>
                             </a>
                         <?php endforeach; ?>
-                    <?php else: ?>
-                        <a href="#">Đang cập nhật...</a>
                     <?php endif; ?>
                 </div>
             </div>
 
-            <a href="index.php?ctrl=cart" class="cart-btn" style="position: relative; color: #fff; font-size: 20px; margin-left: 10px;">
+            <a href="index.php?ctrl=cart" class="cart-btn" style="position: relative; color: #fff; font-size: 18px; margin: 0 5px;">
                 <i class="fa-solid fa-cart-shopping"></i>
                 <?php if($cartCount > 0): ?>
-                    <span style="position: absolute; top: -8px; right: -10px; background: #d70018; color: #fff; font-size: 11px; padding: 2px 6px; border-radius: 10px;">
+                    <span style="position: absolute; top: -8px; right: -10px; background: #d70018; color: #fff; font-size: 10px; padding: 2px 5px; border-radius: 10px; font-weight: bold;">
                         <?= $cartCount ?>
                     </span>
                 <?php endif; ?>
             </a>
 
-            <div class="user-action" style="margin-left: 10px;">
+            <div class="user-action">
                 <?php if (isset($_SESSION['user_id'])): ?>
                     <div class="dropdown">
                         <div class="dropdown-toggle" onclick="toggleDropdown('userDropdown')">
-                            <i class="fa-regular fa-user"></i> 
-                            <?= htmlspecialchars(explode(' ', $_SESSION['user_name'] ?? 'Me')[0]) ?>
+                            <i class="fa-regular fa-user" style="color: #D4AF37;"></i> 
+                            <?= htmlspecialchars($_SESSION['user_name'] ?? 'Khách hàng') ?>
                         </div>
                         <div id="userDropdown" class="dropdown-menu user-menu">
                             <a href="index.php?ctrl=auth&act=profile"><i class="fa-solid fa-id-card"></i> Hồ sơ</a>
@@ -189,7 +254,7 @@ if (isset($_SESSION['cart'])) {
                         </div>
                     </div>
                 <?php else: ?>
-                    <a href="index.php?ctrl=auth&act=login" style="color: #fff; text-decoration: none; font-weight: 600; font-size: 14px; background: rgba(255,255,255,0.1); padding: 8px 15px; border-radius: 20px;">
+                    <a href="index.php?ctrl=auth&act=login" style="color: #fff; text-decoration: none; font-weight: 600; font-size: 13px; background: rgba(212,175,55,0.1); border: 1px solid #D4AF37; padding: 7px 15px; border-radius: 20px;">
                         Đăng nhập
                     </a>
                 <?php endif; ?>
@@ -200,16 +265,11 @@ if (isset($_SESSION['cart'])) {
 </header>
 
 <script>
-    /* * Hàm bật tắt menu 
-     * dropdownId: ID của menu cần bật (categoryDropdown hoặc userDropdown)
-     */
     function toggleDropdown(dropdownId) {
         var dropdown = document.getElementById(dropdownId);
-        
-        // Kiểm tra xem menu này có đang mở không
         var isClosed = !dropdown.classList.contains('show');
 
-        // Bước 1: Đóng TẤT CẢ các menu đang mở trước đã (để tránh bị mở chồng chéo)
+        // Đóng tất cả menu đang mở trước
         var allDropdowns = document.getElementsByClassName("dropdown-menu");
         for (var i = 0; i < allDropdowns.length; i++) {
             allDropdowns[i].classList.remove('show');
@@ -219,31 +279,21 @@ if (isset($_SESSION['cart'])) {
             allToggles[i].classList.remove('active');
         }
 
-        // Bước 2: Nếu menu này đang đóng thì mở nó ra
         if (isClosed) {
             dropdown.classList.add('show');
-            // Thêm class active cho nút bấm để sáng màu lên
             event.currentTarget.classList.add('active'); 
         }
-        
-        // Ngăn sự kiện click lan ra ngoài (để không bị window.onclick bắt ngay lập tức)
         event.stopPropagation();
     }
 
-    /* * Sự kiện click ra ngoài màn hình -> Đóng tất cả menu
-     */
     window.onclick = function(event) {
-        // Nếu người dùng click vào nơi KHÔNG PHẢI là nút dropdown
         if (!event.target.matches('.dropdown-toggle') && !event.target.closest('.dropdown-toggle')) {
             var dropdowns = document.getElementsByClassName("dropdown-menu");
             for (var i = 0; i < dropdowns.length; i++) {
-                var openDropdown = dropdowns[i];
-                if (openDropdown.classList.contains('show')) {
-                    openDropdown.classList.remove('show');
+                if (dropdowns[i].classList.contains('show')) {
+                    dropdowns[i].classList.remove('show');
                 }
             }
-            
-            // Tắt trạng thái active của nút bấm
             var toggles = document.getElementsByClassName("dropdown-toggle");
             for (var i = 0; i < toggles.length; i++) {
                 toggles[i].classList.remove('active');
