@@ -489,5 +489,81 @@ public function addBrandsToCategory($catId, $brandNamesArray) {
             $stmt->execute([$name, $catId]);
         }
     }
+    
 }
+/* ============================================================
+       PHẦN 6: QUẢN LÝ ĐÁNH GIÁ (REVIEWS)
+       ============================================================ */
+
+    // 1. Lấy danh sách đánh giá của một sản phẩm (kèm tên khách hàng)
+    
+// --- BỔ SUNG CÁC HÀM CÒN THIẾU ---
+
+    // 1. Hàm tìm kiếm sản phẩm (Controller đang gọi hàm này)
+    public function searchProducts($keyword) {
+        $keyword = "%$keyword%";
+        $sql = "SELECT sp.*, MIN(bt.gia_ban) as gia_ban, MAX(bt.muc_giam_gia) as muc_giam_gia, 
+                (SELECT url_anh FROM anhsanpham WHERE ma_san_pham = sp.ma_san_pham ORDER BY la_anh_chinh DESC LIMIT 1) as url_anh 
+                FROM sanpham sp 
+                LEFT JOIN bienthesanpham bt ON sp.ma_san_pham = bt.ma_san_pham 
+                WHERE sp.ten_san_pham LIKE ? AND sp.kich_hoat = 1
+                GROUP BY sp.ma_san_pham";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([$keyword]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    // 2. Hàm lấy đánh giá theo ID sản phẩm (Controller đang gọi hàm này)
+    public function getReviewsByProduct($productId) {
+        $sql = "SELECT dg.*, kh.ho_ten 
+                FROM danhgia dg
+                JOIN khachhang kh ON dg.ma_khach_hang = kh.ma_khach_hang
+                WHERE dg.ma_san_pham = ?
+                ORDER BY dg.ngay_tao DESC";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([$productId]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    // 2. Thêm đánh giá mới
+    public function addReview($userId, $productId, $rating, $content) {
+        $sql = "INSERT INTO danhgia (ma_khach_hang, ma_san_pham, so_sao, noi_dung) 
+                VALUES (?, ?, ?, ?)";
+        return $this->db->prepare($sql)->execute([$userId, $productId, $rating, $content]);
+    }
+
+    // 3. Tính điểm trung bình sao
+    public function getAverageRating($productId) {
+        $sql = "SELECT AVG(so_sao) as avg_rating, COUNT(*) as total_reviews 
+                FROM danhgia 
+                WHERE ma_san_pham = ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([$productId]);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        // SỬA LỖI: Ép kiểu về float (số thực). 
+        // Nếu database trả về NULL thì (float)NULL sẽ thành 0.
+        if ($result) {
+            $result['avg_rating'] = (float)$result['avg_rating'];
+        } else {
+            $result = ['avg_rating' => 0, 'total_reviews' => 0];
+        }
+
+        return $result;
+    }
+
+    // 4. Lấy tất cả đánh giá cho Admin quản lý
+    public function getAllReviews() {
+        $sql = "SELECT dg.*, sp.ten_san_pham, kh.ho_ten 
+                FROM danhgia dg
+                JOIN sanpham sp ON dg.ma_san_pham = sp.ma_san_pham
+                JOIN khachhang kh ON dg.ma_khach_hang = kh.ma_khach_hang
+                ORDER BY dg.ngay_tao DESC";
+        return $this->db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    // 5. Xóa đánh giá (Dành cho Admin)
+    public function deleteReview($reviewId) {
+        $sql = "DELETE FROM danhgia WHERE ma_danh_gia = ?";
+        return $this->db->prepare($sql)->execute([$reviewId]);
+    }
 }

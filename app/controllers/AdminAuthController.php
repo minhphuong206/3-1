@@ -23,24 +23,31 @@ class AdminAuthController {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $username = trim($_POST['username']);
             $password = $_POST['password'];
-            $result = $this->adminModel->checkAdminLogin($username, $password);
+            
+            // [SỬA LẠI TÊN HÀM CHO KHỚP VỚI MODEL]
+            $admin = $this->adminModel->checkLogin($username, $password);
 
-            if ($result === true) {
+            if ($admin) {
+                // [CẬP NHẬT] Lưu Session đầy đủ cho Phân quyền
+                $_SESSION['admin_id'] = $admin['ma_admin'];
+                $_SESSION['admin_user'] = $admin['ten_dang_nhap'];
+                $_SESSION['admin_name'] = $admin['ho_ten'];
+                $_SESSION['admin_role'] = $admin['role']; // 1 hoặc 0
+                $_SESSION['admin_permissions'] = !empty($admin['permissions']) ? explode(',', $admin['permissions']) : [];
+
                 header("Location: index.php?ctrl=admin&act=dashboard"); 
                 exit;
             } else {
-                $error = $result;
+                $error = "Tên đăng nhập hoặc mật khẩu không đúng!";
             }
         }
         require_once 'app/views/admin/login.php';
     }
 
     public function logout() {
-        unset($_SESSION['admin_id']);
-        unset($_SESSION['admin_user']);
-        unset($_SESSION['admin_name']);
-        unset($_SESSION['admin_role']);
-       header("Location: index.php"); 
+        session_destroy(); // Hủy toàn bộ session cho nhanh
+        header("Location: index.php?ctrl=admin&act=login"); 
         exit;
     }
 }
+?>

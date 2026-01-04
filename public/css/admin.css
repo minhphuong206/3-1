@@ -27,11 +27,35 @@ body.admin-body {
     background-color: #000;
     border-right: 1px solid var(--border);
     padding: 40px 15px;
+    
+    /* Các thuộc tính định vị */
     position: fixed;
-    height: 100vh;
+    top: 0;
+    left: 0;
+    height: 100vh; /* Chiều cao full màn hình */
     z-index: 1000;
+    
+    /* [QUAN TRỌNG] Cho phép cuộn dọc nếu menu dài */
+    overflow-y: auto; 
+    
+    /* Tăng padding dưới đáy để nút Đăng xuất không bị sát mép quá */
+    padding-bottom: 100px; 
 }
 
+/* [TÙY CHỌN] Làm đẹp thanh cuộn (Scrollbar) cho Sidebar nhìn cho 'xịn' */
+.sidebar::-webkit-scrollbar {
+    width: 5px; /* Thanh cuộn mảnh */
+}
+.sidebar::-webkit-scrollbar-track {
+    background: #000; 
+}
+.sidebar::-webkit-scrollbar-thumb {
+    background: #333; 
+    border-radius: 10px;
+}
+.sidebar::-webkit-scrollbar-thumb:hover {
+    background: var(--primary); /* Hover vào đổi màu vàng */
+}
 .admin-nav-link {
     display: flex; align-items: center;
     padding: 18px 25px; color: var(--text-muted);

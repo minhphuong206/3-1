@@ -155,13 +155,16 @@ if (!function_exists('convert_vi_to_en')) {
 
                     <h1 class="pd-title"><?= htmlspecialchars($tenSanPham) ?></h1>
                     
-                    <div class="pd-meta">
-                        <span><i class="fa-solid fa-star" style="color: #FFD700;"></i> 5.0 (24 đánh giá)</span>
-                        <span>|</span>
-                        <span>Mã SP: PS-<?= $id ?></span>
-                        <span>|</span>
-                        <span style="color: #4ade80;"><i class="fa-solid fa-check-circle"></i> Sẵn hàng</span>
-                    </div>
+                   <div class="pd-meta">
+    <span>
+        <i class="fa-solid fa-star" style="color: #FFD700;"></i> 
+        <?= number_format($ratingInfo['avg_rating'], 1) ?> (<?= $ratingInfo['total_reviews'] ?> đánh giá)
+    </span>
+    <span>|</span>
+    <span>Mã SP: PS-<?= $id ?></span>
+    <span>|</span>
+    <span style="color: #4ade80;"><i class="fa-solid fa-check-circle"></i> Sẵn hàng</span>
+</div>
 
                     <div class="pd-price-group">
                         <div class="pd-price-show" id="displayPrice"><?= number_format($giaMoi, 0, ',', '.') ?>đ</div>
@@ -282,6 +285,60 @@ if (!function_exists('convert_vi_to_en')) {
                 </table>
             </div>
         </section>
+        <div class="product-rating-overview">
+    <h3>Đánh giá sản phẩm</h3>
+    <div class="rating-summary">
+        <strong style="font-size: 24px; color: #f1c40f;">
+            <?php echo number_format($ratingInfo['avg_rating'], 1); ?> / 5 <i class="fa fa-star"></i>
+        </strong>
+        <p>(<?php echo $ratingInfo['total_reviews']; ?> lượt đánh giá)</p>
+    </div>
+</div>
+
+<hr>
+
+<?php if(isset($_SESSION['user_id'])): ?>
+    <div class="review-form">
+        <h4>Viết đánh giá của bạn</h4>
+        <form action="index.php?ctrl=product&act=submit_review" method="POST">
+            <input type="hidden" name="ma_san_pham" value="<?php echo $product['ma_san_pham']; ?>">
+            
+            <div class="form-group">
+                <label>Chọn số sao:</label>
+                <select name="so_sao" class="form-control" style="width: 150px;">
+                    <option value="5">5 Sao (Tuyệt vời)</option>
+                    <option value="4">4 Sao (Tốt)</option>
+                    <option value="3">3 Sao (Bình thường)</option>
+                    <option value="2">2 Sao (Tệ)</option>
+                    <option value="1">1 Sao (Rất tệ)</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label>Nội dung:</label>
+                <textarea name="noi_dung" class="form-control" rows="3" required placeholder="Chia sẻ cảm nhận của bạn..."></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary mt-2">Gửi đánh giá</button>
+        </form>
+    </div>
+<?php else: ?>
+    <div class="alert alert-info">Vui lòng <a href="index.php?ctrl=auth&act=login">đăng nhập</a> để đánh giá sản phẩm này.</div>
+<?php endif; ?>
+
+<hr>
+
+<div class="review-list">
+    <?php foreach($reviews as $rv): ?>
+        <div class="review-item" style="border-bottom: 1px solid #eee; padding: 10px 0;">
+            <strong><?php echo htmlspecialchars($rv['ho_ten']); ?></strong>
+            <span style="color: #f1c40f;">
+                <?php for($i=1; $i<=5; $i++) echo ($i <= $rv['so_sao']) ? '★' : '☆'; ?>
+            </span>
+            <small class="text-muted">- <?php echo date('d/m/Y H:i', strtotime($rv['ngay_tao'])); ?></small>
+            <p><?php echo nl2br(htmlspecialchars($rv['noi_dung'])); ?></p>
+        </div>
+    <?php endforeach; ?>
+</div>
     </main>
 
     <div class="modal-overlay" id="cartModal">

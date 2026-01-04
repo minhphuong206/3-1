@@ -46,7 +46,7 @@
         </div>
     <?php endif; ?>
 
-    <form method="POST" action="index.php?ctrl=admin_auth&act=login">
+    <form method="POST" action="index.php?ctrl=admin&act=login">
         <div class="form-group">
             <label class="form-label">Tên đăng nhập</label>
             <input type="text" name="username" class="form-input" placeholder="Admin ID..." required>

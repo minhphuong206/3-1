@@ -3,15 +3,16 @@
 require_once 'app/models/ProductModel.php';
 require_once 'app/models/UserModel.php';
 require_once 'app/models/OrderModel.php';
-
+require_once 'app/models/AdminModel.php';
 class AdminController {
     private $productModel;
     private $userModel;
     private $orderModel;
-
+    private $adminModel;
     public function __construct() {
-        if (!isset($_SESSION['admin_id'])) {
-            header("Location: index.php?ctrl=admin_auth&act=login");
+        $act = $_GET['act'] ?? 'dashboard';
+        if ($act !== 'login' && !isset($_SESSION['admin_id'])) {
+            header("Location: index.php?ctrl=admin&act=login");
             exit;
         }
         $database = new Database();
@@ -19,13 +20,177 @@ class AdminController {
         $this->productModel = new ProductModel($db);
         $this->userModel = new UserModel($db);
         $this->orderModel = new OrderModel();
+        $this->adminModel = new AdminModel($db); 
+        
     }
 
+    private function checkAccess($requiredPerm) {
+        // 1. Nếu là Super Admin (role = 1) -> Cho qua hết
+        if (isset($_SESSION['admin_role']) && $_SESSION['admin_role'] == 1) {
+            return true;
+        }
+
+        // 2. Nếu là Nhân viên -> Kiểm tra mảng quyền
+        $myPerms = $_SESSION['admin_permissions'] ?? [];
+        if (in_array($requiredPerm, $myPerms)) {
+            return true;
+        }
+
+        // 3. Không có quyền -> Chặn
+        echo "<div style='font-family: sans-serif; text-align: center; margin-top: 50px;'>";
+        echo "<h1 style='color: red; font-size: 80px;'><i class='fa-solid fa-ban'></i></h1>";
+        echo "<h2>BẠN KHÔNG CÓ QUYỀN TRUY CẬP TRANG NÀY!</h2>";
+        echo "<p>Vui lòng liên hệ Admin cấp cao.</p>";
+        echo "<a href='index.php?ctrl=admin&act=dashboard' style='padding: 10px 20px; background: #333; color: white; text-decoration: none; border-radius: 5px;'>Quay lại Dashboard</a>";
+        echo "</div>";
+        exit;
+    }
+   public function login() {
+        // 1. Nếu đã đăng nhập từ trước -> Điều hướng ngay
+        if (isset($_SESSION['admin_id'])) {
+            if (isset($_SESSION['admin_role']) && $_SESSION['admin_role'] == 1) {
+                header("Location: index.php?ctrl=admin&act=dashboard");
+            } else {
+                $this->redirectStaff(); // Hàm tự viết bên dưới để điều hướng nhân viên
+            }
+            exit;
+        }
+
+        // 2. Xử lý khi bấm nút Đăng nhập
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $user = $_POST['username'];
+            $pass = $_POST['password'];
+            
+            // Gọi Model kiểm tra
+            $admin = $this->adminModel->checkLogin($user, $pass);
+
+            if ($admin) {
+                // Lưu thông tin vào Session
+                $_SESSION['admin_id'] = $admin['ma_admin'];
+                $_SESSION['admin_name'] = $admin['ho_ten'];
+                $_SESSION['admin_avatar'] = $admin['anh_admin'];
+                $_SESSION['admin_role'] = $admin['role']; 
+                // Chuyển chuỗi quyền thành mảng
+                $_SESSION['admin_permissions'] = !empty($admin['permissions']) ? explode(',', $admin['permissions']) : [];
+
+                // --- LOGIC ĐIỀU HƯỚNG THÔNG MINH ---
+                if ($_SESSION['admin_role'] == 1) {
+                    // Nếu là Super Admin -> Vào trang chủ Dashboard
+                    header("Location: index.php?ctrl=admin&act=dashboard");
+                } else {
+                    // Nếu là Nhân viên -> Tìm trang phù hợp để đẩy vào
+                    $this->redirectStaff();
+                }
+                exit;
+            } else {
+                $error = "Tên đăng nhập hoặc mật khẩu không đúng!";
+                require_once 'app/views/admin/login.php';
+            }
+        } else {
+            require_once 'app/views/admin/login.php';
+        }
+    }
+    private function redirectStaff() {
+        $perms = $_SESSION['admin_permissions'] ?? [];
+        
+        if (in_array('orders', $perms)) {
+            header("Location: index.php?ctrl=admin&act=manage_orders");
+        } elseif (in_array('products', $perms)) {
+            header("Location: index.php?ctrl=admin&act=manage_products");
+        } elseif (in_array('users', $perms)) {
+            header("Location: index.php?ctrl=admin&act=manage_users");
+        } elseif (in_array('reviews', $perms)) {
+            header("Location: index.php?ctrl=admin&act=reviews");
+        } else {
+            // Trường hợp tài khoản nhân viên nhưng không được tích quyền nào
+            echo "<div style='text-align:center; margin-top:50px;'>";
+            echo "<h3>Tài khoản chưa được cấp quyền truy cập!</h3>";
+            echo "<a href='index.php?ctrl=admin&act=logout'>Đăng xuất</a>";
+            echo "</div>";
+            session_destroy();
+        }
+        exit;
+    }
+
+    public function logout() {
+        session_destroy();
+        header("Location: index.php?ctrl=admin&act=login");
+        exit;
+    }
+
+    // Trang quản lý nhân viên (Chỉ Super Admin)
+    public function staff() {
+        if (!isset($_SESSION['admin_role']) || $_SESSION['admin_role'] != 1) {
+            $this->checkAccess('super_admin');
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $u = $_POST['username'];
+            $p = $_POST['password'];
+            $n = $_POST['fullname'];
+            $perms = $_POST['permissions'] ?? []; 
+            
+            // Xử lý Upload Avatar
+            $avatarName = 'default_admin.png'; // Ảnh mặc định
+            if (!empty($_FILES['avatar']['name'])) {
+                $file = $_FILES['avatar'];
+                if ($file['error'] === UPLOAD_ERR_OK) {
+                    $ext = pathinfo($file['name'], PATHINFO_EXTENSION);
+                    $newName = "staff_" . time() . "." . $ext;
+                    if (move_uploaded_file($file['tmp_name'], "public/images/" . $newName)) {
+                        $avatarName = $newName;
+                    }
+                }
+            }
+
+            // Gọi Model thêm mới
+            if ($this->adminModel->addStaff($u, $p, $n, $perms, $avatarName)) {
+                $_SESSION['admin_toast'] = "Đã thêm nhân viên mới!";
+            } else {
+                $_SESSION['admin_toast'] = "Lỗi: Tên đăng nhập đã tồn tại!";
+            }
+            header("Location: index.php?ctrl=admin&act=staff");
+            exit;
+        }
+
+        $staffs = $this->adminModel->getAllStaff();
+        require_once 'app/views/admin/staff.php';
+    }
+    public function reset_password_staff() {
+        // Chỉ Super Admin mới được reset
+        if (!isset($_SESSION['admin_role']) || $_SESSION['admin_role'] != 1) {
+            header("Location: index.php?ctrl=admin&act=dashboard");
+            exit;
+        }
+
+        $id = $_POST['id'] ?? null;
+        $newPass = $_POST['new_pass'] ?? null;
+
+        if ($id && $newPass) {
+            $this->adminModel->resetStaffPassword($id, $newPass);
+            $_SESSION['admin_toast'] = "Đã đổi mật khẩu nhân viên thành công!";
+        }
+        header("Location: index.php?ctrl=admin&act=staff");
+        exit;
+    }
+    
+    public function delete_staff() {
+         if (isset($_SESSION['admin_role']) && $_SESSION['admin_role'] == 1 && isset($_GET['id'])) {
+             $this->adminModel->deleteStaff($_GET['id']);
+             $_SESSION['admin_toast'] = "Đã xóa nhân viên!";
+         }
+         header("Location: index.php?ctrl=admin&act=staff");
+         exit;
+    }
     /* ============================================================
        1. CÁC TRANG HIỂN THỊ (VIEW) - ĐÃ TÁCH RIÊNG
        ============================================================ */
 
     public function dashboard() {
+        if (!isset($_SESSION['admin_role']) || $_SESSION['admin_role'] != 1) {
+            // Nếu là nhân viên mà lạc vào đây -> Đẩy về đúng chỗ
+            $this->redirectStaff(); 
+        }
         $totalOrders = $this->productModel->getTotalOrders();
         $totalRevenue = $this->productModel->getTotalRevenue();
         $todayRevenue = $this->productModel->getTodayRevenue();
@@ -42,6 +207,7 @@ class AdminController {
     // app/controllers/AdminController.php
 
 public function manage_products() {
+    $this->checkAccess('products');
     $categories = $this->productModel->getAllCategories();
     $productsByCat = [];
     
@@ -67,6 +233,7 @@ public function manage_products() {
 }
 
    public function manage_users() {
+    $this->checkAccess('users');
     // Lấy dữ liệu từ UserModel
     $allUsers = $this->userModel->getAllUsers();
     // Gọi file view đã tách riêng
@@ -75,6 +242,7 @@ public function manage_products() {
 
 // 2. Hàm xử lý khóa/mở khóa tài khoản
 public function lock_user() {
+    $this->checkAccess('users');
     $id = $_GET['id'] ?? null;
     $status = $_GET['status'] ?? 0;
     
@@ -89,6 +257,7 @@ public function lock_user() {
 }
 
     public function manage_orders() {
+        $this->checkAccess('orders');
         $allOrdersList = $this->orderModel->getAllOrders();
         require_once 'app/views/admin/orders.php';
     }
@@ -98,6 +267,7 @@ public function lock_user() {
        ============================================================ */
 
     public function add_product() {
+        $this->checkAccess('products');
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $specs = [
                 'cpu' => $_POST['spec_cpu'] ?? '',
@@ -167,7 +337,9 @@ public function lock_user() {
     }
 
     public function edit_product() {
+    $this-> checkAccess('products');
     $id = $_GET['id'] ?? null;
+
     if (!$id) {
         header("Location: index.php?ctrl=admin&act=manage_products");
         exit;
@@ -254,6 +426,7 @@ public function lock_user() {
 }
 
     public function delete_product() {
+        $this->checkAccess('products');
         $id = $_GET['id'] ?? null;
         
         // Gọi Model xóa
@@ -268,6 +441,7 @@ public function lock_user() {
         exit;
     }
     public function delete_variant() {
+        $this->checkAccess('products');
         $id = $_GET['id'] ?? null;
         
         if ($id && $this->productModel->deleteVariant($id)) {
@@ -282,6 +456,7 @@ public function lock_user() {
     }
    // Sửa hàm edit_variant trong app/controllers/AdminController.php
 public function edit_variant() {
+    $this->checkAccess('products');
     $id = $_GET['id'] ?? null;
     if (!$id) { header("Location: index.php?ctrl=admin&act=manage_products"); exit; }
 
@@ -331,6 +506,7 @@ public function edit_variant() {
     
 
     public function update_order_status() {
+        $this->checkAccess('orders');
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Lấy ID từ GET (theo code cũ của bạn) hoặc từ POST (nếu bạn để input hidden)
         $id = $_GET['id'] ?? $_POST['ma_don_hang'] ?? null;
@@ -365,6 +541,7 @@ public function edit_variant() {
     exit;
 }
 public function add_variant() {
+    $this->checkAccess('products');
     $productId = $_GET['product_id'] ?? null;
     if (!$productId) { 
         header("Location: index.php?ctrl=admin&act=manage_products"); 
@@ -430,6 +607,7 @@ public function add_variant() {
 }
 
 public function bulk_delete_products() {
+    $this->checkAccess('products');
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['product_ids'])) {
         $ids = $_POST['product_ids']; // Mảng các ID được chọn
         if ($this->productModel->deleteMultipleProducts($ids)) {
@@ -441,6 +619,7 @@ public function bulk_delete_products() {
 }
 
 public function bulk_delete_variants() {
+    $this->checkAccess('products');
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['variant_ids'])) {
         $ids = $_POST['variant_ids'];
         if ($this->productModel->deleteMultipleVariants($ids)) {
@@ -451,11 +630,13 @@ public function bulk_delete_variants() {
     exit;
 }
 public function manage_categories() {
+    $this->checkAccess('products');
     $categories = $this->productModel->getAllCategoriesAdmin();
     require_once 'app/views/admin/categories.php';
 }
 
 public function save_category() {
+    $this->checkAccess('products');
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $id = $_POST['ma_dm'] ?? null;
         $ten_dm = $_POST['ten_danh_muc'];
@@ -490,6 +671,7 @@ public function save_category() {
 }
 
 public function delete_category() {
+    $this->checkAccess('products');
     $id = $_GET['id'] ?? null;
     if ($id) {
         // Có thể thêm bước kiểm tra sản phẩm tại đây trước khi xóa
@@ -499,13 +681,53 @@ public function delete_category() {
     header("Location: index.php?ctrl=admin&act=manage_categories");
     exit;
 }
-public function index() {
-    // Lấy sản phẩm nổi bật (Featured) - Giữ nguyên nếu cần
-    $featuredProducts = $this->productModel->getFeaturedProducts(); 
-
-    // Lấy sản phẩm theo danh mục đã sắp xếp
-    $allCategoryData = $this->productModel->getProductsBySortedCategories();
-
-    require_once 'app/views/home/index.php';
+public function reviews() {
+    $this->checkAccess('reviews');
+    // Gọi hàm lấy tất cả review từ Model (đã viết ở Bước 1)
+    $reviews = $this->productModel->getAllReviews(); 
+    require_once 'app/views/admin/reviews.php';
 }
+
+public function delete_review() {
+    $this->checkAccess('reviews');
+    if (isset($_GET['id'])) {
+        $id = $_GET['id'];
+        $this->productModel->deleteReview($id);
+    }
+    header("Location: index.php?ctrl=admin&act=reviews");
 }
+public function my_profile() {
+        $id = $_SESSION['admin_id'];
+
+        // Xử lý khi upload ảnh
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            if (isset($_FILES['avatar']) && $_FILES['avatar']['error'] === UPLOAD_ERR_OK) {
+                $file = $_FILES['avatar'];
+                $ext = pathinfo($file['name'], PATHINFO_EXTENSION);
+                
+                // Đặt tên file: admin_{id}_{time}.jpg
+                $newName = "admin_" . $id . "_" . time() . "." . $ext;
+                $uploadDir = "public/images/admin/";
+
+                if (!is_dir($uploadDir)) mkdir($uploadDir, 0777, true);
+
+                if (move_uploaded_file($file['tmp_name'], $uploadDir . $newName)) {
+                    // 1. Cập nhật Database
+                    $this->adminModel->updateAdminAvatar($id, $newName);
+                    
+                    // 2. Cập nhật ngay vào Session để Sidebar đổi hình luôn
+                    $_SESSION['admin_avatar'] = $newName;
+                    
+                    $_SESSION['admin_toast'] = "Đã cập nhật ảnh đại diện mới!";
+                }
+            }
+            header("Location: index.php?ctrl=admin&act=my_profile");
+            exit;
+        }
+
+        // Lấy thông tin admin hiện tại để hiển thị
+        $myInfo = $this->adminModel->getAdminById($id);
+        require_once 'app/views/admin/my_profile.php';
+    }
+}
+?>

@@ -30,7 +30,7 @@ class AuthController {
     // ==============================================
     // 1. ĐĂNG NHẬP (LOGIN) - ĐÃ CẬP NHẬT
     // ==============================================
-    public function login() {
+   public function login() {
         if (isset($_SESSION['user_id'])) {
             header("Location: index.php");
             exit;
@@ -49,7 +49,32 @@ class AuthController {
 
             if ($result === true) {
                 
-                // --- PHẦN SỬA ĐỔI: ĐIỀU HƯỚNG THÔNG MINH ---
+                // ==================================================================
+                // [BẮT ĐẦU BỔ SUNG BƯỚC 3] - ĐỒNG BỘ GIỎ HÀNG
+                // ==================================================================
+                
+                // Load Model Giỏ hàng
+                require_once 'app/models/CartModel.php';
+                // Sử dụng kết nối DB có sẵn từ AuthController
+                $cartModel = new CartModel($this->db); 
+
+                if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
+                    // TRƯỜNG HỢP 1: Khách có hàng trong Session -> Đẩy vào DB
+                    $cartModel->syncSessionToDB($_SESSION['user_id'], $_SESSION['cart']);
+                    
+                    // Sau khi đẩy xong, lấy lại danh sách mới nhất từ DB để cập nhật Session
+                    $_SESSION['cart'] = $cartModel->getCartItems($_SESSION['user_id']);
+                } else {
+                    // TRƯỜNG HỢP 2: Session rỗng -> Lấy giỏ hàng cũ từ DB lên (nếu có)
+                    $_SESSION['cart'] = $cartModel->getCartItems($_SESSION['user_id']);
+                }
+                
+                // ==================================================================
+                // [KẾT THÚC BỔ SUNG]
+                // ==================================================================
+
+
+                // --- PHẦN ĐIỀU HƯỚNG CŨ GIỮ NGUYÊN ---
                 // Lấy tham số redirect từ URL (GET) hoặc từ Form (POST - nếu có input hidden)
                 $redirect = $_GET['redirect'] ?? $_POST['redirect'] ?? '';
 
@@ -203,29 +228,33 @@ class AuthController {
     // app/controllers/AuthController.php
 
 public function profile() {
-    if (!isset($_SESSION['user_id'])) {
-        header("Location: index.php?ctrl=auth&act=login");
-        exit;
-    }
-
-    $userId = $_SESSION['user_id'];
-    $success = '';
-    
-    // Xử lý nếu khách bấm cập nhật thông tin
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $name = trim($_POST['ho_ten']);
-        $phone = trim($_POST['sdt']);
-        $address = trim($_POST['dia_chi']);
-        
-        if ($this->userModel->updateProfile($userId, $name, $phone, $address)) {
-            $_SESSION['user_name'] = $name; // Cập nhật lại tên trên Header ngay lập tức
-            $success = "Cập nhật thông tin thành công!";
+        if (!isset($_SESSION['user_id'])) {
+            header("Location: index.php?ctrl=auth&act=login");
+            exit;
         }
-    }
 
-    $user = $this->userModel->getUserById($userId);
-    require_once 'app/views/auth/profile.php';
-}
+        $userId = $_SESSION['user_id'];
+        $success = '';
+        
+        // Xử lý nếu khách bấm cập nhật thông tin
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $name = trim($_POST['ho_ten']);
+            $phone = trim($_POST['sdt']);
+            $address = trim($_POST['dia_chi']); // Lấy địa chỉ đầy đủ từ input hidden
+            
+            if ($this->userModel->updateProfile($userId, $name, $phone, $address)) {
+                // [CẬP NHẬT MỚI] Lưu ngay vào Session để Giỏ hàng nhận diện được
+                $_SESSION['user_name'] = $name;
+                $_SESSION['user_phone'] = $phone;
+                $_SESSION['user_address'] = $address; // <--- Quan trọng
+                
+                $success = "Cập nhật thông tin thành công!";
+            }
+        }
+
+        $user = $this->userModel->getUserById($userId);
+        require_once 'app/views/auth/profile.php';
+    }
 
 public function orders() {
     if (!isset($_SESSION['user_id'])) {

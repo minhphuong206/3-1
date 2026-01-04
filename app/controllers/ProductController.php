@@ -31,7 +31,8 @@ class ProductController {
     // --- BƯỚC 1: LẤY ID VÀ DỮ LIỆU ---
     $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
     $product = $this->productModel->getProductById($id);
-
+        $reviews = $this->productModel->getReviewsByProduct($id);
+    $ratingInfo = $this->productModel->getAverageRating($id);
     // Nếu không tìm thấy sản phẩm
     if (!$product) {
         echo "<div style='text-align:center; padding:50px;'>";
@@ -40,7 +41,7 @@ class ProductController {
         echo "</div>";
         return;
     }
-
+    
     // --- BƯỚC 2: XỬ LÝ LOGIC (Chuẩn bị dữ liệu cho View) ---
 
     // A. Thông tin cơ bản
@@ -145,8 +146,41 @@ class ProductController {
         echo "Lỗi: Không tìm thấy file view chitietsanpham.php.";
     }
 }
-// app/controllers/ProductController.php
+    // Thêm vào app/models/ProductModel.php
 
+public function searchProducts($keyword) {
+    $keyword = "%$keyword%";
+    $sql = "SELECT sp.*, MIN(bt.gia_ban) as gia_ban, MAX(bt.muc_giam_gia) as muc_giam_gia, 
+            (SELECT url_anh FROM anhsanpham WHERE ma_san_pham = sp.ma_san_pham ORDER BY la_anh_chinh DESC LIMIT 1) as url_anh 
+            FROM sanpham sp 
+            LEFT JOIN bienthesanpham bt ON sp.ma_san_pham = bt.ma_san_pham 
+            WHERE sp.ten_san_pham LIKE ? AND sp.kich_hoat = 1
+            GROUP BY sp.ma_san_pham";
+            
+    $stmt = $this->db->prepare($sql);
+    $stmt->execute([$keyword]);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+// app/controllers/ProductController.php
+public function submit_review() {
+    // Kiểm tra đăng nhập
+    if (!isset($_SESSION['user_id'])) {
+        header("Location: index.php?ctrl=auth&act=login");
+        exit;
+    }
+
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $productId = $_POST['ma_san_pham'];
+        $rating = $_POST['so_sao'];
+        $content = $_POST['noi_dung'];
+        $userId = $_SESSION['user_id']; // Giả sử bạn lưu ID user trong session là user_id
+
+        $this->productModel->addReview($userId, $productId, $rating, $content);
+
+        // Quay lại trang chi tiết sản phẩm
+        header("Location: index.php?ctrl=product&act=detail&id=" . $productId);
+    }
+}
  // app/controllers/ProductController.php
 
 public function category() {
@@ -186,5 +220,6 @@ public function category() {
         $currentCategoryName = $title; 
         include 'app/views/products/category.php';
     }
+    
 }
 ?>

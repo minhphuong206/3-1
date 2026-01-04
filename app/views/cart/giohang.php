@@ -6,33 +6,23 @@ require_once 'app/views/layouts/header.php';
 // --- LOGIC: LẤY DỮ LIỆU ĐIỀN TỰ ĐỘNG ---
 $saved = $_SESSION['saved_cart_data'] ?? [];
 
-// 1. Họ tên: Ưu tiên dữ liệu nhập dở > Dữ liệu tài khoản > Rỗng
-$valName = $saved['ho_ten'] ?? $_SESSION['ho_ten'] ?? '';
-
-// 2. SĐT: Ưu tiên dữ liệu nhập dở > Dữ liệu tài khoản > Rỗng
-// (Lưu ý: session login của bạn lưu key là 'user_phone' hoặc 'sdt' tùy vào AuthController, ở đây mình check cả 2)
+// 1. Họ tên & SĐT & Email
+$valName = $saved['ho_ten'] ?? $_SESSION['user_name'] ?? $_SESSION['ho_ten'] ?? '';
 $valPhone = $saved['so_dien_thoai'] ?? $_SESSION['user_phone'] ?? $_SESSION['sdt'] ?? '';
-
-// 3. Email
 $valEmail = $saved['email'] ?? $_SESSION['user_email'] ?? $_SESSION['email'] ?? '';
-
-// 4. Ghi chú
 $valNote = $saved['ghi_chu'] ?? '';
 
-// 5. Địa chỉ (Chỉ lấy được phần ghi chú địa chỉ nếu có, vì dropdown cần JS phức tạp hơn)
-// Ở đây mình để trống phần địa chỉ để khách chọn lại cho chính xác
+// [LOGIC MỚI] Lấy địa chỉ đã lưu trong Session (từ Profile hoặc DB)
+$savedAddr = $_SESSION['user_address'] ?? $_SESSION['dia_chi'] ?? ''; 
 ?>
 
 <style>
     .cart-page-header { margin-bottom: 30px; border-bottom: 1px solid #333; padding-bottom: 15px; }
     .cart-page-header h3 { font-size: 24px; text-transform: uppercase; margin: 0; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    
     .cart-layout-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 30px; align-items: start; }
     
     /* Cột trái */
     .cart-left-section { display: flex; flex-direction: column; gap: 20px; }
-    .cart-list-header { background: #1a1a1a; padding: 15px; border-radius: 8px; display: flex; justify-content: space-between; border: 1px solid #333; }
-    
     .cart-item-card { background: #1a1a1a; border: 1px solid #333; border-radius: 8px; padding: 20px; display: flex; align-items: center; gap: 20px; position: relative; }
     .item-image img { width: 80px; height: 80px; object-fit: cover; border-radius: 6px; border: 1px solid #444; }
     .item-info { flex: 1; }
@@ -41,7 +31,7 @@ $valNote = $saved['ghi_chu'] ?? '';
     .price-real { color: var(--accent-red); font-weight: bold; font-size: 16px; }
     
     .qty-control-sm { display: flex; border: 1px solid #444; border-radius: 4px; width: fit-content; margin-top: 10px; }
-    .qty-btn-sm { width: 25px; height: 25px; background: #333; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 12px; }
+    .qty-btn-sm { width: 25px; height: 25px; background: #333; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 12px; text-decoration: none;}
     .qty-input-sm { width: 30px; height: 25px; background: transparent; border: none; color: #fff; text-align: center; font-size: 13px; }
     
     .btn-delete { color: #666; font-size: 18px; margin-left: 10px; transition: 0.3s; }
@@ -109,36 +99,43 @@ $valNote = $saved['ghi_chu'] ?? '';
                 <div class="cart-left-section">
                     
                     <div class="cart-list">
-                        <?php 
-                        $totalMoney = 0;
-                        foreach($_SESSION['cart'] as $key => $item): 
-                            $subtotal = $item['price'] * $item['quantity'];
-                            $totalMoney += $subtotal;
-                            $imgUrl = (strpos($item['image'], 'http') !== 0) ? 'public/images/' . $item['image'] : $item['image'];
-                        ?>
-                        <div class="cart-item-card">
-                            <div class="item-image">
-                                <img src="<?= $imgUrl ?>" alt="<?= htmlspecialchars($item['name']) ?>">
-                            </div>
-                            <div class="item-info">
-                                <a href="#" class="item-name"><?= htmlspecialchars($item['name']) ?></a>
-                                <div class="item-variant">
-                                    Phân loại: <?= htmlspecialchars($item['color']) ?> / <?= htmlspecialchars($item['storage']) ?>
-                                </div>
-                                <div class="qty-control-sm">
-                                    <a href="index.php?ctrl=cart&act=update&key=<?= $key ?>&qty=<?= $item['quantity'] - 1 ?>" class="qty-btn-sm">-</a>
-                                    <input type="text" value="<?= $item['quantity'] ?>" class="qty-input-sm" readonly>
-                                    <a href="index.php?ctrl=cart&act=update&key=<?= $key ?>&qty=<?= $item['quantity'] + 1 ?>" class="qty-btn-sm">+</a>
-                                </div>
-                            </div>
-                            <div style="text-align: right;">
-                                <div class="price-real"><?= number_format($item['price'], 0, ',', '.') ?>đ</div>
-                                <a href="index.php?ctrl=cart&act=remove&key=<?= $key ?>" class="btn-delete" onclick="return confirm('Xóa sản phẩm này?')">
-                                    <i class="fa-solid fa-trash-can"></i>
-                                </a>
-                            </div>
-                        </div>
-                        <?php endforeach; ?>
+<?php 
+$totalMoney = 0;
+foreach($_SESSION['cart'] as $key => $item): 
+    $subtotal = $item['price'] * $item['quantity'];
+    $totalMoney += $subtotal;
+    $imgUrl = (strpos($item['image'], 'http') !== 0) ? 'public/images/' . $item['image'] : $item['image'];
+    
+    // Tạo chuỗi tham số đầy đủ cho Controller (FIX LỖI NÚT XÓA/CẬP NHẬT)
+    $queryString = "id=" . $item['id'] . 
+                   "&color=" . urlencode($item['color']) . 
+                   "&storage=" . urlencode($item['storage']) . 
+                   "&key=" . $key;
+?>
+<div class="cart-item-card">
+    <div class="item-image">
+        <img src="<?= $imgUrl ?>" alt="<?= htmlspecialchars($item['name']) ?>">
+    </div>
+    <div class="item-info">
+        <a href="#" class="item-name"><?= htmlspecialchars($item['name']) ?></a>
+        <div class="item-variant">
+            Phân loại: <?= htmlspecialchars($item['color']) ?> / <?= htmlspecialchars($item['storage']) ?>
+        </div>
+        
+        <div class="qty-control-sm">
+            <a href="index.php?ctrl=cart&act=update&<?= $queryString ?>&qty=<?= $item['quantity'] - 1 ?>" class="qty-btn-sm">-</a>
+            <input type="text" value="<?= $item['quantity'] ?>" class="qty-input-sm" readonly>
+            <a href="index.php?ctrl=cart&act=update&<?= $queryString ?>&qty=<?= $item['quantity'] + 1 ?>" class="qty-btn-sm">+</a>
+        </div>
+    </div>
+    <div style="text-align: right;">
+        <div class="price-real"><?= number_format($item['price'], 0, ',', '.') ?>đ</div>
+        <a href="index.php?ctrl=cart&act=remove&<?= $queryString ?>" class="btn-delete" onclick="return confirm('Xóa sản phẩm này?')">
+            <i class="fa-solid fa-trash-can"></i>
+        </a>
+    </div>
+</div>
+<?php endforeach; ?>
                     </div>
 
                     <div class="customer-info-block">
@@ -178,30 +175,43 @@ $valNote = $saved['ghi_chu'] ?? '';
                         <div id="address-container">
                             <input type="hidden" name="dia_chi" id="full_address" value="">
                             
-                            <div class="address-grid">
-                                <div>
-                                    <select class="form-control" id="tinh" name="tinh">
-                                        <option value="0">Tỉnh/Thành</option>
-                                    </select>
-                                    <div class="error-message" id="error_tinh">Chọn Tỉnh</div>
+                            <?php if(!empty($savedAddr)): ?>
+                                <div class="saved-address-box" style="background: #252525; padding: 15px; border: 1px solid var(--gold-color); border-radius: 6px; margin-bottom: 15px;">
+                                    <label style="display: flex; align-items: start; gap: 10px; cursor: pointer; color: white;">
+                                        <input type="radio" name="use_saved_address" value="yes" checked onchange="toggleNewAddress(false)" style="margin-top: 5px; accent-color: var(--gold-color);">
+                                        <div>
+                                            <strong style="color: var(--gold-color);">Sử dụng địa chỉ từ hồ sơ:</strong>
+                                            <div style="font-size: 13px; margin-top: 5px; color: #ccc;"><?= htmlspecialchars($savedAddr) ?></div>
+                                        </div>
+                                    </label>
                                 </div>
-                                <div>
-                                    <select class="form-control" id="quan" name="quan">
-                                        <option value="0">Quận/Huyện</option>
-                                    </select>
-                                    <div class="error-message" id="error_quan">Chọn Quận</div>
+                                <div style="margin-bottom: 15px;">
+                                    <label style="cursor: pointer; color: #888; font-size: 13px;">
+                                        <input type="radio" name="use_saved_address" value="no" onchange="toggleNewAddress(true)"> 
+                                        Nhập địa chỉ khác
+                                    </label>
                                 </div>
-                                <div>
-                                    <select class="form-control" id="phuong" name="phuong">
-                                        <option value="0">Phường/Xã</option>
-                                    </select>
-                                    <div class="error-message" id="error_phuong">Chọn Phường</div>
+                            <?php endif; ?>
+
+                            <div id="new-address-form" style="display: <?= !empty($savedAddr) ? 'none' : 'block' ?>;">
+                                <div class="address-grid">
+                                    <div>
+                                        <select class="form-control" id="tinh" name="tinh"><option value="0">Tỉnh/Thành</option></select>
+                                        <div class="error-message" id="error_tinh">Chọn Tỉnh</div>
+                                    </div>
+                                    <div>
+                                        <select class="form-control" id="quan" name="quan"><option value="0">Quận/Huyện</option></select>
+                                        <div class="error-message" id="error_quan">Chọn Quận</div>
+                                    </div>
+                                    <div>
+                                        <select class="form-control" id="phuong" name="phuong"><option value="0">Phường/Xã</option></select>
+                                        <div class="error-message" id="error_phuong">Chọn Phường</div>
+                                    </div>
                                 </div>
-                            </div>
-                            
-                            <div class="form-group" style="margin-top: 10px;">
-                                <input type="text" id="dia_chi_cu_the" class="form-control" placeholder="Số nhà, tên đường...">
-                                <div class="error-message" id="error_dia_chi_cu_the">Nhập địa chỉ cụ thể</div>
+                                <div class="form-group" style="margin-top: 10px;">
+                                    <input type="text" id="dia_chi_cu_the" class="form-control" placeholder="Số nhà, tên đường...">
+                                    <div class="error-message" id="error_dia_chi_cu_the">Nhập địa chỉ cụ thể</div>
+                                </div>
                             </div>
                         </div>
 
@@ -212,49 +222,28 @@ $valNote = $saved['ghi_chu'] ?? '';
 
                     <div class="payment-method-block">
                         <div class="block-title">Phương thức thanh toán</div>
-                        
                         <label class="payment-option">
                             <input type="radio" name="thanh_toan" value="cod" checked>
                             <i class="fa-solid fa-money-bill-wave" style="color: #4ade80;"></i>
                             <span>Thanh toán khi nhận hàng (COD)</span>
                         </label>
-
                         <label class="payment-option">
                             <input type="radio" name="thanh_toan" value="momo">
                             <i class="fa-solid fa-qrcode" style="color: #a50064;"></i>
                             <span>Thanh toán qua Ví MoMo</span>
                         </label>
                     </div>
-
                 </div>
 
                 <div class="cart-right-section">
                     <div class="cart-summary-box">
                         <div class="block-title">Chi tiết thanh toán</div>
-                        
-                        <div class="summary-row">
-                            <span>Tạm tính:</span>
-                            <span><?= number_format($totalMoney, 0, ',', '.') ?>đ</span>
-                        </div>
-                        <div class="summary-row">
-                            <span>Giảm giá:</span>
-                            <span>0đ</span>
-                        </div>
-                        <div class="summary-row">
-                            <span>Phí vận chuyển:</span>
-                            <span style="color: #4ade80;">Miễn phí</span>
-                        </div>
-                        
-                        <div class="total-row">
-                            <span>Tổng tiền:</span>
-                            <span class="total-price"><?= number_format($totalMoney, 0, ',', '.') ?>đ</span>
-                        </div>
-
+                        <div class="summary-row"><span>Tạm tính:</span><span><?= number_format($totalMoney, 0, ',', '.') ?>đ</span></div>
+                        <div class="summary-row"><span>Giảm giá:</span><span>0đ</span></div>
+                        <div class="summary-row"><span>Phí vận chuyển:</span><span style="color: #4ade80;">Miễn phí</span></div>
+                        <div class="total-row"><span>Tổng tiền:</span><span class="total-price"><?= number_format($totalMoney, 0, ',', '.') ?>đ</span></div>
                         <button type="submit" class="btn-checkout">ĐẶT HÀNG NGAY</button>
-                        
-                        <div style="text-align: center; margin-top: 15px; font-size: 12px; color: #666;">
-                            Bằng việc đặt hàng, bạn đồng ý với điều khoản của PhươngSTORE.
-                        </div>
+                        <div style="text-align: center; margin-top: 15px; font-size: 12px; color: #666;">Bằng việc đặt hàng, bạn đồng ý với điều khoản của PhươngSTORE.</div>
                     </div>
                 </div>
 
@@ -264,70 +253,44 @@ $valNote = $saved['ghi_chu'] ?? '';
 </main>
 
 <script>
-// 1. API TỈNH THÀNH (ESGOO)
 const host = "https://esgoo.net/api-tinhthanh";
-
 // Load Tỉnh
-fetch(host + '/1/0.htm')
-    .then(response => response.json())
-    .then(data => {
-        if (data.error === 0) {
-            let html = '<option value="0">Tỉnh Thành</option>';
-            data.data.forEach(val => {
-                html += `<option value="${val.id}" data-name="${val.full_name}">${val.full_name}</option>`;
-            });
-            document.getElementById("tinh").innerHTML = html;
-        }
-    })
-    .catch(err => console.error(err));
-
-// Chọn Tỉnh -> Load Quận
+fetch(host + '/1/0.htm').then(r => r.json()).then(data => {
+    if (data.error === 0) {
+        let html = '<option value="0">Tỉnh Thành</option>';
+        data.data.forEach(val => html += `<option value="${val.id}" data-name="${val.full_name}">${val.full_name}</option>`);
+        document.getElementById("tinh").innerHTML = html;
+    }
+});
+// Tỉnh -> Quận
 document.getElementById("tinh").addEventListener('change', function() {
-    const idTinh = this.value;
+    const id = this.value;
     const quan = document.getElementById("quan");
-    const phuong = document.getElementById("phuong");
-    
     quan.innerHTML = '<option value="0">Quận Huyện</option>';
-    phuong.innerHTML = '<option value="0">Phường Xã</option>';
-    
-    if(idTinh != "0") {
-        fetch(`${host}/2/${idTinh}.htm`)
-            .then(response => response.json())
-            .then(data => {
-                if (data.error === 0) {
-                    let html = '<option value="0">Quận Huyện</option>';
-                    data.data.forEach(val => {
-                        html += `<option value="${val.id}" data-name="${val.full_name}">${val.full_name}</option>`;
-                    });
-                    quan.innerHTML = html;
-                }
-            });
-    }
+    document.getElementById("phuong").innerHTML = '<option value="0">Phường Xã</option>';
+    if(id != "0") fetch(`${host}/2/${id}.htm`).then(r => r.json()).then(data => {
+        if (data.error === 0) {
+            let html = '<option value="0">Quận Huyện</option>';
+            data.data.forEach(val => html += `<option value="${val.id}" data-name="${val.full_name}">${val.full_name}</option>`);
+            quan.innerHTML = html;
+        }
+    });
 });
-
-// Chọn Quận -> Load Phường
+// Quận -> Phường
 document.getElementById("quan").addEventListener('change', function() {
-    const idQuan = this.value;
+    const id = this.value;
     const phuong = document.getElementById("phuong");
-    
     phuong.innerHTML = '<option value="0">Phường Xã</option>';
-    
-    if(idQuan != "0") {
-        fetch(`${host}/3/${idQuan}.htm`)
-            .then(response => response.json())
-            .then(data => {
-                if (data.error === 0) {
-                    let html = '<option value="0">Phường Xã</option>';
-                    data.data.forEach(val => {
-                        html += `<option value="${val.id}" data-name="${val.full_name}">${val.full_name}</option>`;
-                    });
-                    phuong.innerHTML = html;
-                }
-            });
-    }
+    if(id != "0") fetch(`${host}/3/${id}.htm`).then(r => r.json()).then(data => {
+        if (data.error === 0) {
+            let html = '<option value="0">Phường Xã</option>';
+            data.data.forEach(val => html += `<option value="${val.id}" data-name="${val.full_name}">${val.full_name}</option>`);
+            phuong.innerHTML = html;
+        }
+    });
 });
 
-// 2. TOGGLE NHẬN TẠI CỬA HÀNG
+// Toggle ẩn hiện địa chỉ
 function toggleAddress(val) {
     const addrDiv = document.getElementById('address-container');
     if(val === 'store') {
@@ -335,15 +298,33 @@ function toggleAddress(val) {
         document.getElementById('full_address').value = "Nhận tại cửa hàng";
     } else {
         addrDiv.style.display = 'block';
-        document.getElementById('full_address').value = ""; // Reset để validate lại
+        // Check nếu đang dùng saved address thì set lại value cũ
+        const useSaved = document.querySelector('input[name="use_saved_address"]:checked');
+        if (useSaved && useSaved.value === 'yes') {
+            document.getElementById('full_address').value = "<?= htmlspecialchars($savedAddr) ?>";
+        } else {
+            document.getElementById('full_address').value = "";
+        }
     }
 }
 
-// 3. VALIDATE FORM
+function toggleNewAddress(isNew) {
+    const form = document.getElementById('new-address-form');
+    const fullAddrInput = document.getElementById('full_address');
+    const savedAddrPHP = "<?= htmlspecialchars($savedAddr) ?>";
+
+    if (isNew) {
+        form.style.display = 'block';
+        fullAddrInput.value = "";
+    } else {
+        form.style.display = 'none';
+        fullAddrInput.value = savedAddrPHP;
+    }
+}
+
+// Validate
 document.getElementById('checkoutForm').addEventListener('submit', function(e) {
     let isValid = true;
-    
-    // Reset lỗi
     document.querySelectorAll('.error-message').forEach(el => el.style.display = 'none');
     document.querySelectorAll('.form-control').forEach(el => el.classList.remove('error'));
 
@@ -351,41 +332,41 @@ document.getElementById('checkoutForm').addEventListener('submit', function(e) {
     const phone = document.getElementById('so_dien_thoai');
     const method = document.querySelector('input[name="nhan_hang"]:checked').value;
 
-    if(name.value.trim() === "") {
-        showError('error_ho_ten', name);
-        isValid = false;
-    }
+    if(name.value.trim() === "") { showError('error_ho_ten', name); isValid = false; }
+    if(phone.value.trim() === "") { showError('error_so_dien_thoai', phone); isValid = false; }
 
-    if(phone.value.trim() === "") {
-        showError('error_so_dien_thoai', phone);
-        isValid = false;
-    }
-
-    // Validate địa chỉ nếu chọn giao tận nơi
     if(method === 'home') {
-        const tinh = document.getElementById('tinh');
-        const quan = document.getElementById('quan');
-        const phuong = document.getElementById('phuong');
-        const duong = document.getElementById('dia_chi_cu_the');
+        const useSaved = document.querySelector('input[name="use_saved_address"]:checked');
+        const isUsingSaved = useSaved && useSaved.value === 'yes';
 
-        if(tinh.value == "0") { showError('error_tinh', tinh); isValid = false; }
-        if(quan.value == "0") { showError('error_quan', quan); isValid = false; }
-        if(phuong.value == "0") { showError('error_phuong', phuong); isValid = false; }
-        if(duong.value.trim() === "") { showError('error_dia_chi_cu_the', duong); isValid = false; }
+        if (isUsingSaved) {
+            if(document.getElementById('full_address').value === "") {
+                 alert("Lỗi địa chỉ. Vui lòng chọn nhập địa chỉ khác.");
+                 isValid = false;
+            }
+        } else {
+            const tinh = document.getElementById('tinh');
+            const quan = document.getElementById('quan');
+            const phuong = document.getElementById('phuong');
+            const duong = document.getElementById('dia_chi_cu_the');
 
-        if(isValid) {
-            // Ghép địa chỉ
-            const tName = tinh.options[tinh.selectedIndex].getAttribute('data-name');
-            const qName = quan.options[quan.selectedIndex].getAttribute('data-name');
-            const pName = phuong.options[phuong.selectedIndex].getAttribute('data-name');
-            const full = `${duong.value}, ${pName}, ${qName}, ${tName}`;
-            document.getElementById('full_address').value = full;
+            if(tinh.value == "0") { showError('error_tinh', tinh); isValid = false; }
+            if(quan.value == "0") { showError('error_quan', quan); isValid = false; }
+            if(phuong.value == "0") { showError('error_phuong', phuong); isValid = false; }
+            if(duong.value.trim() === "") { showError('error_dia_chi_cu_the', duong); isValid = false; }
+
+            if(isValid) {
+                const tName = tinh.options[tinh.selectedIndex].getAttribute('data-name');
+                const qName = quan.options[quan.selectedIndex].getAttribute('data-name');
+                const pName = phuong.options[phuong.selectedIndex].getAttribute('data-name');
+                const full = `${duong.value}, ${pName}, ${qName}, ${tName}`;
+                document.getElementById('full_address').value = full;
+            }
         }
     }
 
     if(!isValid) {
         e.preventDefault();
-        // Cuộn lên đầu form
         document.querySelector('.customer-info-block').scrollIntoView({ behavior: 'smooth' });
     }
 });
@@ -394,12 +375,18 @@ function showError(id, input) {
     document.getElementById(id).style.display = 'block';
     input.classList.add('error');
 }
+
+// Init address value
+window.addEventListener('DOMContentLoaded', (event) => {
+    const savedAddrPHP = "<?= htmlspecialchars($savedAddr) ?>";
+    const fullAddrInput = document.getElementById('full_address');
+    if(savedAddrPHP && fullAddrInput.value === "") {
+        fullAddrInput.value = savedAddrPHP;
+    }
+});
 </script>
 
 <?php 
-// Xóa session data cũ sau khi đã load form xong (để lần sau vào mới sạch sẽ)
-if(isset($_SESSION['saved_cart_data'])) {
-    unset($_SESSION['saved_cart_data']);
-}
+if(isset($_SESSION['saved_cart_data'])) unset($_SESSION['saved_cart_data']);
 require_once 'app/views/layouts/footer.php'; 
 ?>

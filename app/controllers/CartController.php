@@ -5,15 +5,24 @@ require_once 'app/config/db.php';
 require_once 'app/core/MomoPayment.php';
 
 class CartController {
+    private $cartModel;
 
     public function __construct() {
         if (session_status() === PHP_SESSION_NONE) session_start();
+        require_once 'app/config/db.php'; // Đảm bảo đã load DB
+        require_once 'app/models/CartModel.php'; // Load Model mới
+        $db = new Database();
+        $this->cartModel = new CartModel($db->connect());
     }
-
+    
     // ==============================================
     // 1. TRANG GIỎ HÀNG
     // ==============================================
     public function index() {
+        if (isset($_SESSION['user_id'])) {
+            // Nếu đã đăng nhập, luôn lấy giỏ hàng mới nhất từ DB đổ ra Session để hiển thị
+            $_SESSION['cart'] = $this->cartModel->getCartItems($_SESSION['user_id']);
+        }
         // Kiểm tra file view
         $viewPath = 'app/views/cart/giohang.php';
         if (file_exists($viewPath)) {
@@ -25,6 +34,9 @@ class CartController {
 
     // ==============================================
     // 2. THÊM VÀO GIỎ (API JSON)
+    // ==============================================
+    // ==============================================
+    // 2. THÊM VÀO GIỎ (API JSON) - ĐÃ SỬA
     // ==============================================
     public function add() {
         header('Content-Type: application/json');
@@ -40,10 +52,11 @@ class CartController {
                 return;
             }
 
+            // 1. Lấy thông tin sản phẩm và biến thể để tính giá
             $db = new Database();
             $conn = $db->connect();
 
-            // a. Lấy thông tin sản phẩm
+            // a. Lấy tên sp
             $stmt = $conn->prepare("SELECT ten_san_pham FROM sanpham WHERE ma_san_pham = ?");
             $stmt->execute([$id]);
             $product = $stmt->fetch();
@@ -53,7 +66,7 @@ class CartController {
                 return;
             }
 
-            // b. Tìm biến thể
+            // b. Tìm biến thể (Variant)
             $sqlVar = "SELECT ma_bien_the, gia_ban, muc_giam_gia, dung_luong, mau_sac 
                        FROM bienthesanpham WHERE ma_san_pham = ?";
             $params = [$id];
@@ -72,7 +85,7 @@ class CartController {
             $stmtVar->execute($params);
             $variant = $stmtVar->fetch();
 
-            // Fallback nếu không tìm thấy chính xác
+            // Fallback: Nếu không tìm thấy đúng màu/dung lượng, lấy biến thể đầu tiên
             if (!$variant) {
                 $stmtFallback = $conn->prepare("SELECT ma_bien_the, gia_ban, muc_giam_gia, dung_luong, mau_sac FROM bienthesanpham WHERE ma_san_pham = ? LIMIT 1");
                 $stmtFallback->execute([$id]);
@@ -89,32 +102,50 @@ class CartController {
             $stmtImg->execute([$id]);
             $image = $stmtImg->fetch();
 
-            // d. Tính giá
+            // d. Chuẩn bị dữ liệu để lưu
             $price = $variant['gia_ban'];
             $discount = $variant['muc_giam_gia'] ?? 0;
             $finalPrice = $price * (1 - $discount / 100);
-
-            // e. Tạo key giỏ hàng
+            
             $useColor = $color ?: ($variant['mau_sac'] ?? '');
             $useStorage = $storage ?: ($variant['dung_luong'] ?? '');
-            $cartKey = $id . '_' . md5($useColor . $useStorage);
 
-            if (!isset($_SESSION['cart'])) $_SESSION['cart'] = [];
+            // --- [PHẦN QUAN TRỌNG ĐÃ ĐƯỢC BỔ SUNG] ---
+            if (isset($_SESSION['user_id'])) {
+                // TRƯỜNG HỢP 1: ĐÃ ĐĂNG NHẬP -> GỌI MODEL LƯU DB
+                $this->cartModel->addToCartDB(
+                    $_SESSION['user_id'], 
+                    $id, 
+                    $qty, 
+                    $useColor, 
+                    $useStorage
+                );
+                // Đồng bộ lại Session để hiển thị đúng
+                $_SESSION['cart'] = $this->cartModel->getCartItems($_SESSION['user_id']);
 
-            if (isset($_SESSION['cart'][$cartKey])) {
-                $_SESSION['cart'][$cartKey]['quantity'] += $qty;
             } else {
-                $_SESSION['cart'][$cartKey] = [
-                    'id' => $id,
-                    'variant_id' => $variant['ma_bien_the'],
-                    'name' => $product['ten_san_pham'],
-                    'image' => $image['url_anh'] ?? 'default.png',
-                    'price' => $finalPrice,
-                    'quantity' => $qty,
-                    'color' => $useColor,
-                    'storage' => $useStorage
-                ];
+                // TRƯỜNG HỢP 2: CHƯA ĐĂNG NHẬP -> LƯU SESSION (Logic cũ)
+                $cartKey = $id . '_' . md5($useColor . $useStorage);
+
+                if (!isset($_SESSION['cart'])) $_SESSION['cart'] = [];
+
+                if (isset($_SESSION['cart'][$cartKey])) {
+                    $_SESSION['cart'][$cartKey]['quantity'] += $qty;
+                } else {
+                    $_SESSION['cart'][$cartKey] = [
+                        'id' => $id,
+                        'variant_id' => $variant['ma_bien_the'],
+                        'name' => $product['ten_san_pham'],
+                        'image' => $image['url_anh'] ?? 'default.png',
+                        'price' => $finalPrice,
+                        'quantity' => $qty,
+                        'color' => $useColor,
+                        'storage' => $useStorage,
+                        'max_qty' => 100 
+                    ];
+                }
             }
+            // ------------------------------------------
 
             echo json_encode([
                 'status' => 'success',
@@ -126,23 +157,43 @@ class CartController {
             echo json_encode(['status' => 'error', 'message' => 'Lỗi: ' . $e->getMessage()]);
         }
     }
-
     // ==============================================
     // 3. CẬP NHẬT / XÓA
     // ==============================================
     public function remove() {
-        $key = $_GET['key'] ?? '';
-        if (isset($_SESSION['cart'][$key])) unset($_SESSION['cart'][$key]);
+        $id = $_GET['id'] ?? 0; 
+        $color = $_GET['color'] ?? ''; 
+        $storage = $_GET['storage'] ?? '';
+        // Lưu ý: View của bạn cần truyền đúng tham số id, color, storage thay vì 'key' hash cũ
+
+        if (isset($_SESSION['user_id'])) {
+            $this->cartModel->removeItemDB($_SESSION['user_id'], $id, $color, $storage);
+            $_SESSION['cart'] = $this->cartModel->getCartItems($_SESSION['user_id']);
+        } else {
+            // Xóa theo key session (Cần đảm bảo View truyền đúng key)
+            $key = $_GET['key'] ?? ''; 
+            if (isset($_SESSION['cart'][$key])) unset($_SESSION['cart'][$key]);
+        }
         header("Location: index.php?ctrl=cart");
         exit;
     }
 
     public function update() {
-        $key = $_GET['key'] ?? '';
+        // Khuyên dùng POST và Ajax cho chuyên nghiệp, nhưng nếu dùng GET như cũ:
+        $id = $_GET['id'] ?? 0;
         $qty = (int)($_GET['qty'] ?? 1);
-        if (isset($_SESSION['cart'][$key])) {
-            if ($qty <= 0) unset($_SESSION['cart'][$key]);
-            else $_SESSION['cart'][$key]['quantity'] = $qty;
+        $color = $_GET['color'] ?? '';
+        $storage = $_GET['storage'] ?? '';
+
+        if (isset($_SESSION['user_id'])) {
+            $this->cartModel->updateQuantityDB($_SESSION['user_id'], $id, $color, $storage, $qty);
+            $_SESSION['cart'] = $this->cartModel->getCartItems($_SESSION['user_id']);
+        } else {
+            $key = $_GET['key'] ?? '';
+            if (isset($_SESSION['cart'][$key])) {
+                if ($qty <= 0) unset($_SESSION['cart'][$key]);
+                else $_SESSION['cart'][$key]['quantity'] = $qty;
+            }
         }
         header("Location: index.php?ctrl=cart");
         exit;
