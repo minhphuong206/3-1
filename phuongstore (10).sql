@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1:3306
--- Thời gian đã tạo: Th1 04, 2026 lúc 01:18 PM
+-- Thời gian đã tạo: Th1 04, 2026 lúc 06:39 PM
 -- Phiên bản máy phục vụ: 9.1.0
 -- Phiên bản PHP: 8.3.14
 
@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `anhsanpham` (
   `ma_bien_the` int DEFAULT NULL,
   PRIMARY KEY (`ma_anh`),
   KEY `ma_san_pham` (`ma_san_pham`)
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `anhsanpham`
@@ -86,7 +86,8 @@ INSERT INTO `anhsanpham` (`ma_anh`, `ma_san_pham`, `url_anh`, `la_anh_chinh`, `m
 (15, 9, 'macbook_m3.png', 1, NULL, NULL),
 (16, 14, 'iphone16promax.png', 1, NULL, NULL),
 (17, 15, 's24ultra.png', 1, NULL, NULL),
-(18, 17, 'zfold6.png', 1, NULL, NULL);
+(18, 17, 'zfold6.png', 1, NULL, NULL),
+(37, 1, 'variant_75_1767548102_1231.jpg', 1, 'đỏ', 75);
 
 -- --------------------------------------------------------
 
@@ -106,7 +107,7 @@ CREATE TABLE IF NOT EXISTS `bienthesanpham` (
   `so_luong_ton` int DEFAULT '0',
   PRIMARY KEY (`ma_bien_the`),
   KEY `ma_san_pham` (`ma_san_pham`)
-) ENGINE=InnoDB AUTO_INCREMENT=75 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=76 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `bienthesanpham`
@@ -129,7 +130,8 @@ INSERT INTO `bienthesanpham` (`ma_bien_the`, `ma_san_pham`, `mau_sac`, `ram`, `d
 (29, 9, 'Xám', NULL, '8GB/256GB', 27990000, 0, 25),
 (30, 14, 'Titan Sa Mạc', NULL, '256GB', 34990000, 100, 20),
 (31, 15, 'Xám Titan', NULL, '256GB', 29990000, 15, 15),
-(32, 17, 'Xám', NULL, '256GB', 41990000, 20, 10);
+(32, 17, 'Xám', NULL, '256GB', 41990000, 20, 10),
+(75, 1, 'đỏ', NULL, '128GB', 1111, 0, 10);
 
 -- --------------------------------------------------------
 
@@ -147,7 +149,7 @@ CREATE TABLE IF NOT EXISTS `chitietdonhang` (
   PRIMARY KEY (`ma_ct_don`),
   KEY `ma_don_hang` (`ma_don_hang`),
   KEY `ma_bien_the` (`ma_bien_the`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `chitietdonhang`
@@ -168,7 +170,8 @@ INSERT INTO `chitietdonhang` (`ma_ct_don`, `ma_don_hang`, `ma_bien_the`, `so_luo
 (13, 13, 2, 1, 9995000),
 (14, 14, NULL, 1, 11111),
 (15, 14, 30, 1, 0),
-(16, 15, 7, 1, 0);
+(16, 15, 7, 1, 0),
+(17, 16, 31, 1, 25491500);
 
 -- --------------------------------------------------------
 
@@ -185,14 +188,14 @@ CREATE TABLE IF NOT EXISTS `chitietgiohang` (
   PRIMARY KEY (`ma_ct_gio`),
   KEY `ma_gio_hang` (`ma_gio_hang`),
   KEY `ma_bien_the` (`ma_bien_the`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `chitietgiohang`
 --
 
 INSERT INTO `chitietgiohang` (`ma_ct_gio`, `ma_gio_hang`, `ma_bien_the`, `so_luong`) VALUES
-(1, 1, 7, 8);
+(2, 1, 31, 1);
 
 -- --------------------------------------------------------
 
@@ -262,7 +265,7 @@ CREATE TABLE IF NOT EXISTS `donhang` (
   PRIMARY KEY (`ma_don_hang`),
   KEY `ma_khach_hang` (`ma_khach_hang`),
   KEY `ma_admin_duyet` (`ma_admin_duyet`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `donhang`
@@ -282,7 +285,8 @@ INSERT INTO `donhang` (`ma_don_hang`, `ma_don_hang_code`, `ma_khach_hang`, `ho_t
 (12, 'ORD_1766058356', NULL, 'phương', '0369451564', '2025-12-18 18:46:23', 379900, 'MoMo', 'Đã thanh toán', 'Chờ duyệt', 'Nhận tại cửa hàng', '', NULL, NULL, NULL),
 (13, 'ORD_1766058901', NULL, 'phương', '0369451564', '2025-12-18 18:55:35', 9995000, 'MoMo', 'Đã thanh toán', 'Hoàn tất', 'Nhận tại cửa hàng', '', NULL, NULL, NULL),
 (14, 'ORD_1767436833', NULL, 'as', '0369451564', '2026-01-03 17:41:55', 11111, 'MoMo', 'Đã thanh toán', 'Hoàn tất', 'Nhận tại cửa hàng', '', NULL, NULL, NULL),
-(15, 'ORD_1767439270', 8, 'as', '0369451564', '2026-01-03 18:21:10', 0, 'COD', 'Chưa thanh toán', 'Đang giao', 'Nhận tại cửa hàng', '', NULL, NULL, NULL);
+(15, 'ORD_1767439270', 8, 'as', '0369451564', '2026-01-03 18:21:10', 0, 'COD', 'Chưa thanh toán', 'Đang giao', 'Nhận tại cửa hàng', '', NULL, NULL, NULL),
+(16, 'ORD_1767548549', 8, 'minh phương', '0369451564', '2026-01-05 00:42:29', 25491500, 'COD', 'Đã thanh toán', 'Hoàn tất', '123/9, Phường 04, Quận 8, Thành phố Hồ Chí Minh', '', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -298,7 +302,22 @@ CREATE TABLE IF NOT EXISTS `dulieuhuanluyen` (
   `tra_loi` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`ma_du_lieu`),
   KEY `ma_admin` (`ma_admin`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `dulieuhuanluyen`
+--
+
+INSERT INTO `dulieuhuanluyen` (`ma_du_lieu`, `ma_admin`, `cau_hoi`, `tra_loi`) VALUES
+(1, NULL, 'xin chào', 'Chào bạn! Chào mừng bạn đến với PhươngStore. Mình có thể giúp gì cho bạn?'),
+(2, NULL, 'hello', 'Hi! Bạn đang tìm điện thoại hay laptop vậy ạ?'),
+(3, NULL, 'hi', 'chào'),
+(4, NULL, 'cửa hàng ở đâu', 'Cửa hàng PhươngStore hiện có địa chỉ tại Quận 8, TP.HCM bạn nhé.'),
+(5, NULL, 'địa chỉ', 'Bạn có thể ghé thăm shop tại Quận 8, TP.HCM ạ.'),
+(6, NULL, 'giao hàng', 'Bên mình hỗ trợ giao hàng toàn quốc (Ship COD) hoặc thanh toán online qua MoMo nhé.'),
+(7, NULL, 'thanh toán', 'Bạn có thể thanh toán khi nhận hàng (COD) hoặc chuyển khoản MoMo.'),
+(8, NULL, 'bảo hành', 'Tất cả sản phẩm tại PhươngStore đều được bảo hành chính hãng 12 tháng ạ.'),
+(9, NULL, 'liên hệ', 'Bạn có thể gọi hotline 1800.6601 để được hỗ trợ nhanh nhất nhé!');
 
 -- --------------------------------------------------------
 
@@ -369,7 +388,22 @@ CREATE TABLE IF NOT EXISTS `lichsuchat` (
   `thoi_gian` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`ma_chat`),
   KEY `ma_khach_hang` (`ma_khach_hang`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `lichsuchat`
+--
+
+INSERT INTO `lichsuchat` (`ma_chat`, `ma_khach_hang`, `tin_nhan_khach`, `phan_hoi_bot`, `thoi_gian`) VALUES
+(6, 8, 'hello', 'Hi! Bạn đang tìm  hay laptop vậy ạ?', '2026-01-05 01:05:41'),
+(7, 8, 'hello', 'Hi! Bạn đang tìm điện thoại hay laptop vậy ạ?', '2026-01-05 01:06:10'),
+(8, 8, 'hello', 'chào', '2026-01-05 01:06:20'),
+(9, 8, 'hi', 'Chào bạn, chúc bạn một ngày tốt lành! Bạn cần tìm sản phẩm gì?', '2026-01-05 01:24:03'),
+(10, 8, 'hello', 'hi', '2026-01-05 01:24:13'),
+(11, 8, 'hello', 'Hi! Bạn đang tìm điện thoại hay laptop vậy ạ?', '2026-01-05 01:24:38'),
+(12, 8, 'hello', 'Hi! Bạn đang tìm điện thoại hay laptop vậy ạ?', '2026-01-05 01:24:44'),
+(13, 8, 'hi', 'chào', '2026-01-05 01:32:19'),
+(14, 8, 'samsung', 'Dạ có <b>Samsung Galaxy S24 Ultra</b> nè.<br>Giá: <b>29,990,000đ <span style=\'color:red;font-size:10px\'>-15%</span></b>.<br><a href=\'index.php?ctrl=product&act=detail&id=15\' style=\'color:#d70018\'>Xem chi tiết</a>', '2026-01-05 01:39:03');
 
 -- --------------------------------------------------------
 

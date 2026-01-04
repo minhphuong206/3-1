@@ -248,6 +248,96 @@ h1 { font-size: 34px; font-weight: 800; color: var(--primary); text-transform: u
     gap: 10px;
     animation: slideInRight 0.5s ease forwards;
 }
+/* =========================================
+   6. STYLE RIÊNG CHO TRANG QUẢN LÝ CHAT (DARK MODE)
+   ========================================= */
+
+/* Hộp hiển thị câu hỏi/trả lời trong bảng */
+.question-box {
+    font-style: italic;
+    color: #fff;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 8px 12px;
+    border-radius: 8px;
+    border-left: 3px solid var(--text-muted);
+}
+
+.response-box {
+    max-width: 350px;
+    max-height: 100px;
+    overflow-y: auto;
+    font-size: 14px;
+    color: var(--primary); /* Chữ vàng cho câu trả lời của Bot */
+    background: #000;
+    padding: 10px;
+    border: 1px solid #333;
+    border-radius: 8px;
+    white-space: pre-line;
+}
+/* Scrollbar nhỏ cho response box */
+.response-box::-webkit-scrollbar { width: 4px; }
+.response-box::-webkit-scrollbar-thumb { background: #333; border-radius: 2px; }
+
+/* Nút icon thao tác (Sửa/Xóa) */
+.btn-icon-edit {
+    background: none; border: none; cursor: pointer;
+    color: var(--primary); font-size: 18px; transition: 0.3s;
+}
+.btn-icon-edit:hover { transform: scale(1.2); color: #fff; }
+
+.btn-icon-delete {
+    color: #e74c3c; font-size: 18px; transition: 0.3s;
+}
+.btn-icon-delete:hover { transform: scale(1.2); color: #ff6b6b; }
+
+/* MODAL DARK THEME (Khung sửa) */
+.modal-dark {
+    background: #111;
+    color: #fff;
+    border: 1px solid var(--primary);
+    border-radius: 15px;
+    padding: 0;
+    width: 600px;
+    max-width: 90%;
+    box-shadow: 0 0 50px rgba(0,0,0,0.8);
+    position: fixed; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+}
+.modal-dark::backdrop {
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(3px);
+}
+
+.modal-header {
+    background: #000;
+    padding: 15px 25px;
+    border-bottom: 1px solid #333;
+    display: flex; justify-content: space-between; align-items: center;
+}
+.modal-header h3 { margin: 0; color: var(--primary); font-size: 18px; text-transform: uppercase; }
+
+.modal-dark form { padding: 25px; }
+
+.modal-static-text {
+    background: #222;
+    padding: 10px;
+    border-radius: 8px;
+    color: #aaa;
+    font-style: italic;
+    border: 1px dashed #444;
+}
+
+.close-modal {
+    font-size: 24px; cursor: pointer; color: #666; transition: 0.2s;
+}
+.close-modal:hover { color: #fff; }
+
+.btn-cancel {
+    background: #333; color: #fff; border: none;
+    padding: 10px 20px; border-radius: 8px; cursor: pointer;
+    font-weight: bold; transition: 0.2s;
+}
+.btn-cancel:hover { background: #555; }
 /* Style cho bảng biến thể con */
 .color-group table {
     border-collapse: collapse;

@@ -32,6 +32,10 @@ switch ($ctrl) {
         require_once 'app/controllers/AdminController.php';
         $controller = new AdminController();
         break;
+    case 'chat':
+        require_once 'app/controllers/ChatController.php'; // Đảm bảo bạn đã tạo file này ở Bước 1
+        $controller = new ChatController();
+        break;
     default:
         require_once 'app/controllers/HomeController.php';
         $controller = new HomeController();

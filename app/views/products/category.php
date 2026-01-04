@@ -42,8 +42,24 @@
 
     .product-info { padding: 15px; flex-grow: 1; display: flex; flex-direction: column; }
     .product-name { font-size: 16px; font-weight: 600; color: #fff; margin: 0 0 10px 0; min-height: 44px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-    .price-new { color: #D4AF37; font-size: 18px; font-weight: bold; }
-    .price-old { color: #666; font-size: 13px; text-decoration: line-through; margin-left: 8px; }
+    
+    /* --- CSS GIÁ (ĐÃ SỬA) --- */
+    .product-price {
+        display: flex;
+        align-items: baseline; /* Căn chân chữ */
+        gap: 10px; /* Khoảng cách giữa 2 giá */
+        margin-top: auto; /* Đẩy xuống đáy */
+    }
+    .price-new { 
+        color: #D4AF37; /* Màu vàng Gold */
+        font-size: 18px; 
+        font-weight: bold; 
+    }
+    .price-old { 
+        color: #666; /* Màu xám */
+        font-size: 14px; 
+        text-decoration: line-through; /* Gạch ngang */
+    }
 </style>
 
 <main class="category-container">
@@ -84,9 +100,13 @@
         <?php if (!empty($products)): ?>
             <?php foreach ($products as $sp): ?>
                 <?php 
-                    $giaBan = floatval($sp['gia_ban']);
+                    // [LOGIC MỚI] Coi giá DB là giá gốc -> Tính giá bán
+                    $giaGoc = floatval($sp['gia_ban']);
                     $giamGia = floatval($sp['muc_giam_gia']);
-                    $giaCu = ($giamGia > 0) ? $giaBan / (1 - $giamGia/100) : 0;
+                    
+                    // Tính giá bán sau khi giảm
+                    $giaBan = $giaGoc * (1 - $giamGia / 100);
+                    
                     $anh = !empty($sp['url_anh']) ? "public/images/".$sp['url_anh'] : "public/images/default.png";
                 ?>
                 <div class="product-card">
@@ -101,8 +121,9 @@
                             <h3 class="product-name"><?= htmlspecialchars($sp['ten_san_pham']) ?></h3>
                             <div class="product-price">
                                 <span class="price-new"><?= number_format($giaBan, 0, ',', '.') ?>đ</span>
-                                <?php if ($giaCu > $giaBan): ?>
-                                    <span class="price-old"><?= number_format($giaCu, 0, ',', '.') ?>đ</span>
+                                
+                                <?php if ($giamGia > 0): ?>
+                                    <span class="price-old"><?= number_format($giaGoc, 0, ',', '.') ?>đ</span>
                                 <?php endif; ?>
                             </div>
                         </div>

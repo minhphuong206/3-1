@@ -566,4 +566,5 @@ public function addBrandsToCategory($catId, $brandNamesArray) {
         $sql = "DELETE FROM danhgia WHERE ma_danh_gia = ?";
         return $this->db->prepare($sql)->execute([$reviewId]);
     }
+    
 }

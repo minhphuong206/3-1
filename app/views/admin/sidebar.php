@@ -74,6 +74,14 @@
             </a>
         <?php endif; ?>
 
+        <?php if (can_view_menu('users') || can_view_menu('chat')): ?>
+            <a href="index.php?ctrl=admin&act=chats" class="admin-nav-link <?= $act == 'chats' ? 'active' : '' ?>">
+                <i class="fa-solid fa-comment-dots" style="margin-right: 15px; width: 25px;"></i> Lịch sử Chat
+            </a>
+            <a href="index.php?ctrl=admin&act=bot_training" class="admin-nav-link <?= $act == 'bot_training' ? 'active' : '' ?>">
+                <i class="fa-solid fa-brain" style="margin-right: 15px; width: 25px;"></i> Huấn luyện Bot
+            </a>
+        <?php endif; ?>
         <?php if (isset($_SESSION['admin_role']) && $_SESSION['admin_role'] == 1): ?>
             <a href="index.php?ctrl=admin&act=staff" class="admin-nav-link <?= $act == 'staff' ? 'active' : '' ?>" style="color: #D4AF37;">
                 <i class="fa-solid fa-user-shield" style="margin-right: 15px; width: 25px;"></i> Phân quyền

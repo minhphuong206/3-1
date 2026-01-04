@@ -1,14 +1,17 @@
 <?php
 // app/controllers/AdminController.php
+// app/controllers/AdminController.php
 require_once 'app/models/ProductModel.php';
 require_once 'app/models/UserModel.php';
 require_once 'app/models/OrderModel.php';
 require_once 'app/models/AdminModel.php';
+require_once 'app/models/ChatModel.php'; //
 class AdminController {
     private $productModel;
     private $userModel;
     private $orderModel;
     private $adminModel;
+    private $db;
     public function __construct() {
         $act = $_GET['act'] ?? 'dashboard';
         if ($act !== 'login' && !isset($_SESSION['admin_id'])) {
@@ -17,6 +20,7 @@ class AdminController {
         }
         $database = new Database();
         $db = $database->connect();
+        $this->db = $db;
         $this->productModel = new ProductModel($db);
         $this->userModel = new UserModel($db);
         $this->orderModel = new OrderModel();
@@ -729,5 +733,85 @@ public function my_profile() {
         $myInfo = $this->adminModel->getAdminById($id);
         require_once 'app/views/admin/my_profile.php';
     }
-}
-?>
+    // ... Các function cũ ...
+
+    // 1. Hiển thị danh sách lịch sử chat
+   // 1. Hiển thị danh sách lịch sử chat
+   public function chats() {
+        // Không cần gọi $this->checkAdmin() vì __construct đã check login rồi
+        $chatModel = new ChatModel($this->db);
+        $chats = $chatModel->getAllChats();
+        require_once 'app/views/admin/chats.php'; 
+    }
+
+    // 2. Xử lý cập nhật nội dung trả lời
+    public function update_chat() {
+        // Khởi tạo model
+        $chatModel = new ChatModel($this->db);
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Lấy ID tin nhắn và Nội dung mới từ form
+            $id = $_POST['ma_chat'];
+            $newResponse = $_POST['tra_loi']; // Tên input trong form là 'tra_loi'
+            
+            // Gọi Model để cập nhật vào Database
+            $chatModel->updateChatResponse($id, $newResponse);
+            
+            // Cập nhật xong thì quay lại trang danh sách
+            header("Location: index.php?ctrl=admin&act=chats");
+            exit;
+        }
+    }
+    public function delete_chat() {
+        $chatModel = new ChatModel($this->db);
+        if (isset($_GET['id'])) {
+            $chatModel->deleteChat($_GET['id']);
+        }
+        header("Location: index.php?ctrl=admin&act=chats");
+    }
+    // ... (Các hàm cũ giữ nguyên) ...
+
+    // ====================================================
+    // QUẢN LÝ HUẤN LUYỆN CHATBOT (Training Data)
+    // ====================================================
+
+    public function bot_training() {
+        $chatModel = new ChatModel($this->db);
+        $dataList = $chatModel->getAllTrainingData();
+        require_once 'app/views/admin/bot_training.php';
+    }
+
+    public function save_training() {
+        $chatModel = new ChatModel($this->db);
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $id = $_POST['ma_du_lieu'] ?? '';
+            $question = trim($_POST['cau_hoi']);
+            $reply = trim($_POST['tra_loi']);
+
+            if (!empty($question) && !empty($reply)) {
+                if ($id) {
+                    // Cập nhật
+                    $chatModel->updateTrainingData($id, $question, $reply);
+                    $_SESSION['admin_toast'] = "Đã cập nhật câu trả lời mẫu!";
+                } else {
+                    // Thêm mới
+                    $chatModel->addTrainingData($question, $reply);
+                    $_SESSION['admin_toast'] = "Đã thêm câu huấn luyện mới!";
+                }
+            }
+        }
+        header("Location: index.php?ctrl=admin&act=bot_training");
+        exit;
+    }
+
+    public function delete_training() {
+        $chatModel = new ChatModel($this->db);
+        if (isset($_GET['id'])) {
+            $chatModel->deleteTrainingData($_GET['id']);
+            $_SESSION['admin_toast'] = "Đã xóa dữ liệu huấn luyện!";
+        }
+        header("Location: index.php?ctrl=admin&act=bot_training");
+        exit;
+    }
+} // Kết thúc class
+

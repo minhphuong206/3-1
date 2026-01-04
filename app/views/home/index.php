@@ -4,7 +4,7 @@ include 'app/views/layouts/header.php';
 ?>
 
 <style>
-    /* 1. KHUNG ẢNH NỀN TRẮNG (Giống Category) */
+    /* 1. KHUNG ẢNH NỀN TRẮNG */
     .product-img-box {
         width: 100%;
         height: 200px;
@@ -13,7 +13,7 @@ include 'app/views/layouts/header.php';
         align-items: center;
         justify-content: center;
         padding: 15px;
-        position: relative; /* Quan trọng để định vị nhãn giảm giá */
+        position: relative;
         border-bottom: 1px solid #eee;
         border-radius: 8px 8px 0 0;
         overflow: hidden;
@@ -32,12 +32,12 @@ include 'app/views/layouts/header.php';
         transform: scale(1.08);
     }
 
-    /* 2. NHÃN GIẢM GIÁ / HOT (Chuẩn style Category) */
+    /* 2. NHÃN GIẢM GIÁ / HOT */
     .discount-badge {
         position: absolute;
         top: 10px;
         right: 10px;
-        background: #d70018; /* Màu đỏ CellphoneS */
+        background: #d70018;
         color: white;
         font-size: 12px;
         font-weight: bold;
@@ -47,16 +47,15 @@ include 'app/views/layouts/header.php';
         box-shadow: 0 2px 4px rgba(0,0,0,0.2);
     }
 
-    /* Nếu là HOT thì dùng màu vàng */
     .discount-badge.hot {
         background: #D4AF37; 
         color: black;
     }
 
-    /* 3. CĂN CHỈNH THẺ SẢN PHẨM */
+    /* 3. THẺ SẢN PHẨM */
     .product-card {
         padding-top: 0; 
-        border: 1px solid #333; /* Viền tối màu giống theme */
+        border: 1px solid #333;
         background: #1a1a1a;
         border-radius: 8px;
         overflow: hidden;
@@ -66,17 +65,48 @@ include 'app/views/layouts/header.php';
     }
     
     .product-card:hover {
-        box-shadow: 0 5px 15px rgba(212, 175, 55, 0.2); /* Highlight vàng nhẹ khi hover */
+        box-shadow: 0 5px 15px rgba(212, 175, 55, 0.2);
         border-color: #D4AF37;
     }
     
-    .p-name, .price-box, .btn-cart-outline {
+    .p-name { 
         padding: 0 15px;
+        margin-top: 15px; 
+        min-height: 40px; 
+    }
+    .p-name a { 
+        color: #fff; 
+        text-decoration: none; 
+        font-weight: 600; 
+        font-size: 15px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
     }
     
-    .p-name { margin-top: 15px; min-height: 40px; }
-    .p-name a { color: #fff; text-decoration: none; font-weight: 600; font-size: 15px; }
-    
+    /* [CẬP NHẬT] CSS GIÁ TIỀN ĐỒNG BỘ */
+    .price-box {
+        padding: 0 15px;
+        margin-top: 8px;
+        display: flex;
+        align-items: baseline;
+        gap: 10px; /* Khoảng cách giữa giá mới và cũ */
+    }
+
+    .p-price {
+        color: #D4AF37; /* Màu Vàng Gold */
+        font-weight: 800;
+        font-size: 16px;
+    }
+
+    .p-old-price {
+        color: #888;
+        text-decoration: line-through;
+        font-size: 13px;
+    }
+    /* -------------------------------- */
+
     .btn-cart-outline { 
         margin-bottom: 15px; 
         width: calc(100% - 30px); 
@@ -88,6 +118,7 @@ include 'app/views/layouts/header.php';
         border-radius: 4px;
         cursor: pointer;
         transition: 0.2s;
+        margin-top: auto; /* Đẩy nút xuống dưới cùng */
     }
     
     .btn-cart-outline:hover {
@@ -119,21 +150,23 @@ include 'app/views/layouts/header.php';
             <?php if (!empty($featuredProducts)): ?>
                 <?php foreach ($featuredProducts as $sp): ?>
                     <?php 
-                        $giaGoc = $sp['gia_ban'] ?? 0;
-                        $mucGiam = isset($sp['muc_giam_gia']) ? intval($sp['muc_giam_gia']) : 0;
-                        $giaMoi = $giaGoc * (100 - $mucGiam) / 100;
+                        // Logic tính giá xuôi: DB là giá gốc
+                        $giaGoc = floatval($sp['gia_ban'] ?? 0);
+                        $mucGiam = floatval($sp['muc_giam_gia'] ?? 0);
+                        $giaMoi = $giaGoc * (1 - $mucGiam / 100);
+                        
                         $duongDanAnh = (strpos($sp['url_anh'], 'http') === 0) ? $sp['url_anh'] : 'public/images/' . $sp['url_anh'];
                     ?>
                     <div class="product-card">
                         <a href="index.php?ctrl=product&act=detail&id=<?= $sp['ma_san_pham'] ?>" style="text-decoration: none;">
                             <div class="product-img-box">
                                 <?php if ($mucGiam > 0): ?>
-                                    <span class="discount-badge">-<?= $mucGiam ?>%</span>
+                                    <span class="discount-badge">-<?= (int)$mucGiam ?>%</span>
                                 <?php else: ?>
                                     <span class="discount-badge hot">Hot</span>
                                 <?php endif; ?>
                                 
-                                <img src="<?= $duongDanAnh ?>" alt="<?= htmlspecialchars($sp['ten_san_pham']) ?>" class="p-img">
+                                <img src="<?= $duongDanAnh ?>" alt="<?= htmlspecialchars($sp['ten_san_pham']) ?>" class="p-img" onerror="this.src='public/images/default.png'">
                             </div>
                         </a>
                         
@@ -144,15 +177,12 @@ include 'app/views/layouts/header.php';
                         </h3>
                         
                         <div class="price-box">
+                            <span class="p-price">
+                                <?= number_format($giaMoi, 0, ',', '.') ?>đ
+                            </span>
+
                             <?php if ($mucGiam > 0): ?>
-                                <span class="p-old-price" style="text-decoration: line-through; color: #888; margin-right: 8px; font-size: 0.9em;">
-                                    <?= number_format($giaGoc, 0, ',', '.') ?>đ
-                                </span>
-                                <span class="p-price" style="color: #d70018; font-weight: bold;">
-                                    <?= number_format($giaMoi, 0, ',', '.') ?>đ
-                                </span>
-                            <?php else: ?>
-                                <span class="p-price" style="color: #D4AF37; font-weight: bold;">
+                                <span class="p-old-price">
                                     <?= number_format($giaGoc, 0, ',', '.') ?>đ
                                 </span>
                             <?php endif; ?>
@@ -188,19 +218,21 @@ include 'app/views/layouts/header.php';
                     <div class="product-grid">
                         <?php foreach ($cat['products'] as $sp): ?>
                             <?php 
-                                $giaGoc = $sp['gia_ban'] ?? 0;
-                                $mucGiam = isset($sp['muc_giam_gia']) ? intval($sp['muc_giam_gia']) : 0;
-                                $giaMoi = $giaGoc * (100 - $mucGiam) / 100;
+                                // Logic tính giá xuôi
+                                $giaGoc = floatval($sp['gia_ban'] ?? 0);
+                                $mucGiam = floatval($sp['muc_giam_gia'] ?? 0);
+                                $giaMoi = $giaGoc * (1 - $mucGiam / 100);
+                                
                                 $duongDanAnh = (strpos($sp['url_anh'], 'http') === 0) ? $sp['url_anh'] : 'public/images/' . $sp['url_anh'];
                             ?>
                             <div class="product-card">
                                 <a href="index.php?ctrl=product&act=detail&id=<?= $sp['ma_san_pham'] ?>" style="text-decoration: none;">
                                     <div class="product-img-box">
                                         <?php if ($mucGiam > 0): ?>
-                                            <span class="discount-badge">-<?= $mucGiam ?>%</span>
+                                            <span class="discount-badge">-<?= (int)$mucGiam ?>%</span>
                                         <?php endif; ?>
 
-                                        <img src="<?= $duongDanAnh ?>" alt="<?= htmlspecialchars($sp['ten_san_pham']) ?>" class="p-img">
+                                        <img src="<?= $duongDanAnh ?>" alt="<?= htmlspecialchars($sp['ten_san_pham']) ?>" class="p-img" onerror="this.src='public/images/default.png'">
                                     </div>
                                 </a>
 
@@ -211,16 +243,13 @@ include 'app/views/layouts/header.php';
                                 </h3>
 
                                 <div class="price-box">
+                                    <span class="p-price">
+                                        <?= number_format($giaMoi, 0, ',', '.') ?>đ
+                                    </span>
+
                                     <?php if ($mucGiam > 0): ?>
-                                        <span class="p-old-price" style="text-decoration: line-through; color: #888; font-size: 0.9em;">
-                                            <?= number_format((float)$giaGoc, 0, ',', '.') ?>đ
-                                        </span>
-                                        <span class="p-price" style="color: #d70018; font-weight: bold;">
-                                            <?= number_format((float)$giaMoi, 0, ',', '.') ?>đ
-                                        </span>
-                                    <?php else: ?>
-                                        <span class="p-price" style="color: #D4AF37; font-weight: bold;">
-                                            <?= number_format((float)$giaGoc, 0, ',', '.') ?>đ
+                                        <span class="p-old-price">
+                                            <?= number_format($giaGoc, 0, ',', '.') ?>đ
                                         </span>
                                     <?php endif; ?>
                                 </div>
